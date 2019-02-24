@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "545700760423",
+    "firebase_url": "https://fir-ass-c1b4d.firebaseio.com",
+    "project_id": "fir-ass-c1b4d",
+    "storage_bucket": "fir-ass-c1b4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545700760423:android:8d4e41f333ad27fa",
+        "android_client_info": {
+          "package_name": "com.invertase.rnfirebasestarter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545700760423-m4n1fm76u46v113offk3q5hiloh7ed30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGOd06CnhoYMwoCY69tjWRigWHV9Pm7pc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
