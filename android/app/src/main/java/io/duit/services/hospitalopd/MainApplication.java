@@ -1,4 +1,4 @@
-package com.invertase.rnfirebasestarter;
+package io.duit.services.hospitalopd;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
