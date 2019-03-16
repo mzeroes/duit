@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:476738921999:android:f968efbb41d1fa7a",
         "android_client_info": {
-          "package_name": "host.exp.exponent"
+          "package_name": "io.duit.services.hospitalopd"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "476738921999-4jutipurk9tefst06nk6ngu2vojfc4v7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "host.exp.exponent",
+            "package_name": "io.duit.services.hospitalopd",
             "certificate_hash": "667f2aa91c0bd57dc88c54bb99f0ffe7d9861ad0"
           }
         },
