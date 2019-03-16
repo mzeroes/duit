@@ -1,16 +1,13 @@
 export const firebaseConfig = {
-  apiKey: 'AIzaSyCXHZdyRWTu966yLqBSp-J3vr0H9-tAwfw',
-  authDomain: 'morphine-c575e.firebaseapp.com',
-  databaseURL: 'https://morphine-c575e.firebaseio.com',
-  projectId: 'morphine-c575e',
-  storageBucket: 'morphine-c575e.appspot.com',
-  messagingSenderId: '476738921999'
+  apiKey: "AIzaSyD6K_6caJbo8RV19mIN1hVm2xh7PAJ_z-c",
+  authDomain: "duit-agra-opd-mobile-app.firebaseapp.com",
+  databaseURL: "https://duit-agra-opd-mobile-app.firebaseio.com",
+  projectId: "duit-agra-opd-mobile-app",
+  storageBucket: "duit-agra-opd-mobile-app.appspot.com",
+  messagingSenderId: "980405596795"
 };
 
 export const authConfig = {
-  FB_APP_ID: '392383188246607',
   GOOGLE_CLIENT_ID:
-    '476738921999-3ohiae0ob8f5kdbab7o833u3fvubbf79.apps.googleusercontent.com',
-  GOOGLE_ANDROID_CLIENT_ID:
-    '476738921999-3ohiae0ob8f5kdbab7o833u3fvubbf79.apps.googleusercontent.com'
+    '980405596795-71jiguh3d7v0ve21ohrigjngi4av2c0b.apps.googleusercontent.com', // https://console.cloud.google.com/apis/credentials/oauthclient/980405596795-71jiguh3d7v0ve21ohrigjngi4av2c0b.apps.googleusercontent.com?project=duit-agra-opd-mobile-app&folder&organizationId=435788670209
 };

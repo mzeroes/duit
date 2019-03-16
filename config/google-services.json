@@ -1,35 +1,43 @@
 {
   "project_info": {
-    "project_number": "476738921999",
-    "firebase_url": "https://morphine-c575e.firebaseio.com",
-    "project_id": "morphine-c575e",
-    "storage_bucket": "morphine-c575e.appspot.com"
+    "project_number": "980405596795",
+    "firebase_url": "https://duit-agra-opd-mobile-app.firebaseio.com",
+    "project_id": "duit-agra-opd-mobile-app",
+    "storage_bucket": "duit-agra-opd-mobile-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:476738921999:android:f968efbb41d1fa7a",
+        "mobilesdk_app_id": "1:980405596795:android:2fb60b8885a0ac42",
         "android_client_info": {
           "package_name": "io.duit.services.hospitalopd"
         }
       },
       "oauth_client": [
         {
-          "client_id": "476738921999-4jutipurk9tefst06nk6ngu2vojfc4v7.apps.googleusercontent.com",
+          "client_id": "980405596795-590uhaljtk0tua90r9b49iebelto0f9j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.duit.services.hospitalopd",
-            "certificate_hash": "667f2aa91c0bd57dc88c54bb99f0ffe7d9861ad0"
+            "certificate_hash": "2351db96b351bf0d71aafb66391d8bb8a06a1ee0"
           }
         },
         {
-          "client_id": "476738921999-3ohiae0ob8f5kdbab7o833u3fvubbf79.apps.googleusercontent.com",
+          "client_id": "980405596795-5frmhrngja4p1ajdlf77rnt4kdiv3q06.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.duit.services.hospitalopd",
+            "certificate_hash": "cb37c7ff951adb5297a21df3d6e14c97feb923e7"
+          }
+        },
+        {
+          "client_id": "980405596795-71jiguh3d7v0ve21ohrigjngi4av2c0b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCDnZb4n85NES89_SPUiFyca_qIo1mfbak"
+          "current_key": "AIzaSyCR5dAQ8U8d2z2s8Gjh9b2uAfvKZDtrfnA"
         }
       ],
       "services": {
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "476738921999-3ohiae0ob8f5kdbab7o833u3fvubbf79.apps.googleusercontent.com",
+              "client_id": "980405596795-71jiguh3d7v0ve21ohrigjngi4av2c0b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
