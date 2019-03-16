@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "476738921999",
+    "firebase_url": "https://morphine-c575e.firebaseio.com",
+    "project_id": "morphine-c575e",
+    "storage_bucket": "morphine-c575e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476738921999:android:f968efbb41d1fa7a",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476738921999-4jutipurk9tefst06nk6ngu2vojfc4v7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "host.exp.exponent",
+            "certificate_hash": "667f2aa91c0bd57dc88c54bb99f0ffe7d9861ad0"
+          }
+        },
+        {
+          "client_id": "476738921999-3ohiae0ob8f5kdbab7o833u3fvubbf79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDnZb4n85NES89_SPUiFyca_qIo1mfbak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476738921999-3ohiae0ob8f5kdbab7o833u3fvubbf79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
