@@ -1,42 +1,51 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { View, Text } from 'react-native';
-import { styles } from 'theme';
+import { styles, Theme } from 'theme';
 import { Formik } from 'formik';
 import { object as yupObject, string as yupString } from 'yup';
-import { signupFire } from 'components/auth/authUsingEmail';
+import { signupFire, verifyEmail } from 'components/auth/authUsingEmail';
 import SignUpForm from 'components/forms/SignUpForm';
-import { TopBar } from 'components';
+// import { TopBar } from 'components';
 
 class SignUpScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
-  handleResponse = (res) => {
-    const { emailVerified } = res.user;
-    if (!emailVerified) {
-      const info = 'Email verification Link Send!';
-      this.props.navigation.navigate('Providers', { info });
-    } else {
-      this.props.navigation.navigate('Loading');
-    }
-  };
+  //  handleSignUp = (values) => {
+
+  //      .catch((err) => {
+  //        if (err.code === 'auth/email-already-in-use') {
+  //          console.log(JSON.stringify(err));
+  //          const info = 'Email is already in use. Login to Continue.';
+  //          this.props.navigation.navigate('Providers', { info });
+  //        }
+  //        console.warn('YEA');
+  //      });
+  //  };
+  state = {
+    errorMessage: null
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <TopBar
+        {/* <TopBar
           onPress={() => {
             this.props.navigation.goBack();
           }}
-          icon="ios-arrow-back"
+          icon="md-arrow-back"
         >
-          <Text style={styles.monoText}>Sign up</Text>
-        </TopBar>
+          <Text style={[styles.Text, { paddingLeft: 32, fontWeight: '300', color: Theme.tint }]}>Sign up</Text>
+        </TopBar> */}
+
         <View style={[styles.formikContainer, { paddingTop: 0 }]}>
+          <Text style={styles.errorText}>
+            {this.state.errorMessage && this.state.errorMessage}
+          </Text>
           <Formik
-            initialValues={{ email: 'john@doe.com', password: 'password' }}
+            initialValues={{ email: '', password: '' }}
             validationSchema={yupObject().shape({
               // name: yupString()
               //   .min(2, 'Too Short!')
@@ -53,14 +62,16 @@ class SignUpScreen extends React.Component {
               setSubmitting(true);
               signupFire(values.email, values.password)
                 .then((res) => {
-                  this.handleResponse(res);
-                })
-                .catch((err) => {
-                  if (err.code === 'auth/email-already-in-use') {
-                    console.log(JSON.stringify(err));
-                    const info = 'Email is already in use. Login to Continue.';
-                    this.props.navigation.navigate('Providers', { info });
+                  console.warn('Yo');
+                  const { emailVerified } = res.user;
+                  if (!emailVerified) {
+                    verifyEmail();
+                    this.props.navigation.navigate('EmailConfirm');
+                  } else {
+                    this.props.navigation.navigate('Loading');
                   }
+                }).catch((err) => {
+                  this.setState({ errorMessage: err.message });
                 });
             }}
             render={form => SignUpForm(form)}

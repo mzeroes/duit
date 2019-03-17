@@ -21,11 +21,12 @@ ExploreNav.navigationOptions = {
 };
 
 const DrawerContent = props => (
-  <View style={{ flex: 1, backgroundColor: Theme.sidebar }}>
+  <View style={{ flex: 1, backgroundColor: Theme.grey }}>
     <SafeAreaView forceInset={{ top: 'always', horizontal: 'always' }}>
-      <DrawerItems {...props} />
+      <LogoutCard>
+        <DrawerItems {...props} />
+      </LogoutCard>
     </SafeAreaView>
-    <LogoutCard />
   </View>
 );
 
@@ -40,15 +41,18 @@ const MainDrawNavigator = createDrawerNavigator(
     contentOptions: {
       activeTintColor: Theme.activeTintColor,
       inactiveTintColor: Theme.inactiveTintColor,
-      activeBackgroundColor: 'rgba(0,0,0,0)',
-      inactiveBackgroundColor: 'rgba(0,0,0,0)',
+      activeBackgroundColor: Theme.grey,
       style: {
-        marginVertical: 0
+        marginVertical: 0,
+        flex: 1,
+        backgroundColor: Theme.sidebar,
       },
       labelStyle: {
         fontWeight: 'bold',
         fontFamily: 'space-mono',
-        backgroundColor: 'transparent'
+        // borderBottomColor: Theme.primary,
+        // borderBottomWidth: 2,
+        backgroundColor: Theme.tint,
       }
     }
   }

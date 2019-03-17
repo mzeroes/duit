@@ -6,10 +6,11 @@ import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
 
 import DataList from 'components/cards/DataList';
-import { Appbar } from 'react-native-paper';
+import { ActivityIndicator, FAB } from 'react-native-paper';
 
 import { getAptsFromFire } from 'api/user';
 import { TopSearchBar } from 'components';
+import { Theme, styles } from 'theme';
 
 console.ignoredYellowBox = [
   'Setting a timer'
@@ -26,7 +27,7 @@ class ExploreScreen extends React.Component {
     isFetching: false
   };
 
-  onRefresh() {
+  onRefresh = () => {
     this.setState({ isFetching: true });
     this.loadResourcesAsync();
   }
@@ -48,41 +49,49 @@ class ExploreScreen extends React.Component {
   render() {
     if (!this.state.isLoadingComplete) {
       return (
-        <AppLoading
-          startAsync={this.loadResourcesAsync}
-          onError={this.handleLoadingError}
-          onFinish={this.handleFinishLoading}
-        />
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <AppLoading
+            startAsync={this.loadResourcesAsync}
+            onError={this.handleLoadingError}
+            onFinish={this.handleFinishLoading}
+          />
+          <ActivityIndicator />
+        </View>
       );
     } else {
       const { data } = this.state;
       const { navigation } = this.props;
       return (
-        <View style={{ padding: 0, margin: 0, flex: 1 }}>
+        <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
           <TopSearchBar data={data} navigation={navigation} />
           <DataList
             data={data}
+            // inverted
             onRefresh={() => this.onRefresh()}
             refreshing={this.state.isFetching}
           />
-          <Appbar style={{
-            position: 'absolute',
-            borderRadius: 50,
-            right: 10,
-            bottom: 20,
-          }}
-          >
-            <Appbar.Action
-              icon="add"
-              accessibilityLabel="Add a new appointment"
-              onPress={() => this.props.navigation.navigate('Form')}
-            />
-          </Appbar>
+          <FabComponent
+            navigate={this.props.navigation.navigate}
+            onRefresh={this.onRefresh}
+          />
         </View>
       );
     }
   }
 }
+
+const FabComponent = props => (
+  <FAB
+    style={styles.fab}
+    icon="add"
+    onPress={
+      () => {
+        props.navigate('Form', {
+          onNavigateBack: props.onRefresh
+        });
+      }}
+  />
+);
 
 const mapStateToProps = state => ({
   user: state.user

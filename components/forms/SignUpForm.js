@@ -43,9 +43,10 @@ const SignUpForm = ({
         underlineColor="transparent"
         value={values.email}
         label="Email"
+        autoCapitalize="none"
         onBlur={() => setFieldTouched('email')}
         placeholder="john@doe.com"
-        editable={!isSubmitting}
+        // editable={!isSubmitting}
         error={touched.email && errors.email ? errors.email : undefined}
       />
       <Text style={styles.errorText}>
@@ -56,14 +57,13 @@ const SignUpForm = ({
         theme={{ roundness: 3 }}
         onChangeText={value => setFieldValue('password', value)}
         secureTextEntry
-        // mode="outlined"
         value={values.password}
         underlineColor="transparent"
         label="password"
         placeholder=""
-        disabled={errors.email}
+        autoCapitalize="none"
         onBlur={() => setFieldTouched('password')}
-        editable={!isSubmitting}
+        // editable={!isSubmitting}
         error={
           touched.password && errors.password ? errors.password : undefined
         }

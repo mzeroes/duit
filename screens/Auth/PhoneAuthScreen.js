@@ -1,30 +1,35 @@
 import React from 'react';
-import { Text, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, ScrollView, TouchableOpacity, View } from 'react-native';
 import { Linking, WebBrowser } from 'expo';
 import firebase from 'utils/firebase';
 import { TextInput } from 'react-native-paper';
-import { styles } from 'theme';
+import { Theme, styles } from 'theme';
 
 const captchaUrl = `https://morphine-c575e.firebaseapp.com/captcha.html?appurl=${Linking.makeUrl('')}`;
 
+// const captchaUrl = '/'
+//  + `captcha.html?PhoneAuthScreenurl=${Linking.makeUrl('')}`;
+
 const Button = props => (
   <TouchableOpacity {...props}>
-    <Text>{props.title}</Text>
+    <Text style={{ color: Theme.white }}>{props.title}</Text>
   </TouchableOpacity>
 );
 
-export default class App extends React.Component {
+export default class PhoneAuthScreen extends React.Component {
   static navigationOptions = {
-    header: null
+    // header: null
+    title: 'Login with Phone'
   };
 
   constructor(props) {
     super(props);
     this.state = {
       user: undefined,
-      phone: '',
+      phone: '+91',
       confirmationResult: undefined,
       code: '',
+      message: ''
     };
     firebase.auth().onAuthStateChanged((user) => {
       this.setState({ user });
@@ -47,7 +52,7 @@ export default class App extends React.Component {
     Linking.removeEventListener('url', listener);
     if (token) {
       const { phone } = this.state;
-      // fake firebase.auth.ApplicationVerifier
+      // fake firebase.auth.PhoneAuthScreenlicationVerifier
       const captchaVerifier = {
         type: 'recaptcha',
         verify: () => Promise.resolve(token)
@@ -98,11 +103,26 @@ export default class App extends React.Component {
     if (this.state.user) {
       this.props.navigation.navigate('Loading');
     }
-
     if (!this.state.confirmationResult) {
       return (
-        <ScrollView style={{ padding: 20, marginTop: 40 }}>
-          <Text>Test Phone No.: +919876543210</Text>
+        <View style={{ flex: 1, justifyContent: 'flex-start', alignContent: 'center', padding: 20 }}>
+
+          {this.state.message !== '' && (
+          <Text style={[styles.monoText, { marginBottom: 20, color: Theme.red }]}>
+            {this.state.message}
+          </Text>
+          )}
+
+          <Text style={[styles.monoText, { marginBottom: 20 }]}>Enter your phone</Text>
+          {/* <TextInput
+            value={this.state.phone}
+            onChangeText={this.onPhoneChange}
+            keyboardType="phone-pad"
+            placeholder="+91"
+            underlineColor="transparent"
+            // mode="outlined"
+            label="Country Code"
+          /> */}
           <TextInput
             value={this.state.phone}
             onChangeText={this.onPhoneChange}
@@ -120,20 +140,34 @@ export default class App extends React.Component {
                 alignItems: 'center',
                 borderRadius: 4,
                 padding: 14,
-                marginTop: 10,
+                marginTop: 80,
                 marginBottom: 10
               }
             ]}
-            // style={{ marginTop: 40 }}
-            onPress={this.onPhoneComplete}
+            onPress={() => {
+              const test = this.state.phone;
+              if (this.state.phone[0] !== '+') {
+                this.setState({ phone: `+91${test}` });
+              }
+              if ((/^\+?[1-9]\d{8,14}$/).test(this.state.phone)) {
+                console.warn(this.state.phone);
+                this.onPhoneComplete();
+              } else {
+                this.setState({ message: 'Enter a valid number.' });
+              }
+            }}
             title="Next"
           />
-        </ScrollView>
+        </View>
       );
     } else {
       return (
         <ScrollView style={{ padding: 20, marginTop: 40 }}>
-          <Text>Test Code: 123456</Text>
+          <Text style={[styles.monoText, { marginBottom: 20 }]}>
+            Enter Code Send to
+            {' '}
+            {this.state.phone}
+          </Text>
           <TextInput
             underlineColor="transparent"
             value={this.state.code}

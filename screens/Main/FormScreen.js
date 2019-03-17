@@ -15,17 +15,20 @@ class FormScreen extends React.Component {
 
   handleResponse=() => {
     // handleResponse
+    this.props.navigation.state.params.onNavigateBack();
+
     this.props.navigation.navigate('Home');
   }
 
   render() {
     // const user = this.props.user[0];
     // console.log(user);
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
       <ScrollView
         style={styles.container}
       >
-        <View style={[styles.formikContainer, { paddingTop: 0, paddingBottom: 200 }]}>
+        <View style={[styles.formikContainer, { paddingTop: 20, paddingBottom: 200 }]}>
           <Formik
             // initialValues={{ email: '' }}
             validationSchema={yupObject().shape({
@@ -34,18 +37,18 @@ class FormScreen extends React.Component {
                 .max(50, 'Too Long!')
                 .required('Required'),
               // TODO VALIDATION...
-              // age: yupString()
-              //   .min(2, 'Too Short!')
-              //   .max(50, 'Too Long!')
-              //   .required('Required'),
-              // email: yupString()
-              //   .email('Email is invalid')
-              //   .required('Required'),
-              // phone: yupString()
-              //   .phone('Phone is invalid')
-              //   .required('Required'),
+              age: yupString()
+                .max(2, 'Too Long!'),
+              // .required('Required'),
+              email: yupString()
+                .email('Email is invalid'),
+              // .required('Required'),
+              phone: yupString()
+                // .phone('Phone is invalid')
+                .matches(phoneRegExp, 'Phone number is not valid')
+                .required('Required'),
               // problem: yupString()
-              //   .required('Required')
+              // .required('Required')
             })}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);

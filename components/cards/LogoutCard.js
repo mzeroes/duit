@@ -1,35 +1,22 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Theme } from 'theme/index';
 import LoggedUserCard from 'components/cards/LoggedUserCard';
 
-import { onPressLogoutAsync } from 'utils';
+// import { onPressLogoutAsync } from 'utils';
 
-const LogoutCard = () => (
+const LogoutCard = props => (
   <View style={styles.container}>
-    {/* <DataCard /> */}
     <LoggedUserCard />
-    <TermsLogoutCard />
+    {/* <TermsLogoutCard /> */}
+    {props.children}
   </View>
 );
 
-export const TermsLogoutCard = () => (
-  <View style={[styles.container, { justifyContent: 'flex-end', borderWidth: 0 }]}>
-    <TouchableOpacity style={styles.logOutButton} onPress={onPressLogoutAsync}>
-      <Text style={{ color: Theme.grey, fontWeight: 'bold' }}>Logout</Text>
-    </TouchableOpacity>
-  </View>
-);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: Theme.grey,
-    padding: 10,
-    margin: 4,
-    justifyContent: 'flex-start'
+    backgroundColor: Theme.grey
   },
   ppContainer: {
     marginTop: 10,

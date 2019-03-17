@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Entering captcha</title>
 </head>
-
 <body>
-  <p style="text-align: center; font-size: 1.2em;">
-    Please, enter captcha for continue
-  <p />
-    <button id="continue-btn" style="display:none; background-color: blue">Continue to app</button>
+  <p style="text-align: center; font-size: 1.2em;">Please, enter captcha for continue
+    <p />
+    <button id="continue-btn" style="display:none">Continue to app</button>
     <script src="/__/firebase/5.3.1/firebase-app.js"></script>
     <script src="/__/firebase/5.3.1/firebase-auth.js"></script>
     <script src="/__/firebase/init.js"></script>
     <script>
+
       function getToken(callback) {
         var container = document.createElement('div');
         container.id = 'captcha';
@@ -46,6 +45,7 @@
       document.addEventListener('DOMContentLoaded', function () {
         getToken(sendTokenToApp);
       });
+
     </script>
 </body>
 </html>

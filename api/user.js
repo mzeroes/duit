@@ -21,7 +21,9 @@ export const getAptsFromFire = async () => {
     Age: usr.age,
     Email: usr.email,
     Phone: usr.phone,
-    Problem: usr.problem
+    Problem: usr.problem,
+    Time: usr.time,
+    Date: usr.date
   });
 
   // for(let i = 0; i < length)
@@ -29,16 +31,46 @@ export const getAptsFromFire = async () => {
   // for (let i = 0; i < results.length; i++) {
   //   s = results[i];
   // }
-  if (results) { return results.map(processUsers); }
+  if (results) { return results.map(processUsers).reverse(); }
   // console.warn(`USERS${users}`);
   // const users = Object.keys(results).map(processUsers);
 
   return [];
 };
 
+export const getDateAndTimeInIST = () => ({
+  date: new Date().toJSON().slice(0, 10),
+  time: (() => {
+    const d = new Date();
+    let h = d.getHours(); let m = d.getMinutes(); let
+      l = 'AM';
+    if (h > 12) {
+      h -= 12;
+    }
+    if (h < 10) {
+      h = `0${h}`;
+    }
+    if (m < 10) {
+      m = `0${m}`;
+    }
+    if (d.getHours() >= 12) {
+      l = 'PM';
+    } else {
+      l = 'AM';
+    }
+    return `${h}:${m} ${l}`;
+  })()
+});
+
 export const storeAptsInFire = async (data) => {
+  const time = getDateAndTimeInIST();
+  console.warn({
+    ...data,
+    ...time
+  });
   await firebase.database().ref('users/').push({
-    ...data
+    ...data,
+    ...time
   }).then((res) => {
     // success callback
     console.log('data ', res);

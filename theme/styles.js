@@ -206,7 +206,14 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16
-  }
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    backgroundColor: Theme.primary,
+    bottom: 0,
+  },
 });
 
 export default styles;

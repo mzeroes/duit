@@ -9,18 +9,17 @@ export {
 
 export const papertheme = {
   ...DefaultTheme,
-  roundness: 4,
-  dark: true,
+  roundness: 1,
+  dark: false,
   colors: {
-    ...DefaultTheme.colors,
-    primary: Theme.overlay,
-    accent: Theme.dark,
-    background: Theme.surface,
+    primary: Theme.primary,
+    accent: Theme.accent,
+    background: Theme.background,
     surface: Theme.surface,
     text: Theme.text,
     error: Theme.red,
     disabled: Theme.disabled,
     placeholder: Theme.placeholder,
-    backdrop: Theme.background
+    backdrop: Theme.backdrop
   }
 };

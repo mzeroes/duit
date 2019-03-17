@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hospital opd mobile app",
-    "slug": "hospital-opd-mobile-app",
+    "name": "duit",
+    "slug": "duit",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -24,10 +24,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.duit.services.hospitalopd"
+      "bundleIdentifier": "host.exp.exponent",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "<YOUR_IOS_CLIENT_ID>"
+        }
+      }
     },
     "android": {
-      "package": "io.duit.services.hospitalopd",
+      "package": "host.exp.exponent",
       "googleServicesFile": "./config/google-services.json"
     },
     "scheme": "duit"
