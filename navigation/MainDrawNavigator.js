@@ -33,7 +33,7 @@ const DrawerContent = props => (
 const MainDrawNavigator = createDrawerNavigator(
   {
     Home: ExploreNav,
-    Form: FormScreen,
+    Appointment: FormScreen,
   },
   {
     contentComponent: DrawerContent,
@@ -52,7 +52,7 @@ const MainDrawNavigator = createDrawerNavigator(
         fontFamily: 'space-mono',
         // borderBottomColor: Theme.primary,
         // borderBottomWidth: 2,
-        backgroundColor: Theme.tint,
+        // backgroundColor: Theme.tint,
       }
     }
   }

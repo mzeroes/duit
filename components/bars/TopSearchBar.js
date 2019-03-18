@@ -1,6 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { Theme } from 'theme';
+import { Appbar } from 'react-native-paper';
+import NavigationService from 'utils/NavigationService';
 import { TopBar } from './TopBar';
 
 class TopSearchBar extends React.Component {
@@ -39,4 +41,28 @@ class TopSearchBar extends React.Component {
   }
 }
 
-export default TopSearchBar;
+const TopSearch = (props) => {
+  const { navigation, data } = props;
+  return (
+    <Appbar.Header
+      statusBarHeight={0}
+      theme={{ colors: { primary: Theme.statusbar, text: Theme.text } }}
+    >
+      <Appbar.Action
+        icon="menu"
+        onPress={NavigationService.toggleDrawer}
+      />
+      <Appbar.Content
+        title="Explore"
+      />
+      <Appbar.Action
+        icon="search"
+        onPress={() => {
+          navigation.navigate('Search', { data });
+        }}
+      />
+    </Appbar.Header>
+  );
+};
+
+export default TopSearch;

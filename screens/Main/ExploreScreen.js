@@ -9,7 +9,7 @@ import DataList from 'components/cards/DataList';
 import { ActivityIndicator, FAB } from 'react-native-paper';
 
 import { getAptsFromFire } from 'api/user';
-import { TopSearchBar } from 'components';
+import TopSearchBar from 'components/bars/TopSearchBar';
 import { Theme, styles } from 'theme';
 
 console.ignoredYellowBox = [
@@ -86,7 +86,7 @@ const FabComponent = props => (
     icon="add"
     onPress={
       () => {
-        props.navigate('Form', {
+        props.navigate('Appointment', {
           onNavigateBack: props.onRefresh
         });
       }}

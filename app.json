@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "duit",
-    "slug": "duit",
+    "name": "Hospital OPD",
+    "slug": "hospital-opd",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -14,7 +14,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#E5F3DF"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,17 +24,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.exponent",
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "<YOUR_IOS_CLIENT_ID>"
-        }
-      }
+      "bundleIdentifier": "io.duit.services.hospitalopd",
     },
     "android": {
-      "package": "host.exp.exponent",
+      "package": "io.duit.services.hospitalopd",
       "googleServicesFile": "./config/google-services.json"
     },
-    "scheme": "duit"
+    "scheme": "hospital-opd"
   }
 }

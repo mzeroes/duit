@@ -10,26 +10,31 @@ const LoggedUser = (props) => {
   if (!user) return <View />;
   return (
     <Card
-      elevation={1}
+      // elevation={1}
       style={{
         backgroundColor: Theme.grey,
-        marginTop: -22,
-        // padding: 8
+        marginTop: -24,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
       }}
+      elevation={0}
     >
-      {/* <Card.Cover
-        style={
-          styles.titleContainer
-        }
-        source={{ uri: 'https://picsum.photos/200/200' }}
-      /> */}
+      <Card.Cover
+        style={[
+          styles.titleContainer, {
+            height: 100,
+            maxHeight: 100
+          }
+        ]}
+        source={{ uri: 'https://picsum.photos/400/100' }}
+      />
       <Card.Title
         title={(
           <Text
             style={[styles.monoText, { alignSelf: 'center' }]}
             numberOfLines={1}
           >
-            {user.displayName && user.displayName}
+            {user.providerData[0].displayName && user.providerData[0].displayName}
           </Text>
             )}
         subtitle={
@@ -40,7 +45,7 @@ const LoggedUser = (props) => {
           <Avatar.Image
             {...props}
             source={
-              user.photoURL
+              user.providerData[0].photoURL
                 ? {
                   uri: user.photoURL
                 }
@@ -51,7 +56,7 @@ const LoggedUser = (props) => {
       />
       <Card.Content>
         <Text style={styles.monoText}>{user.uid}</Text>
-        <Text style={styles.monoText}>{user.providerId}</Text>
+        <Text style={styles.monoText}>{user.providerData[0].providerId}</Text>
         <Card.Actions>
           <TermsLogoutCard />
         </Card.Actions>
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user[0]
+  user: state.user
 });
 
 export default connect(mapStateToProps)(LoggedUser);

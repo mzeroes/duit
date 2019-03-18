@@ -29,7 +29,7 @@ export default class DataCard extends React.Component {
     return (
       <View style={styles.container}>
         <Card
-          elevation={0.2}
+          elevation={0}
           onLongPress={
           () => {
             const { isSelected } = this.state;
@@ -38,7 +38,9 @@ export default class DataCard extends React.Component {
 
         }
           style={{
-            backgroundColor: this.state.isSelected ? Theme.darkgrey : Theme.statusbar
+            borderBottomWidth: 1,
+            borderBottomColor: '#ccc',
+            backgroundColor: Theme.background
           }}
         >
           {/* <Card.Title
@@ -50,28 +52,36 @@ export default class DataCard extends React.Component {
           /> */}
           <Card.Content>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ fontSize: 14 }}>
+              <Subheading style={{ color: Theme.darkText, fontSize: 16 }}>
                 {data.Name}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-                {data.Age}
-              </Subheading>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ fontSize: 12 }}>
-                {data.Email}
-              </Subheading>
-              <Subheading style={{ fontSize: 12 }}>
-                {data.Phone}
-              </Subheading>
-            </View>
-            <Paragraph>
-              {data.Problem}
-            </Paragraph>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ fontSize: 10 }}>
                 {data.Date}
               </Subheading>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Subheading
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
+              >
+                {data.Phone}
+                {'  |  '}
+                {data.Email}
+              </Subheading>
+              {/* <Subheading style={{ fontSize: 12 }}>
+              </Subheading> */}
+            </View>
+            <Paragraph
+              numberOfLines={this.state.isSelected ? 6 : 3}
+              ellipsizeMode="tail"
+              style={{ color: Theme.text, fontSize: 14, paddingRight: 60 }}
+            >
+              {data.Problem}
+            </Paragraph>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+              {/* <Subheading style={{ fontSize: 10 }}>
+              </Subheading> */}
               <Subheading style={{ fontSize: 10 }}>
                 {data.Time}
               </Subheading>

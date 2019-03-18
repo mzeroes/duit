@@ -1,11 +1,11 @@
 import firebase from 'utils/firebase';
 import { AsyncStorage } from 'react-native';
+import store from 'redux/store';
 
 export const resetTokenInStore = async () => {
   await AsyncStorage.setItem('userToken', '');
   await AsyncStorage.setItem('userTokenType', '');
 };
-
 
 export const getAptsFromFire = async () => {
   // firebase.database().ref(`users/${user.uid}`).get('data');
@@ -40,34 +40,27 @@ export const getAptsFromFire = async () => {
 
 export const getDateAndTimeInIST = () => ({
   date: new Date().toJSON().slice(0, 10),
-  time: (() => {
-    const d = new Date();
-    let h = d.getHours(); let m = d.getMinutes(); let
-      l = 'AM';
-    if (h > 12) {
-      h -= 12;
-    }
-    if (h < 10) {
-      h = `0${h}`;
-    }
-    if (m < 10) {
-      m = `0${m}`;
-    }
-    if (d.getHours() >= 12) {
-      l = 'PM';
-    } else {
-      l = 'AM';
-    }
-    return `${h}:${m} ${l}`;
-  })()
+  time: new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })
 });
 
 export const storeAptsInFire = async (data) => {
   const time = getDateAndTimeInIST();
-  console.warn({
-    ...data,
-    ...time
-  });
+  // console.warn({
+  //   ...data,
+  //   ...time
+  // });
+  // const user = await store.getState().user;
+  // console.warn(user);
+  // firebase.database().ref(`users/${user.uid}`).set({
+  //   ...data,
+  //   ...time
+  // })
+  //   .then((res) => {
+  //     console.log('data', res);
+  //   })
+  //   .catch((error) => {
+  //     console.warn('error ', error);
+  //   });
   await firebase.database().ref('users/').push({
     ...data,
     ...time
