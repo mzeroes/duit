@@ -35,7 +35,7 @@ const Form = ({
           underlineColor="transparent"
           onBlur={() => setFieldTouched('name')}
           placeholder="john doe"
-          editable={!isSubmitting}
+          // editable={!isSubmitting}
           error={touched.name && errors.name ? errors.name : undefined}
         />
         <Text style={styles.errorText}>

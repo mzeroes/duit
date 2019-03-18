@@ -40,8 +40,8 @@ class SignUpScreen extends React.Component {
           <Text style={[styles.Text, { paddingLeft: 32, fontWeight: '300', color: Theme.tint }]}>Sign up</Text>
         </TopBar> */}
 
-        <View style={[styles.formikContainer, { paddingTop: 0 }]}>
-          <Text style={styles.errorText}>
+        <View style={[styles.formikContainer, { paddingTop: 10 }]}>
+          <Text style={[styles.errorText, {alignSelf: "center"}]}>
             {this.state.errorMessage && this.state.errorMessage}
           </Text>
           <Formik
@@ -55,7 +55,7 @@ class SignUpScreen extends React.Component {
                 .email('Email is invalid')
                 .required('Required'),
               password: yupString()
-                .min(8, 'Minimum length should be greater than 8')
+                // .min(8, 'Minimum length should be greater than 8')
                 .required('Required')
             })}
             onSubmit={(values, { setSubmitting }) => {
@@ -66,7 +66,8 @@ class SignUpScreen extends React.Component {
                   const { emailVerified } = res.user;
                   if (!emailVerified) {
                     verifyEmail();
-                    this.props.navigation.navigate('EmailConfirm');
+                    // this.props.navigation.navigate('EmailConfirm');
+                    this.props.navigation.navigate('Loading');
                   } else {
                     this.props.navigation.navigate('Loading');
                   }

@@ -22,8 +22,8 @@ export const getAptsFromFire = async () => {
     Email: usr.email,
     Phone: usr.phone,
     Problem: usr.problem,
-    Time: usr.time,
-    Date: usr.date
+    Date: usr.dateTime.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }),
+    Time: usr.dateTime.toLocaleTimeString('en-IN')
   });
 
   // for(let i = 0; i < length)
@@ -39,12 +39,13 @@ export const getAptsFromFire = async () => {
 };
 
 export const getDateAndTimeInIST = () => ({
-  date: new Date().toJSON().slice(0, 10),
-  time: new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })
+  // date: new Date()
+  // time: new Date().toLocaleTimeString('en-IN')
+  dateTime: new Date()
 });
 
 export const storeAptsInFire = async (data) => {
-  const time = getDateAndTimeInIST();
+  const dateTime = getDateAndTimeInIST();
   // console.warn({
   //   ...data,
   //   ...time
@@ -63,7 +64,7 @@ export const storeAptsInFire = async (data) => {
   //   });
   await firebase.database().ref('users/').push({
     ...data,
-    ...time
+    ...dateTime
   }).then((res) => {
     // success callback
     console.log('data ', res);

@@ -12,11 +12,11 @@ export const papertheme = {
   roundness: 1,
   dark: false,
   colors: {
-    primary: Theme.primary,
+    primary: Theme.blue,
     accent: Theme.accent,
     background: Theme.background,
     surface: Theme.surface,
-    text: Theme.text,
+    text: Theme.textDark,
     error: Theme.red,
     disabled: Theme.disabled,
     placeholder: Theme.placeholder,

@@ -61,10 +61,12 @@ LogInTab.navigationOptions = {
 
 const AuthStack = createStackNavigator(
   {
-    OnBoard: OnboardingScreen,
+    
     // SignUp: SignUpScreen,
-    PhoneAuth: PhoneAuthScreen,
+    
     Providers: LogInTab,
+    PhoneAuth: PhoneAuthScreen,
+    OnBoard: OnboardingScreen,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
