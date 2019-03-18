@@ -38,7 +38,6 @@ class LogIn extends React.Component {
               .email('Email is invalid')
               .required('Required'),
             password: yupString()
-              .min(8, 'Minimum length should be greater than 8')
               .required('Required')
           })}
           onSubmit={(values, { setSubmitting }) => {
@@ -46,7 +45,7 @@ class LogIn extends React.Component {
             loginFireWithEmail(values.email, values.password)
               .then((res) => {
                 if (res === 'emailUnverified') {
-                  navigation.navigate('EmailConfirm');
+                  navigation.navigate('Loading');
                 } else if (res === 'success') {
                   navigation.navigate('Loading');
                 }

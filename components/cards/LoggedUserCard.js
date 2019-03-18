@@ -31,14 +31,14 @@ const LoggedUser = (props) => {
       <Card.Title
         title={(
           <Text
-            style={[styles.monoText, { alignSelf: 'center' }]}
+            style={[{ alignSelf: 'center' }]}
             numberOfLines={1}
           >
             {user.providerData[0].displayName && user.providerData[0].displayName}
           </Text>
             )}
         subtitle={
-          <Text style={styles.monoText}>{user.email && user.email}</Text>
+          <Text>{user.email && user.email}</Text>
           }
         // eslint-disable-next-line no-shadow
         left={props => (
@@ -55,8 +55,8 @@ const LoggedUser = (props) => {
         )}
       />
       <Card.Content>
-        <Text style={styles.monoText}>{user.uid}</Text>
-        <Text style={styles.monoText}>{user.providerData[0].providerId}</Text>
+        <Text>{user.uid}</Text>
+        <Text>{user.providerData[0].providerId}</Text>
         <Card.Actions>
           <TermsLogoutCard />
         </Card.Actions>
@@ -68,7 +68,7 @@ const LoggedUser = (props) => {
 export const TermsLogoutCard = () => (
   // <View style={[styles.container, { justifyContent: 'flex-end', borderWidth: 0, padding: 10 }]}>
   <TouchableOpacity style={styles.logOutButton} onPress={onPressLogoutAsync}>
-    <Text style={[styles.monoText, { color: Theme.red }]}>Logout</Text>
+    <Text style={[{ color: Theme.red }]}>Logout</Text>
   </TouchableOpacity>
   // {/* </View> */}
 );
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user[0]
 });
 
 export default connect(mapStateToProps)(LoggedUser);

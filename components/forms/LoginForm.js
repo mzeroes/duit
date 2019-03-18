@@ -39,6 +39,7 @@ const LoginForm = ({
       label="Email"
       onBlur={() => setFieldTouched('email')}
       placeholder="john@doe.com"
+      autoCapitalize="none"
       // editable={!isSubmitting}
       error={touched.email && errors.email ? errors.email : undefined}
     />
@@ -67,7 +68,7 @@ const LoginForm = ({
           {
             width: '100%',
             alignItems: 'center',
-            backgroundColor: Theme.primary,
+            backgroundColor: Theme.buttonOk,
             borderRadius: 4,
             padding: 14,
             marginTop: 10,

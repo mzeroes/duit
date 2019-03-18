@@ -8,10 +8,10 @@ const EmailConfirmScreen = (props) => {
   const { navigation } = props;
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={styles.monoText}>
+      <Text>
           A Confirmation Email was sent.
       </Text>
-      <Text style={styles.monoText}>
+      <Text>
           Click on the link to Confirm.
       </Text>
       <TouchableOpacity

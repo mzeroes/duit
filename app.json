@@ -24,7 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.duit.services.hospitalopd",
+      "bundleIdentifier": "io.duit.services.hospitalopd"
     },
     "android": {
       "package": "io.duit.services.hospitalopd",

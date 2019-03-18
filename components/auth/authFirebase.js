@@ -15,11 +15,12 @@ export const authStateAsync = async () => {
   await firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       if (user.providerData[0].providerId === 'password') {
-        if (user.emailVerified) {
-          userUpdateAsync(user);
-        } else {
-          signOutUser();
-        }
+        // if (user.emailVerified) {
+        //   userUpdateAsync(user);
+        // } else {
+        //   signOutUser();
+        // }
+        userUpdateAsync(user);
       } else {
         userUpdateAsync(user);
       }

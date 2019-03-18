@@ -7,6 +7,7 @@ export const Theme = {
   barStyle: 'light-content',
   black: '#060B10',
   blue: '#1193ef',
+  buttonOk: '#1E2F39',
   dark: '#171C1F',
   darkBG: '#242b2b',
   darkred: '#ff1100',

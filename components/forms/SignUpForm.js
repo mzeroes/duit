@@ -72,7 +72,7 @@ const SignUpForm = ({
         {touched.password && errors.password ? errors.password : undefined}
       </Text>
     </KeyboardAvoidingView>
-    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+    <View style={{ flex: 1, justifyContent: 'space-around' }}>
       <TouchableOpacity
         onPress={() => {
           handleSubmit();
@@ -82,7 +82,7 @@ const SignUpForm = ({
           {
             width: '100%',
             alignItems: 'center',
-            backgroundColor: Theme.red,
+            backgroundColor: Theme.buttonOk,
             borderRadius: 4,
             padding: 14,
             marginTop: 10,

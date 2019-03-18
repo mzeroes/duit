@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
@@ -24,7 +24,8 @@ class ExploreScreen extends React.Component {
   state = {
     isLoadingComplete: false,
     data: '',
-    isFetching: false
+    isFetching: false,
+    noData: true,
   };
 
   onRefresh = () => {
@@ -61,15 +62,27 @@ class ExploreScreen extends React.Component {
     } else {
       const { data } = this.state;
       const { navigation } = this.props;
+      // if (!data){
+      //   return(
+      //     <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background, flex:1, justifyContent:"center", alignItems:"center" }}>
+      //       <Text>No appointments yet.</Text>
+      //     </View>
+      //   )
+      // }
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
           <TopSearchBar data={data} navigation={navigation} />
+          {!data && (
+            <View style={{flex:1, justifyContent:"center", alignItems:"center" }}>
+              <Text>No appointments yet.</Text>
+            </View>
+          )}
           <DataList
-            data={data}
-            // inverted
-            onRefresh={() => this.onRefresh()}
-            refreshing={this.state.isFetching}
-          />
+              data={data}
+              // inverted
+              onRefresh={() => this.onRefresh()}
+              refreshing={this.state.isFetching}
+            />
           <FabComponent
             navigate={this.props.navigation.navigate}
             onRefresh={this.onRefresh}
