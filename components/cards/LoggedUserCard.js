@@ -1,52 +1,92 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Theme } from 'theme';
 import { connect } from 'react-redux';
+import { Avatar, Card } from 'react-native-paper';
+import { onPressLogoutAsync } from 'utils';
 
 const LoggedUser = (props) => {
   const { user } = props;
   if (!user) return <View />;
   return (
-    <View style={styles.titleContainer}>
-      <View style={styles.titleIconContainer}>
-        <Text
-          style={[styles.monoText, { alignSelf: 'center' }]}
-          numberOfLines={1}
-        >
-          {user.displayName && user.displayName}
-        </Text>
-        <Image
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: 50
-          }}
-          source={
-            user.photoURL
-              ? {
-                uri: user.photoURL
-              }
-              : require('assets/images/profile-1.png')
+    <Card
+      // elevation={1}
+      style={{
+        backgroundColor: Theme.grey,
+        marginTop: -24,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+      }}
+      elevation={0}
+    >
+      <Card.Cover
+        style={[
+          styles.titleContainer, {
+            height: 100,
+            maxHeight: 100
           }
-        />
-      </View>
-      <View style={styles.titleSubContainer}>
-        <Text style={styles.monoText}>{user.email && user.email}</Text>
+        ]}
+        source={{ uri: 'https://picsum.photos/400/100' }}
+      />
+      <Card.Title
+        title={(
+          <Text
+            style={[styles.monoText, { alignSelf: 'center' }]}
+            numberOfLines={1}
+          >
+            {user.providerData[0].displayName && user.providerData[0].displayName}
+          </Text>
+            )}
+        subtitle={
+          <Text style={styles.monoText}>{user.email && user.email}</Text>
+          }
+        // eslint-disable-next-line no-shadow
+        left={props => (
+          <Avatar.Image
+            {...props}
+            source={
+              user.providerData[0].photoURL
+                ? {
+                  uri: user.photoURL
+                }
+                : require('assets/images/profile-1.png')
+              }
+          />
+        )}
+      />
+      <Card.Content>
         <Text style={styles.monoText}>{user.uid}</Text>
-        <Text style={styles.monoText}>{user.providerId}</Text>
-      </View>
-    </View>
+        <Text style={styles.monoText}>{user.providerData[0].providerId}</Text>
+        <Card.Actions>
+          <TermsLogoutCard />
+        </Card.Actions>
+      </Card.Content>
+    </Card>
   );
 };
 
+export const TermsLogoutCard = () => (
+  // <View style={[styles.container, { justifyContent: 'flex-end', borderWidth: 0, padding: 10 }]}>
+  <TouchableOpacity style={styles.logOutButton} onPress={onPressLogoutAsync}>
+    <Text style={[styles.monoText, { color: Theme.red }]}>Logout</Text>
+  </TouchableOpacity>
+  // {/* </View> */}
+);
+
 const styles = StyleSheet.create({
   titleContainer: {
-    borderWidth: 2,
-    borderRadius: 12,
-    borderColor: Theme.grey,
-    padding: 12,
-    marginTop: 12,
-    marginBottom: 12
+    backgroundColor: Theme.statusbar,
+  },
+  logOutButton: {
+    marginTop: 6,
+    borderWidth: 1,
+    borderColor: Theme.red,
+    // borderRadius: 4,
+    // width: '70%',
+    // marginLeft: 30,
+    // marginRight: 30,
+    // backgroundColor: Theme.red,
+    padding: 6
   },
   titleSubContainer: {
     alignContent: 'center'
@@ -79,7 +119,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user[0]
+  user: state.user
 });
 
 export default connect(mapStateToProps)(LoggedUser);

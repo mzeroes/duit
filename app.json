@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hospital opd mobile app",
-    "slug": "hospital-opd-mobile-app",
+    "name": "Hospital OPD",
+    "slug": "hospital-opd",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -14,7 +14,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#E5F3DF"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,12 +24,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.duit.services.hospitalopd"
+      "bundleIdentifier": "io.duit.services.hospitalopd",
     },
     "android": {
       "package": "io.duit.services.hospitalopd",
       "googleServicesFile": "./config/google-services.json"
     },
-    "scheme": "duit"
+    "scheme": "hospital-opd"
   }
 }

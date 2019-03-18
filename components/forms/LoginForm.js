@@ -6,9 +6,10 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
-import { styles } from 'theme';
+import { styles, Theme } from 'theme';
 
 import { TextInput } from 'react-native-paper';
+// import  from 'theme';
 // import { TextInputMask } from "react-native-text-input-mask";
 // import { RkButton } from 'react-native-ui-kitten';
 // import { Icon } from 'expo';
@@ -38,7 +39,7 @@ const LoginForm = ({
       label="Email"
       onBlur={() => setFieldTouched('email')}
       placeholder="john@doe.com"
-      editable={!isSubmitting}
+      // editable={!isSubmitting}
       error={touched.email && errors.email ? errors.email : undefined}
     />
     <Text style={styles.errorText}>
@@ -48,13 +49,11 @@ const LoginForm = ({
       onChangeText={value => setFieldValue('password', value)}
       secureTextEntry
       underlineColor="transparent"
-      // mode="outlined"
       value={values.password}
       label="password"
       placeholder=""
-      disabled={errors.email}
       onBlur={() => setFieldTouched('password')}
-      editable={!isSubmitting}
+      //editable={!isSubmitting}
       error={touched.password && errors.password ? errors.password : undefined}
     />
     <Text style={styles.errorText}>
@@ -68,6 +67,7 @@ const LoginForm = ({
           {
             width: '100%',
             alignItems: 'center',
+            backgroundColor: Theme.primary,
             borderRadius: 4,
             padding: 14,
             marginTop: 10,
@@ -75,7 +75,7 @@ const LoginForm = ({
           }
         ]}
       >
-        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Continue</Text>
+        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Log In</Text>
       </TouchableOpacity>
     </View>
   </KeyboardAvoidingView>

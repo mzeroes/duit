@@ -2,13 +2,16 @@ import React from 'react';
 import {
   createAppContainer,
   createSwitchNavigator,
-  createStackNavigator
+  createStackNavigator,
+  createMaterialTopTabNavigator
 } from 'react-navigation';
 
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Platform } from 'react-native';
 
 import Icon from 'expo';
 import { Theme, styles } from 'theme';
+import TabBarIcon from 'components';
+import EmailConfirmScreen from 'screens/Auth/EmailConfirmScreen';
 import MainDrawNavigator from './MainDrawNavigator';
 import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
@@ -16,12 +19,52 @@ import OnboardingScreen from '../screens/Auth/OnBoardingScreen';
 import SignInProvidersScreen from '../screens/Auth/SignInProvidersScreen';
 import PhoneAuthScreen from '../screens/Auth/PhoneAuthScreen';
 
+const SignUpStack = createStackNavigator(
+  {
+    SignUp: SignUpScreen,
+    EmailConfirm: EmailConfirmScreen
+  }
+);
+const LogInStack = createStackNavigator(
+  {
+    LogIn: SignInProvidersScreen,
+  }
+);
+
+const LogInTab = createMaterialTopTabNavigator(
+  {
+    LogIn: LogInStack,
+    SignUp: SignUpStack,
+  }, {
+    tabBarOptions: {
+      labelStyle: {
+        fontSize: 12,
+        color: Theme.primary
+      },
+      tabStyle: {
+        // width: 100,
+        // borderBottomColor: Theme.green
+      },
+      style: {
+        backgroundColor: Theme.statusbar,
+      },
+      indicatorStyle: {
+        backgroundColor: Theme.primary,
+      }
+    }
+  }
+);
+
+LogInTab.navigationOptions = {
+  header: null,
+};
+
 const AuthStack = createStackNavigator(
   {
     OnBoard: OnboardingScreen,
-    SignUp: SignUpScreen,
+    // SignUp: SignUpScreen,
     PhoneAuth: PhoneAuthScreen,
-    Providers: SignInProvidersScreen
+    Providers: LogInTab,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -44,7 +87,7 @@ const AuthStack = createStackNavigator(
         </TouchableOpacity>
       )
     }),
-    initialRouteName: 'OnBoard'
+    // initialRouteName: 'OnBoard'
   }
 );
 

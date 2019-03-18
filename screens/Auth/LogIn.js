@@ -32,7 +32,7 @@ class LogIn extends React.Component {
           </View>
         )}
         <Formik
-          initialValues={{ email: 'john@doe.com', password: 'password' }}
+          initialValues={{ email: '', password: '' }}
           validationSchema={yupObject().shape({
             email: yupString()
               .email('Email is invalid')
@@ -45,7 +45,9 @@ class LogIn extends React.Component {
             setSubmitting(true);
             loginFireWithEmail(values.email, values.password)
               .then((res) => {
-                if (res === 'success') {
+                if (res === 'emailUnverified') {
+                  navigation.navigate('EmailConfirm');
+                } else if (res === 'success') {
                   navigation.navigate('Loading');
                 }
               })

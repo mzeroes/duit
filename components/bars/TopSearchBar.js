@@ -1,15 +1,15 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { Theme } from 'theme';
-import TabBarIcon from 'components/icons/TabBarIcon';
+import { Appbar } from 'react-native-paper';
+import NavigationService from 'utils/NavigationService';
 import { TopBar } from './TopBar';
 
 class TopSearchBar extends React.Component {
   render() {
     const { navigation, data } = this.props;
     return (
-
-      <TopBar iconsize={14}>
+      <TopBar icon="ios-menu" iconsize={14}>
         <TouchableOpacity
           style={{
             width: '100%',
@@ -17,19 +17,19 @@ class TopSearchBar extends React.Component {
             paddingLeft: 12,
             flex: 1,
             alignItems: 'center',
-            backgroundColor: Theme.grey
+            backgroundColor: Theme.statusbar
           }}
           onPress={() => {
             navigation.navigate('Search', { data });
           }}
         >
-          <TabBarIcon name="ios-search" size={17} />
+          {/* <TabBarIcon name="ios-search" size={24} /> */}
           <Text
             style={{
               textAlign: 'left',
-              paddingLeft: 8,
+              paddingLeft: 16,
               color: '#999',
-              // fontWidth: 'bold'
+              // fontWidth: 'bold',
               fontSize: 18
             }}
           >
@@ -41,4 +41,28 @@ class TopSearchBar extends React.Component {
   }
 }
 
-export default TopSearchBar;
+const TopSearch = (props) => {
+  const { navigation, data } = props;
+  return (
+    <Appbar.Header
+      statusBarHeight={0}
+      theme={{ colors: { primary: Theme.statusbar, text: Theme.text } }}
+    >
+      <Appbar.Action
+        icon="menu"
+        onPress={NavigationService.toggleDrawer}
+      />
+      <Appbar.Content
+        title="Explore"
+      />
+      <Appbar.Action
+        icon="search"
+        onPress={() => {
+          navigation.navigate('Search', { data });
+        }}
+      />
+    </Appbar.Header>
+  );
+};
+
+export default TopSearch;

@@ -8,13 +8,13 @@ export const verifyEmail = async () => {
     user
       .sendEmailVerification()
       .then(() => {
-        console.info('Verification email sent');
+        console.log('Verification email sent');
       })
       .catch((error) => {
         console.warn(`Errors in Email Verification : ${error}`);
       });
   } else {
-    console.info('Email already verfied!');
+    console.log('Email already verfied!');
   }
 };
 
@@ -32,15 +32,8 @@ export const signupFire = async (email, password) => {
 };
 
 export const loginFireWithEmail = async (email, password) => {
-  console.info('In LoginFire');
-  try {
-    const res = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-    console.log(res);
-    authStateAsync();
-    return 'success';
-  } catch (error) {
-    throw error;
-  }
+  const response = await firebase.auth().signInWithEmailAndPassword(email, password);
+  if (!response.user.emailVerified) return 'emailUnverified';
+  await authStateAsync();
+  return 'success';
 };

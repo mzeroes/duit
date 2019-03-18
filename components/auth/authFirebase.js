@@ -14,8 +14,15 @@ export const signOutUser = async () => {
 export const authStateAsync = async () => {
   await firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      console.info('In userAuthStateChanged()');
-      userUpdateAsync(user);
+      if (user.providerData[0].providerId === 'password') {
+        if (user.emailVerified) {
+          userUpdateAsync(user);
+        } else {
+          signOutUser();
+        }
+      } else {
+        userUpdateAsync(user);
+      }
     }
   });
 };
