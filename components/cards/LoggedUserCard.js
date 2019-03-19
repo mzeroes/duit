@@ -7,7 +7,7 @@ import { onPressLogoutAsync } from 'utils';
 
 const LoggedUser = (props) => {
   const { user } = props;
-  if (!user) return <View />;
+  if (!(user || user.providerData[0])) return <View />;
   return (
     <Card
       // elevation={1}
@@ -38,7 +38,7 @@ const LoggedUser = (props) => {
           </Text>
             )}
         subtitle={
-          <Text>{user.email && user.email}</Text>
+          <Text>{user.providerData[0].email && user.providerData[0].email}</Text>
           }
         // eslint-disable-next-line no-shadow
         left={props => (
@@ -55,8 +55,8 @@ const LoggedUser = (props) => {
         )}
       />
       <Card.Content>
-        <Text>{user.uid}</Text>
-        <Text>{user.providerData[0].providerId}</Text>
+        <Text style={Theme.text}>{user.uid}</Text>
+        <Text style={Theme.text}>{user.providerData[0].providerId && user.providerData[0].providerId}</Text>
         <Card.Actions>
           <TermsLogoutCard />
         </Card.Actions>
@@ -119,7 +119,34 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user[0]
+  user: state.user
 });
 
 export default connect(mapStateToProps)(LoggedUser);
+/**
+ *  structure of user object...
+ * "user": Object {
+    "apiKey": "AIzaSyD6K_6caJbo8RV19mIN1hVm2xh7PAJ_z-c",
+    "appName": "[DEFAULT]",
+    "authDomain": "duit-agra-opd-mobile-app.firebaseapp.com",
+    "createdAt": "1553007160663",
+    "displayName": null,
+    "email": "john@doe.in",
+    "emailVerified": false,
+    "isAnonymous": false,
+    "lastLoginAt": "1553007160663",
+    "phoneNumber": null,
+    "photoURL": null,
+    "providerData": Array [
+      Object {
+        "displayName": null,
+        "email": "john@doe.in",
+        "phoneNumber": null,
+        "photoURL": null,
+        "providerId": "password",
+        "uid": "john@doe.in",
+      },
+    ],
+
+ *
+ */

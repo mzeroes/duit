@@ -29,6 +29,7 @@ class SignInProvidersScreen extends React.Component {
             onPress={() => {
               navigation.navigate('PhoneAuth');
             }}
+            activeOpacity={0.6}
             style={[styles.touchableButton, {
               paddingLeft: 0,
               borderRadius: 4,

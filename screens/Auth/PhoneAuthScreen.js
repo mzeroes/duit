@@ -133,6 +133,7 @@ export default class PhoneAuthScreen extends React.Component {
             label="Your phone number"
           />
           <Button
+            activeOpacity={0.6}
             style={[
               styles.touchableButton,
               {

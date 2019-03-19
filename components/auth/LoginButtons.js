@@ -15,6 +15,7 @@ export const GoogleSignInButton = (props) => {
           navigation.navigate('Loading');
         });
       }}
+      activeOpacity={0.6}
       style={[styles.touchableButton, localstyle.googleButton]}
     >
       <Image
@@ -39,6 +40,7 @@ export const FacebookSignInButton = (props) => {
           navigation.navigate('Loading');
         });
       }}
+      activeOpacity={0.6}
       style={[styles.touchableButton, localstyle.facebookButton]}
     >
       <Icon.Ionicons
@@ -54,6 +56,7 @@ export const LoginSignInButton = (props) => {
   const { navigation } = props;
   return (
     <TouchableOpacity
+      activeOpacity={0.6}
       onPress={() => navigation.navigate('SignUp')}
       style={[styles.touchableButton, localstyle.emailButton]}
     >

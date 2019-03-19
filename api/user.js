@@ -46,7 +46,10 @@ export const getAptsFromFire = async () => {
   // for (let i = 0; i < results.length; i++) {
   //   s = results[i];
   // }
-  if (results) { return results.map(processUsers).reverse(); }
+  if (results) {
+    return results.sort((x, y) => {
+    return x.dateTime - y.dateTime
+  }).map(processUsers).reverse(); }
   // console.warn(`USERS${users}`);
   // const users = Object.keys(results).map(processUsers);
 
@@ -60,11 +63,13 @@ export const getDateAndTimeInIST = () => ({
 });
 
 export const storeAptsInFire = async (data) => {
-  const dateTime = getDateAndTimeInIST();
-  // console.warn({
-  //   ...data,
-  //   ...time
-  // });
+  const dateTime = {
+    dateTime: new Date().getTime() // in millisecs.
+  };
+  console.warn({
+    ...data,
+    ...dateTime
+  });
   // const user = await store.getState().user;
   // console.warn(user);
   // firebase.database().ref(`users/${user.uid}`).set({
