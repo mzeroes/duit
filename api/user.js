@@ -1,6 +1,7 @@
 import firebase from 'utils/firebase';
 import { AsyncStorage } from 'react-native';
 import store from 'redux/store';
+import moment from "moment";
 
 export const resetTokenInStore = async () => {
   await AsyncStorage.setItem('userToken', '');
@@ -16,15 +17,29 @@ export const getAptsFromFire = async () => {
     console.log(results);
   });
 
-  const processUsers = usr => ({
+  const processUsers = usr => {
+
+    console.log(`***date: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
+    
+    if (!(typeof usr.dateTime === "undefined" || !usr.dateTime)){
+      let dt = new Date(usr.dateTime);
+      
+      console.log(`Moment date: ${moment(dt).format("DD MMM YYYY h:mm:ss a")}`);
+      console.log(usr.dateTime);
+      console.log(new Date(usr.dateTime).toLocaleTimeString('en-IN'));
+    }
+    console.log(`***time: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : ''}`);
+    obj ={
     Name: usr.name,
     Age: usr.age,
     Email: usr.email,
     Phone: usr.phone,
     Problem: usr.problem,
-    Date: usr.dateTime.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }),
-    Time: usr.dateTime.toLocaleTimeString('en-IN')
-  });
+    Date: !(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : '',
+    Time: !(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : '',
+    }
+    return obj
+  };
 
   // for(let i = 0; i < length)
 
@@ -41,7 +56,7 @@ export const getAptsFromFire = async () => {
 export const getDateAndTimeInIST = () => ({
   // date: new Date()
   // time: new Date().toLocaleTimeString('en-IN')
-  dateTime: new Date()
+  dateTime: Date.now()
 });
 
 export const storeAptsInFire = async (data) => {
