@@ -30,6 +30,7 @@
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
+    "sentry-expo": "^1.11.2",
     "yup": "^0.26.10"
   },
   "devDependencies": {

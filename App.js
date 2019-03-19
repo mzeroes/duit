@@ -12,6 +12,13 @@ import { styles, Theme, papertheme } from 'theme';
 import store, { persistor } from './redux/store';
 
 import AppNavigator from './navigation/AppNavigator';
+import Sentry from 'sentry-expo';
+
+// Remove this once Sentry is correctly setup.
+Sentry.enableInExpoDevelopment = true;
+
+Sentry.config('https://984abdc46a3a4200ab22e9368acd9b96@sentry.io/1419013').install();
+
 
 export default class App extends React.Component {
   state = {

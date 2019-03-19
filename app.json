@@ -30,6 +30,18 @@
       "package": "io.duit.services.hospitalopd",
       "googleServicesFile": "./config/google-services.json"
     },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "mzeroes",
+            "project": "duit",
+            "authToken": "59715cdd766a4c37916e4d2712c2d976aa887fa9497a462896e7f658d42f44b1"
+          }
+        }
+      ]
+    },
     "scheme": "hospital-opd"
   }
 }
