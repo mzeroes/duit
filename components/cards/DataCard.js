@@ -56,7 +56,7 @@ export default class DataCard extends React.Component {
                 {data.Name}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-                {data.Date}
+              {data.Time} {data.Date}
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

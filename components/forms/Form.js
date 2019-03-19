@@ -76,7 +76,7 @@ const Form = ({
           label="Email"
           autoCapitalize="none"
           onBlur={() => setFieldTouched('email')}
-          placeholder="john@doe.com"
+          placeholder="Your email"
       // editable={!isSubmitting}
           error={touched.email && errors.email ? errors.email : undefined}
         />
