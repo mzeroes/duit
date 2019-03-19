@@ -21,9 +21,10 @@ export const getAptsFromFire = async () => {
 
     console.log(`***date: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
     
+    let dt = '';
     if (!(typeof usr.dateTime === "undefined" || !usr.dateTime)){
-      let dt = new Date(usr.dateTime);
-      
+      dt = new Date(usr.dateTime);
+
       console.log(`Moment date: ${moment(dt).format("DD MMM YYYY h:mm:ss a")}`);
       console.log(usr.dateTime);
       console.log(new Date(usr.dateTime).toLocaleTimeString('en-IN'));
@@ -35,8 +36,9 @@ export const getAptsFromFire = async () => {
     Email: usr.email,
     Phone: usr.phone,
     Problem: usr.problem,
-    Date: !(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : '',
-    Time: !(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : '',
+    Date: !(dt === "") ? moment(dt).format("DD MMM YYYY") : '',
+    Time: !(dt === "") ? moment(dt).format("h:mm:ss a") : '',
+    Ago: !(dt === "") ? moment(dt).fromNow() : '',
     }
     return obj
   };

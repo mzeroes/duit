@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Theme } from 'theme';
-import { Card, Paragraph, Subheading } from 'react-native-paper';
+import { Subheading, Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
 // const SectionHeader = ({ title }) => (
 //   <View style={styles.sectionHeaderContainer}>
@@ -29,14 +29,14 @@ export default class DataCard extends React.Component {
     return (
       <View style={styles.container}>
         <Card
-          elevation={0}
-          onLongPress={
-          () => {
-            const { isSelected } = this.state;
-            this.setState({ isSelected: !isSelected });
-          }
+          elevation={1}
+        //   onLongPress={
+        //   () => {
+        //     const { isSelected } = this.state;
+        //     this.setState({ isSelected: !isSelected });
+        //   }
 
-        }
+        // }
           style={{
             borderBottomWidth: 1,
             borderBottomColor: '#ccc',
@@ -50,13 +50,14 @@ export default class DataCard extends React.Component {
             //   props => <Avatar.Icon {...props} icon={{ uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400' }} />
             // }
           /> */}
+          <Card.Title title="Card Title" subtitle="Card Subtitle" left={(props) => <Avatar.Icon {...props} icon="folder" />} />
           <Card.Content>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading style={{ color: Theme.darkText, fontSize: 16 }}>
                 {data.Name}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-              {data.Time} {data.Date}
+              {data.Date} {data.Time}
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

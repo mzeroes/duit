@@ -74,7 +74,7 @@ class ExploreScreen extends React.Component {
           <TopSearchBar data={data} navigation={navigation} />
           {!data && (
             <View style={{flex:1, justifyContent:"center", alignItems:"center" }}>
-              <Text>No appointments yet.</Text>
+              <Text>No patients records yet.</Text>
             </View>
           )}
           <DataList
