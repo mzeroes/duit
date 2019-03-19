@@ -63,6 +63,7 @@ const LoginForm = ({
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <TouchableOpacity
         onPress={handleSubmit}
+        activeOpacity={0.6}
         style={[
           styles.touchableButton,
           {

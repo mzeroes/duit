@@ -22,8 +22,8 @@ export const getAptsFromFire = async () => {
     Email: usr.email,
     Phone: usr.phone,
     Problem: usr.problem,
-    Date: usr.dateTime.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }),
-    Time: usr.dateTime.toLocaleTimeString('en-IN')
+    Date: new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }),
+    Time: new Date(usr.dateTime).toLocaleTimeString('en-IN')
   });
 
   // for(let i = 0; i < length)
@@ -31,25 +31,30 @@ export const getAptsFromFire = async () => {
   // for (let i = 0; i < results.length; i++) {
   //   s = results[i];
   // }
-  if (results) { return results.map(processUsers).reverse(); }
+  if (results) {
+    return results.sort((x, y) => {
+    return x.dateTime - y.dateTime
+  }).map(processUsers).reverse(); }
   // console.warn(`USERS${users}`);
   // const users = Object.keys(results).map(processUsers);
 
   return [];
 };
 
-export const getDateAndTimeInIST = () => ({
-  // date: new Date()
-  // time: new Date().toLocaleTimeString('en-IN')
-  dateTime: new Date()
-});
+// export const getDateTime = () => ({
+//   // date: new Date()
+//   // time: new Date().toLocaleTimeString('en-IN')
+//   dateTime: new Date()
+// });
 
 export const storeAptsInFire = async (data) => {
-  const dateTime = getDateAndTimeInIST();
-  // console.warn({
-  //   ...data,
-  //   ...time
-  // });
+  const dateTime = {
+    dateTime: new Date().getTime() // in millisecs.
+  };
+  console.warn({
+    ...data,
+    ...dateTime
+  });
   // const user = await store.getState().user;
   // console.warn(user);
   // firebase.database().ref(`users/${user.uid}`).set({

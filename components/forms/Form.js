@@ -130,6 +130,8 @@ const Form = ({
       onPress={() => {
         handleSubmit();
       }}
+      activeOpacity={0.6}
+
       style={[
         styles.touchableButton,
         {

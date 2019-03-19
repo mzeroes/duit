@@ -14,16 +14,16 @@ export const signOutUser = async () => {
 export const authStateAsync = async () => {
   await firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      if (user.providerData[0].providerId === 'password') {
+      // if (user.providerData[0].providerId === 'password') {
         // if (user.emailVerified) {
         //   userUpdateAsync(user);
         // } else {
         //   signOutUser();
         // }
+        // userUpdateAsync(user);
+      // } else {
         userUpdateAsync(user);
-      } else {
-        userUpdateAsync(user);
-      }
+      // }
     }
   });
 };

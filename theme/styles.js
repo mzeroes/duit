@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: ROUNDNESS
   },
   touchableButton: {
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     flexDirection: 'row',
     justifyContent: 'center',
     shadowRadius: 1.5,
