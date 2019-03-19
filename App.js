@@ -17,7 +17,7 @@ import Sentry from 'sentry-expo';
 // Remove this once Sentry is correctly setup.
 Sentry.enableInExpoDevelopment = true;
 
-Sentry.config('https://984abdc46a3a4200ab22e9368acd9b96@sentry.io/1419013').install();
+Sentry.config('https://b81f183a19624ce5bdfa76b393f500e9@sentry.io/1419073').install();
 
 
 export default class App extends React.Component {
