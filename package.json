@@ -1,11 +1,12 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "name": "morphine",
+  "name": "hospital-opd",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
+    "lint": "npx eslint .",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {

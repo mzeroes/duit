@@ -31,17 +31,8 @@ class SignUpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <TopBar
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}
-          icon="md-arrow-back"
-        >
-          <Text style={[styles.Text, { paddingLeft: 32, fontWeight: '300', color: Theme.tint }]}>Sign up</Text>
-        </TopBar> */}
-
         <View style={[styles.formikContainer, { paddingTop: 10 }]}>
-          <Text style={[styles.errorText, {alignSelf: "center"}]}>
+          <Text style={[styles.errorText, { alignSelf: 'center' }]}>
             {this.state.errorMessage && this.state.errorMessage}
           </Text>
           <Formik

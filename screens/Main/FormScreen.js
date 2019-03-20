@@ -43,7 +43,7 @@ const StyledSwitch = ({ formikKey, formikProps, label, ...rest }) => (
     <Text style={{ marginBottom: 3 }}>{label}</Text>
     <Switch
       value={formikProps.values[formikKey]}
-      onValueChange={value => {
+      onValueChange={(value) => {
         formikProps.setFieldValue(formikKey, value);
       }}
       {...rest}
@@ -87,7 +87,7 @@ class FormScreen extends React.Component {
   render() {
     // const user = this.props.user[0];
     // console.log(user);
-    console.log("&&&&&&");
+    console.log('&&&&&&');
     console.log(this);
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (

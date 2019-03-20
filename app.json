@@ -35,8 +35,8 @@
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "mzeroes",
-            "project": "duit",
+            "organization": "duit",
+            "project": "io.duit.services.hospitalopd",
             "authToken": "5a707237436c464a902082bac3dd43790ad3f0d070944592bc2466280a30d4f7"
           }
         }

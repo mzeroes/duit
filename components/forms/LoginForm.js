@@ -54,7 +54,7 @@ const LoginForm = ({
       label="password"
       placeholder=""
       onBlur={() => setFieldTouched('password')}
-      //editable={!isSubmitting}
+      // editable={!isSubmitting}
       error={touched.password && errors.password ? errors.password : undefined}
     />
     <Text style={styles.errorText}>
