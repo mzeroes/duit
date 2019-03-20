@@ -8,10 +8,11 @@ export const resetTokenInStore = async () => {
   await AsyncStorage.setItem('userTokenType', '');
 };
 
-export const getAptsFromFire = async () => {
+export const getPatientsFromFire = async () => {
   // firebase.database().ref(`users/${user.uid}`).get('data');
   let results;
-  await firebase.database().ref('users/').once('value', (snapshot) => {
+  const user = await store.getState().user;
+  await firebase.database().ref(`doctors/${user.uid}`).once('value', (snapshot) => {
     results = snapshot.val();
     if (results) { results = Object.values(results); }
     console.log(results);
@@ -31,14 +32,15 @@ export const getAptsFromFire = async () => {
     }
     console.log(`***time: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : ''}`);
     obj ={
-    Name: usr.name,
-    Age: usr.age,
-    Email: usr.email,
-    Phone: usr.phone,
-    Problem: usr.problem,
-    Date: !(dt === "") ? moment(dt).format("DD MMM YYYY") : '',
-    Time: !(dt === "") ? moment(dt).format("h:mm:ss a") : '',
-    Ago: !(dt === "") ? moment(dt).fromNow() : '',
+      Name: usr.name,
+      Age: usr.age,
+      Email: usr.email,
+      Phone: usr.phone,
+      Problem: usr.problem,
+      Date: !(dt === "") ? moment(dt).format("DD MMM YYYY") : '',
+      Time: !(dt === "") ? moment(dt).format("h:mm:ss a") : '',
+      Ago: !(dt === "") ? moment(dt).fromNow() : '',
+      Initials: usr.name.replace(/[^a-zA-Z- ]/g, "").match(/\b\w/g).join(''),
     }
     return obj
   };
@@ -64,14 +66,12 @@ export const getDateAndTimeInIST = () => ({
   dateTime: Date.now()
 });
 
-export const storeAptsInFire = async (data) => {
-  const dateTime = {
-    dateTime: new Date().getTime() // in millisecs.
-  };
-  console.warn({
-    ...data,
-    ...dateTime
-  });
+export const storePatientsInFire = async (data) => {
+  const dateTime = getDateAndTimeInIST();
+  // console.warn({
+  //   ...data,
+  //   ...time
+  // });
   // const user = await store.getState().user;
   // console.warn(user);
   // firebase.database().ref(`users/${user.uid}`).set({
@@ -84,12 +84,14 @@ export const storeAptsInFire = async (data) => {
   //   .catch((error) => {
   //     console.warn('error ', error);
   //   });
-  await firebase.database().ref('users/').push({
+  const user = await store.getState().user;
+  await firebase.database().ref(`doctors/${user.uid}`).set({
     ...data,
     ...dateTime
   }).then((res) => {
     // success callback
     console.log('data ', res);
+    console.log('^^^^^', res.key);
   })
     .catch((error) => {
     // error callback

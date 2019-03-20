@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import DataList from 'components/cards/DataList';
 import { ActivityIndicator, FAB } from 'react-native-paper';
 
-import { getAptsFromFire } from 'api/user';
+import { getPatientsFromFire } from 'api/user';
 import TopSearchBar from 'components/bars/TopSearchBar';
 import { Theme, styles } from 'theme';
 
@@ -34,7 +34,7 @@ class ExploreScreen extends React.Component {
   }
 
   loadResourcesAsync = async () => {
-    const data = await getAptsFromFire();
+    const data = await getPatientsFromFire();
     this.setState({ data });
     this.setState({ isFetching: false });
   };
