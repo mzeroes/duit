@@ -38,7 +38,7 @@ const LoginForm = ({
       value={values.email}
       label="Email"
       onBlur={() => setFieldTouched('email')}
-      placeholder="john@doe.com"
+      placeholder="Your email"
       autoCapitalize="none"
       // editable={!isSubmitting}
       error={touched.email && errors.email ? errors.email : undefined}
