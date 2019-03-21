@@ -5,32 +5,37 @@ import {
   Image,
   Share,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from 'react-native';
 
 import { ImagePicker, Permissions, Alert } from 'expo';
 import { uploadImageAsync } from 'utils/uploadPhoto';
-import { Theme } from 'theme';
-import TabBarIcon from 'components/icons/IconWrap';
+import { Theme, styles } from 'theme/index';
+// import TabBarIcon from 'components/icons/IconWrap';
 import Layout from 'theme/constants/Layout';
-import { Avatar } from 'react-native-paper';
+import { Avatar, Modal, Portal, Text, Button, Provider } from 'react-native-paper';
 
-export default class PostScreen extends Component {
+export default class UploadAvatar extends Component {
   static navigationOptions = {
-    title: 'Upload image'
+    title: 'Upload image',
+    headerStyle: styles.headerStyle,
+    headerTintColor: Theme.white,
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    },
   };
 
   state = {
     image: '',
-    uploading: false
+    uploading: false,
+    visible: false
   };
 
   maybeRenderUploadingOverlay = () => {
     if (this.state.uploading) {
       return (
-        <View style={[StyleSheet.absoluteFill, styles.maybeRenderUploading]}>
+        <View style={[StyleSheet.absoluteFill, localstyles.maybeRenderUploading]}>
           <ActivityIndicator size="large" />
         </View>
       );
@@ -87,6 +92,8 @@ export default class PostScreen extends Component {
   };
 
   handleImagePicked = async (pickerResult) => {
+    const { getImage } = this.props;
+    console.log(getImage);
     try {
       this.setState({
         uploading: true
@@ -100,7 +107,7 @@ export default class PostScreen extends Component {
         await this.setState({
           image: uploadResponse
         });
-        console.warn(`STATE ::: ${this.state.image}`);
+        getImage(uploadResponse);
       }
     } catch (err) {
       console.warn(`ERROR :: ${{ err }}`);
@@ -115,33 +122,87 @@ export default class PostScreen extends Component {
   render() {
     const { image } = this.state;
     return (
-      <View style={styles.container}>
+      <View style={[localstyles.container, { backgroundColor: Theme.background }]}>
         { image !== '' ? (
-          <View style={styles.maybeRenderContainer}>
-            <Image source={{ uri: image }} style={styles.maybeRenderImage} />
-          </View>
+          <Avatar.Image
+            source={{ uri: image }}
+          />
+
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              const { visible } = this.state;
+              this.setState({ visible: !visible });
+            }}
+          >
+            <Avatar.Icon
+              icon="add-a-photo"
+              size={60}
+            />
+          </TouchableOpacity>
         )
-          : (
-            <TouchableOpacity
-              onPress={image ? this.copyToClipboard : this.takePhoto}
-              onLongPress={image ? this.share : this.pickImage}
-              style={styles.maybeRenderImageText}
+        }
+        { image !== '' ? (
+          <Button
+            loading={this.state.uploading}
+            onPress={() => {
+              this.setState({
+                image: '',
+                uploading: false,
+                visible: false });
+            }}
+          >
+          Clear
+          </Button>
+        ) : (
+          <Portal>
+            <Modal
+              visible={this.state.visible}
+              contentContainerStyle={[localstyles.container, {
+                position: 'absolute',
+                bottom: 0,
+                maxHeight: 200,
+                height: 200,
+                width: '100%',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                backgroundColor: Theme.surface }]
+                }
+              onDismiss={() => {
+                const { visible } = this.state;
+                this.setState({ visible: !visible });
+              }}
             >
-              <Avatar.Icon
-                icon="add-a-photo"
-                size={40}
+              <TouchableOpacity
+                onPress={image ? this.copyToClipboard : this.takePhoto}
+                style={localstyles.maybeRenderImageText}
               >
-              </Avatar.Icon>
-            </TouchableOpacity>
-          )}
+                <Avatar.Icon
+                  icon="add-a-photo"
+                  size={60}
+                >
+                </Avatar.Icon>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={image ? this.share : this.pickImage}
+                style={localstyles.maybeRenderImageText}
+              >
+                <Avatar.Icon
+                  icon="add-to-photos"
+                  size={60}
+                >
+                </Avatar.Icon>
+              </TouchableOpacity>
+            </Modal>
+          </Portal>
+        )}
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+const localstyles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -150,7 +211,6 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.statusbar
   },
   headText: {
-    // margin: 20,
     fontSize: 14,
     color: Theme.dark
   },
@@ -182,6 +242,5 @@ const styles = StyleSheet.create({
     maxHeight: '100%'
   },
   maybeRenderImageText: {
-    // alignItems: 'center'
   }
 });

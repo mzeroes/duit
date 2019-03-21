@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { View, ScrollView, Button, ActivityIndicator, Text, Switch } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Avatar } from 'react-native-paper';
 import { styles } from 'theme';
 import { Formik } from 'formik';
 import { object as yupObject, string as yupString, boolean as yupBoolean } from 'yup';
@@ -9,6 +9,7 @@ import Form from 'components/forms/Form';
 import { storePatientsInFire } from 'api/user';
 import { connect } from 'react-redux';
 import TopHeader from 'components/bars/TopHeader';
+import UploadAvatar from '../../components/UploadAvatar';
 
 const StyledInput = ({ label, formikProps, formikKey, ...rest }) => {
   const inputStyles = {
@@ -88,13 +89,23 @@ class FormScreen extends React.Component {
     // const user = this.props.user[0];
     // console.log(user);
     console.log('&&&&&&');
-    console.log(this);
+    // console.log(this);
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
       <View style={styles.container}>
         <TopHeader navigation={this.props.navigation} />
         <ScrollView>
           <View style={[styles.formikContainer, { paddingTop: 20, paddingBottom: 200 }]}>
+            {/* <Avatar.Image
+              source={
+              }
+            >
+            </Avatar.Image> */}
+            <UploadAvatar
+              getImage={(image) => {
+                console.log(`Uploaded Image URI :: ${image}`);
+              }}
+            />
             <Formik
             // initialValues={{ email: '' }}
               validationSchema={yupObject().shape({

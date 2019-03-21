@@ -3,7 +3,7 @@ import { View, TouchableOpacity, } from 'react-native';
 
 import { AppLoading } from 'expo';
 
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Text } from 'react-native-elements';
 
 import { Theme } from 'theme';
 import DataList from 'components/cards/DataList';
@@ -133,8 +133,25 @@ export default class SearchScreen extends React.Component {
             search={search}
             updateSearch={this.updateSearch}
           />
-          {this.state.search !== '' && (
-          <DataList data={this.filterData(data)} />)
+          {this.state.search === '' ? (
+            <View>
+              <Text>Type to search...</Text>
+            </View>
+          ) : (
+            <View>
+              {this.state.data === [] && (
+              <View style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+              >
+                <Text>No patients records yet.</Text>
+              </View>
+              )}
+              <DataList data={this.filterData(data)} />
+            </View>
+          )
           }
         </View>
       );
