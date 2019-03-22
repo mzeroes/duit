@@ -34,6 +34,7 @@ class ExploreScreen extends React.Component {
   }
 
   loadResourcesAsync = async () => {
+    console.warn("About to call getPatientsFromFire")
     const data = await getPatientsFromFire();
     this.setState({ data });
     this.setState({ isFetching: false });
@@ -71,12 +72,7 @@ class ExploreScreen extends React.Component {
       // }
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
-          <TopSearchBar data={data} navigation={navigation} />
-          {!data && (
-            <View style={{flex:1, justifyContent:"center", alignItems:"center" }}>
-              <Text>No patients records yet.</Text>
-            </View>
-          )}
+          <TopSearchBar data={data} navigation={navigation} />          
           <DataList
               data={data}
               // inverted

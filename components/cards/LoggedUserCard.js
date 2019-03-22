@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Avatar, Card } from 'react-native-paper';
 import { onPressLogoutAsync } from 'utils';
 
-const LoggedUser = (props) => {
+const LoggedUserCard = (props) => {
   const { user } = props;
-  if (!(user || user.providerData[0])) return <View />;
+  if (!user || user.providerData === undefined) return <View />;
   return (
     <Card
       // elevation={1}
@@ -122,7 +122,7 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(LoggedUser);
+export default connect(mapStateToProps)(LoggedUserCard);
 /**
  *  structure of user object...
  * "user": Object {

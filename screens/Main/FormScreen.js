@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, ScrollView, ActivityIndicator, Text, Switch, TouchableOpacity, StyleSheet, Icon } from 'react-native';
 import { TextInput, TouchableRipple, Button } from 'react-native-paper';
-import { styles } from 'theme';
+import { styles, Theme } from 'theme';
 import { Formik } from 'formik';
 import { object as yupObject, string as yupString, boolean as yupBoolean } from 'yup';
 import Form from 'components/forms/Form';
@@ -102,21 +102,22 @@ class FormScreen extends React.Component {
                   .min(2, 'Too Short!')
                   .max(50, 'Too Long!')
                   .required('Required'),
-                // TODO VALIDATION...
-                age: yupString()
-                  .max(2, 'Too Long!'),
-                // .required('Required'),
-                email: yupString()
-                  .email('Email is invalid'),
-                // .required('Required'),
-                phone: yupString()
-                // .phone('Phone is invalid')
-                  .matches(phoneRegExp, 'Phone number is not valid')
-                  .required('Required'),
+                // // TODO VALIDATION...
+                // age: yupString()
+                //   .max(2, 'Too Long!'),
+                // // .required('Required'),
+                // email: yupString()
+                //   .email('Email is invalid'),
+                // // .required('Required'),
+                // phone: yupString()
+                // // .phone('Phone is invalid')
+                //   .matches(phoneRegExp, 'Phone number is not valid')
+                //   .required('Required'),
               // problem: yupString()
               // .required('Required')
               })}
               onSubmit={(values, { setSubmitting }) => {
+                console.log("onSubmit called *****")
                 setSubmitting(true);
                 storePatientsInFire(values)
                   .then((response) => {
@@ -148,13 +149,13 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('patientName', value)}
                       value={values.patientName}
                       label="Patient Name"
-                      // onBlur={() => setFieldTouched('name')}
+                      onBlur={() => setFieldTouched('patientName')}
                       placeholder="Patient Name"
                       error={touched.patientName && errors.patientName ? errors.patientName : undefined}
                     />
                   </View>
-                  <View style={localStyles.TextInputContainer}>
-                    <Ionicons name="md-person" size={32} color="green" style={localStyles.leftIcons} />
+                  {/* <View style={localStyles.TextInputContainer}>
+                    <Ionicons name="ios-add" size={32} color="green" style={localStyles.leftIcons} />
                     <TextInput
                       style={localStyles.rightTextInputs}                    
                       onChangeText={value => setFieldValue('patientDiagnosis', value)}
@@ -266,14 +267,47 @@ class FormScreen extends React.Component {
                       placeholder="Blood Pressure"
                       error={touched.bloodPressure && errors.bloodPressure ? errors.bloodPressure : undefined}
                     />
-                  </View>
+                  </View> */}
+                  <Text style={styles.errorText}>
+                    {/* {JSON.stringify(touched)}
+                    {JSON.stringify(errors)} */}
+                    {/* {touched.problem && errors.problem ? errors.problem : undefined} */}
+                    {
+                      Object.keys(errors).map((key, index) => ( 
+                      // this is my key {key} and this is my value {errors[key]}
+                      `${key} : ${errors[key]}`
+                      ))
+                    }
+                  </Text>
 
+                  <TouchableOpacity
+                    onPress={() => {
+                      setFieldTouched('patientName');
+                      handleSubmit();
+                    }}
+                    activeOpacity={0.6}
 
-                  {isSubmitting ? (
+                    style={[
+                      styles.touchableButton,
+                      {
+                        width: '100%',
+                        alignItems: 'center',
+                        backgroundColor: Theme.red,
+                        borderRadius: 4,
+                        padding: 14,
+                        marginTop: 10,
+                        marginBottom: 10
+                      }
+                    ]}
+                  >
+                    <Text style={{ color: Theme.white, fontWeight: 'bold' }}>Continue</Text>
+                  </TouchableOpacity>
+
+                  {/* {isSubmitting ? (
                     <ActivityIndicator />
                   ) : (
-                    <Button title="Submit" onPress={handleSubmit} />
-                  )}
+                    <Button title="Submit" onPress={handleSubmit} style={{}} />
+                  )} */}
                 </ScrollView>
               )}
             </Formik>

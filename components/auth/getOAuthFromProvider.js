@@ -26,6 +26,6 @@ export const googleAuth = async () => {
   const result = await AuthSession.startAsync({
     authUrl: `${AuthUrl}${params}`
   });
-  console.log(result);
+  // console.log(result);
   return result;
 };
