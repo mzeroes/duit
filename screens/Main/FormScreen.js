@@ -93,8 +93,7 @@ class FormScreen extends React.Component {
     // console.log(this);
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
-      <KeyboardAvoidingView>
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <TopHeader navigation={this.props.navigation} />
         <ScrollView>
           <View style={[styles.formikContainer, { paddingTop: 20, paddingBottom: 200 }]}>
@@ -304,9 +303,9 @@ class FormScreen extends React.Component {
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('weight', value)}
                       value={values.weight}
-                      label="Weight"
+                      label="Weight  (in KGs)"
                         onBlur={() => setFieldTouched('weight')}
-                      placeholder="Weight"
+                      placeholder="Weight (in KGs)"
                       error={touched.weight && errors.weight ? errors.weight : undefined}
                     />
                   </View>
@@ -315,9 +314,9 @@ class FormScreen extends React.Component {
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('bodyTemperature', value)}
                       value={values.bodyTemperature}
-                      label="Body Temperature"
+                      label="Body Temperature (in F)"
                         onBlur={() => setFieldTouched('bodyTemperature')}
-                      placeholder="Body Temperature"
+                      placeholder="Body Temperature (in F)"
                       error={touched.bodyTemperature
                         && errors.bodyTemperature ? errors.bodyTemperature : undefined}
                     />
@@ -338,7 +337,7 @@ class FormScreen extends React.Component {
                     <TextInput
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('normalOrEmergency', value)}
-                      value={values.bloodPressure}
+                      value={values.normalOrEmergency}
                       label="Normal Or Emergency?"
                         onBlur={() => setFieldTouched('normalOrEmergency')}
                       placeholder="Normal Or Emergency?"
@@ -390,7 +389,6 @@ class FormScreen extends React.Component {
             </Formik>
           </View>
         </ScrollView>
-      </View>
       </KeyboardAvoidingView>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Theme } from 'theme';
-import { Subheading, Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Subheading, Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper';
 
 // const SectionHeader = ({ title }) => (
 //   <View style={styles.sectionHeaderContainer}>
@@ -34,7 +34,17 @@ export default class DataCard extends React.Component {
     // else{
     //   avatar = <Avatar.Text {...props} label={data.initials} />
     // }
-
+   
+    const callNumber = (url) =>{
+      Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+       console.log('Can\'t handle url: ' + url);
+      } else {
+       return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err));
+   }
+   
     return (
       <View style={styles.container}>
         <Card
@@ -62,35 +72,62 @@ export default class DataCard extends React.Component {
           <Card.Title title={data.patientName} subtitle={data.ago} left={props => <Avatar.Text {...props} label={data.initials} />} />
           <Card.Content>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ color: Theme.darkText, fontSize: 16 }}>
-              {data.age !== undefined ? `${data.age} yrs . ` : ''} 
+              <Subheading style={{ color: Theme.darkText, fontSize: 12 }}>
+              {data.age !== undefined ? `${data.age} yrs • ` : ''} 
               {data.gender !== undefined ? `${data.gender} • ` : ''} 
+              {data.weight !== undefined ? `${data.weight} Kgs • ` : ''} 
+              {data.bodyTemperature !== undefined ? `${data.bodyTemperature} F • ` : ''} 
+              {data.bloodPressure !== undefined ? `BP ${data.bloodPressure} • ` : ''} 
+              {data.normalOrEmergency !== undefined ? `${data.normalOrEmergency}` : ''} 
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-                {data.Date}
-                {' '} subheading2
-                {data.Time}
+                {data.fees !== undefined ? `Rs ${data.fees}` : ''} 
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading
-                numberOfLines={1}
-                ellipsizeMode="tail"
+                numberOfLines={5}
+                // ellipsizeMode="tail"
                 style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              >phone
-                {data.Phone}
-                {'  |  '}
-                {data.Email}
+              >
+                
+                {data.email !== undefined ? `${data.email} • ` : ''}
+              </Subheading>
+              <Subheading
+                numberOfLines={1}
+                style={{ fontSize: 12 }}
+              >
+                <Text onPress={()=> this.callNumber(`tel:${data.mobile}`)}
+                  style = {[styles.value,{marginLeft : 5,textDecorationLine :'underline'}]}>{`+91 ${data.mobile}`}
+                </Text>
+                {data.mobile !== undefined ? `${data.mobile} ` : ''}
               </Subheading>
               {/* <Subheading style={{ fontSize: 12 }}>
               </Subheading> */}
             </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Subheading
+                numberOfLines={5}
+                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
+              >
+                {data.address !== undefined ? `Address: ${data.address}` : ''}
+              </Subheading>
+              <Subheading
+                numberOfLines={1}
+                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
+              >
+              
+              </Subheading>
+              {/* <Subheading style={{ fontSize: 12 }}>
+              </Subheading> */}
+            </View>
+            
             <Paragraph
               numberOfLines={this.state.isSelected ? 6 : 3}
               ellipsizeMode="tail"
               style={{ color: Theme.text, fontSize: 14, paddingRight: 60 }}
-            >problem
-              {data.Problem}
+            >
+              {data.patientDiagnosis !== undefined ? `Diagnosis: ${data.patientDiagnosis}` : ''}
             </Paragraph>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
               {/* <Subheading style={{ fontSize: 10 }}>
