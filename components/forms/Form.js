@@ -23,18 +23,24 @@ const Form = ({
 }) => (
   <KeyboardAvoidingView>
     <View style={{
-      flexDirection: 'row',
+      // flexDirection: 'row',
       justifyContent: 'space-between',
     }}
     >
       <View style={{ flex: 3, marginRight: 20 }}>
         <TextInput
+          // theme={formtheme}
           onChangeText={value => setFieldValue('name', value)}
           value={values.name}
           label="Name"
+          style={{
+            backgroundColor: Theme.background,
+            // marginTop: 0,
+            // border: Theme.grey
+          }}
           underlineColor="transparent"
           onBlur={() => setFieldTouched('name')}
-          placeholder="john doe"
+          placeholder="John Doe"
           // editable={!isSubmitting}
           error={touched.name && errors.name ? errors.name : undefined}
         />
@@ -48,6 +54,9 @@ const Form = ({
           // mode="outlined"
           keyboardType="number-pad"
           underlineColor="transparent"
+          style={{
+            backgroundColor: Theme.background
+          }}
           value={values.age}
           label="Age"
           onBlur={() => setFieldTouched('email')}
@@ -61,7 +70,7 @@ const Form = ({
       </View>
     </View>
     <View style={{
-      flexDirection: 'row',
+      // flexDirection: 'row',
       justifyContent: 'space-between',
     }}
     >
@@ -70,6 +79,9 @@ const Form = ({
         <TextInput
           onChangeText={value => setFieldValue('email', value)}
           // mode="outlined"
+          style={{
+            backgroundColor: Theme.background
+          }}
           keyboardType="email-address"
           underlineColor="transparent"
           value={values.email}
@@ -89,6 +101,9 @@ const Form = ({
           theme={{ roundness: 6 }}
           onChangeText={value => setFieldValue('phone', value)}
           // mode="outlined"
+          style={{
+            backgroundColor: Theme.background
+          }}
           value={values.phone}
           keyboardType="phone-pad"
           underlineColor="transparent"
@@ -110,6 +125,9 @@ const Form = ({
       theme={{ roundness: 6 }}
       onChangeText={value => setFieldValue('problem', value)}
           // mode="outlined"
+      style={{
+        backgroundColor: Theme.background
+      }}
       numberOfLines={6}
       multiline
       value={values.problem}

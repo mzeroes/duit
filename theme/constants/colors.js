@@ -2,7 +2,7 @@ export const Theme = {
   accent: '#EAEB5E',
   activeTintColor: '#6f8ca9',
   inactiveTintColor: '#8f8f8f',
-  backdrop: '#F2F2F2',
+  backdrop: '#22222288',
   background: '#F9F9F9',
   barStyle: 'light-content',
   black: '#060B10',

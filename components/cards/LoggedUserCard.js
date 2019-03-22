@@ -7,7 +7,7 @@ import { onPressLogoutAsync } from 'utils';
 
 const LoggedUser = (props) => {
   const { user } = props;
-  if (!(user || user.providerData[0])) return <View />;
+  if (!user) return <View />;
   return (
     <Card
       // elevation={1}
@@ -56,7 +56,9 @@ const LoggedUser = (props) => {
       />
       <Card.Content>
         <Text style={Theme.text}>{user.uid}</Text>
-        <Text style={Theme.text}>{user.providerData[0].providerId && user.providerData[0].providerId}</Text>
+        <Text style={Theme.text}>
+          {user.providerData[0].providerId && user.providerData[0].providerId}
+        </Text>
         <Card.Actions>
           <TermsLogoutCard />
         </Card.Actions>

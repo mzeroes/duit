@@ -12,20 +12,22 @@ import { getPatientsFromFire } from 'api/user';
 import TopSearchBar from 'components/bars/TopSearchBar';
 import { Theme, styles } from 'theme';
 
-console.ignoredYellowBox = [
-  'Setting a timer'
-];
-
 class ExploreScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
+  constructor(props) {
+    super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
+  }
+
   state = {
     isLoadingComplete: false,
     data: '',
     isFetching: false,
-    noData: true,
   };
 
   onRefresh = () => {
@@ -64,25 +66,32 @@ class ExploreScreen extends React.Component {
       const { navigation } = this.props;
       // if (!data){
       //   return(
-      //     <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background, flex:1, justifyContent:"center", alignItems:"center" }}>
+      //     <View style={{ justifyContent:"center", alignItems:"center" }}>
       //       <Text>No appointments yet.</Text>
       //     </View>
       //   )
       // }
       return (
-        <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
+        <View
+          style={{
+            padding: 0,
+            margin: 0,
+            flex: 1,
+            backgroundColor: Theme.background
+          }}
+        >
           <TopSearchBar data={data} navigation={navigation} />
           {!data && (
-            <View style={{flex:1, justifyContent:"center", alignItems:"center" }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Text>No patients records yet.</Text>
             </View>
           )}
           <DataList
-              data={data}
+            data={data}
               // inverted
-              onRefresh={() => this.onRefresh()}
-              refreshing={this.state.isFetching}
-            />
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.state.isFetching}
+          />
           <FabComponent
             navigate={this.props.navigation.navigate}
             onRefresh={this.onRefresh}

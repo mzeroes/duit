@@ -50,14 +50,16 @@ export default class DataCard extends React.Component {
             //   props => <Avatar.Icon {...props} icon={{ uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400' }} />
             // }
           /> */}
-          <Card.Title title={data.Name} subtitle="Problem in brief" left={(props) => <Avatar.Text {...props} label={data.Initials} />} />
+          <Card.Title title={data.Name} subtitle="Problem in brief" left={props => <Avatar.Text {...props} label={data.Initials} />} />
           <Card.Content>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading style={{ color: Theme.darkText, fontSize: 16 }}>
                 {data.Name}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-              {data.Date} {data.Time}
+                {data.Date}
+                {' '}
+                {data.Time}
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

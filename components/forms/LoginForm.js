@@ -27,7 +27,8 @@ const LoginForm = ({
   // eslint-disable-next-line no-unused-vars
   handleChange,
   handleSubmit,
-  setFieldValue
+  setFieldValue,
+  navigation
 }) => (
   <KeyboardAvoidingView style={{ marginTop: 20 }}>
     <TextInput
@@ -54,7 +55,7 @@ const LoginForm = ({
       label="password"
       placeholder=""
       onBlur={() => setFieldTouched('password')}
-      //editable={!isSubmitting}
+      // editable={!isSubmitting}
       error={touched.password && errors.password ? errors.password : undefined}
     />
     <Text style={styles.errorText}>
@@ -78,6 +79,17 @@ const LoginForm = ({
         ]}
       >
         <Text style={{ color: '#fff', fontWeight: 'bold' }}>Log In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          alignSelf: 'flex-end'
+        }}
+        onPress={() => {
+          navigation.navigate('PasswordReset', { email: values.email });
+        }}
+        activeOpacity={0.6}
+      >
+        <Text style={{ color: '#000', fontWeight: '200' }}>Forgot your password?</Text>
       </TouchableOpacity>
     </View>
   </KeyboardAvoidingView>
