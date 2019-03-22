@@ -26,6 +26,15 @@ export default class DataCard extends React.Component {
   render() {
     const { data } = this.props;
     // const dateTime = `${data.Date} ${data.Time} `;
+
+    // let avatar;
+    // if(data.patientImage !== undefined && data.patientImage.length>10){
+    //   avatar = <Avatar.Image {...props} source={require(data.patientImage)} />
+    // }
+    // else{
+    //   avatar = <Avatar.Text {...props} label={data.initials} />
+    // }
+
     return (
       <View style={styles.container}>
         <Card
@@ -50,15 +59,16 @@ export default class DataCard extends React.Component {
             //   props => <Avatar.Icon {...props} icon={{ uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400' }} />
             // }
           /> */}
-          <Card.Title title={data.Name} subtitle="Problem in brief" left={props => <Avatar.Text {...props} label={data.Initials} />} />
+          <Card.Title title={data.patientName} subtitle={data.ago} left={props => <Avatar.Text {...props} label={data.initials} />} />
           <Card.Content>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading style={{ color: Theme.darkText, fontSize: 16 }}>
-                {data.Name}
+              {data.age !== undefined ? `${data.age} yrs . ` : ''} 
+              {data.gender !== undefined ? `${data.gender} • ` : ''} 
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
                 {data.Date}
-                {' '}
+                {' '} subheading2
                 {data.Time}
               </Subheading>
             </View>
@@ -67,7 +77,7 @@ export default class DataCard extends React.Component {
                 numberOfLines={1}
                 ellipsizeMode="tail"
                 style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              >
+              >phone
                 {data.Phone}
                 {'  |  '}
                 {data.Email}
@@ -79,17 +89,22 @@ export default class DataCard extends React.Component {
               numberOfLines={this.state.isSelected ? 6 : 3}
               ellipsizeMode="tail"
               style={{ color: Theme.text, fontSize: 14, paddingRight: 60 }}
-            >
+            >problem
               {data.Problem}
             </Paragraph>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
               {/* <Subheading style={{ fontSize: 10 }}>
               </Subheading> */}
               <Subheading style={{ fontSize: 10 }}>
-                {data.Time}
+                {data.Time} time
               </Subheading>
             </View>
           </Card.Content>
+      
+          <Card.Actions>
+            <Button>Cancel</Button>
+            <Button>Ok</Button>
+          </Card.Actions>
           {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
           {/* <Card.Actions>
             <Button>Cancel</Button>

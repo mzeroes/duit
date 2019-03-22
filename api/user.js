@@ -18,6 +18,7 @@ export const getPatientsFromFire = async () => {
       if (results) { results = Object.values(results); }
       console.log(results);
     });
+    
 
   const processUsers = (usr) => {
     console.log(`***date: ${!(typeof usr.dateTime === 'undefined' || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
@@ -34,15 +35,24 @@ export const getPatientsFromFire = async () => {
     }
     // console.log(`***time: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : ''}`);
     obj ={
-      Name: usr.name,
-      Age: usr.age,
-      Email: usr.email,
-      Phone: usr.phone,
-      Problem: usr.problem,
-      Date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
-      Time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
-      Ago: !(dt === '') ? moment(dt).fromNow() : '',
-      // Initials: usr.name.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
+      patientImage: usr.patientImage,
+      patientName: usr.patientName,
+      patientDiagnosis: usr.patientDiagnosis,
+      fees: usr.fees,
+      age: usr.age,
+      gender: usr.gender,
+      mobile: usr.mobile,
+      email: usr.email,
+      address: usr.address,
+      city: usr.city,
+      weight: usr.weight,
+      bodyTemperature: usr.bodyTemperature,
+      bloodPressure: usr.bloodPressure,
+      normalOrEmergency: usr.normalOrEmergency,
+      date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
+      time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
+      ago: !(dt === '') ? moment(dt).fromNow() : '',
+      initials: usr.patientName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
     };
     return obj;
   };
