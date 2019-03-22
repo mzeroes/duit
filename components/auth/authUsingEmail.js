@@ -31,6 +31,28 @@ export const signupFire = async (email, password) => {
   }
 };
 
+export const resetPassword = async (newPassword) => {
+  const user = firebase.auth().currentUser;
+  user.updatePassword(newPassword).then(() => {
+    // Update successful.
+  }).catch((error) => {
+    // An error happened.
+  });
+};
+
+export const sendPasswordResetEmail = async emailAddress => firebase
+  .auth().sendPasswordResetEmail(emailAddress);
+
+export const reAuthenticateUser = async (credential) => {
+  const user = firebase.auth().currentUser;
+
+  user.reauthenticateAndRetrieveDataWithCredential(credential).then(() => {
+    // User re-authenticated.
+  }).catch((error) => {
+    // An error happened.
+  });
+};
+
 export const loginFireWithEmail = async (email, password) => {
   const response = await firebase.auth().signInWithEmailAndPassword(email, password);
   if (!response.user.emailVerified) return 'emailUnverified';

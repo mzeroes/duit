@@ -12,6 +12,8 @@ import Icon from 'expo';
 import { Theme, styles } from 'theme';
 import TabBarIcon from 'components';
 import EmailConfirmScreen from 'screens/Auth/EmailConfirmScreen';
+import PasswordResetScreen from 'screens/Auth/PasswordResetScreen';
+import NavigationService from 'utils/NavigationService';
 import MainDrawNavigator from './MainDrawNavigator';
 import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
@@ -61,36 +63,37 @@ LogInTab.navigationOptions = {
 
 const AuthStack = createStackNavigator(
   {
-    
+
     // SignUp: SignUpScreen,
-    
+
     Providers: LogInTab,
     PhoneAuth: PhoneAuthScreen,
     OnBoard: OnboardingScreen,
+    PasswordReset: PasswordResetScreen,
   },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerStyle: styles.headerStyle,
-      headerTintColor: Theme.tintColor,
-      headerTitleStyle: {
-        fontWeight: 'normal'
-      },
-      headerLeft: navigation.order === 0 && (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <Icon.Ionicons
-            style={{ alignItems: 'flex-start', marginLeft: 26 }}
-            name="ios-arrow-back"
-            size={24}
-          />
-        </TouchableOpacity>
-      )
-    }),
-    // initialRouteName: 'OnBoard'
-  }
+  // {
+  //   defaultNavigationOptions: ({ navigation }) => ({
+  //     headerStyle: styles.headerStyle,
+  //     // headerTintColor: Theme.tintColor,
+  //     headerTitleStyle: {
+  //       fontWeight: 'normal'
+  //     },
+  //     headerLeft: navigation.order === 0 && (
+  //       <TouchableOpacity
+  //         onPress={() => {
+  //           NavigationService.navigation.goBack();
+  //         }}
+  //       >
+  //         <Icon.Ionicons
+  //           style={{ alignItems: 'flex-start', marginLeft: 26 }}
+  //           name="md-arrow-back"
+  //           size={24}
+  //         />
+  //       </TouchableOpacity>
+  //     )
+  //   }),
+  //   // initialRouteName: 'OnBoard'
+  // }
 );
 
 const AppNav = createSwitchNavigator(

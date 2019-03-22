@@ -15,7 +15,6 @@ export const onPressLogoutAsync = async () => {
     await store.dispatch(updateUser({}));
     await store.dispatch(updateloginStatus(false));
     await signOutUser();
-
     NavigationService.navigate('Loading');
   } catch (err) {
     // console.log(err);

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, } from 'react-native';
 
 import { AppLoading } from 'expo';
 
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Text } from 'react-native-elements';
 
 import { Theme } from 'theme';
 import DataList from 'components/cards/DataList';
@@ -74,8 +74,7 @@ export default class SearchScreen extends React.Component {
   };
 
   loadResourcesAsync = async () => {
-    const data = this.props.navigation.getParam('data', 'LOL');
-    // console.warn(`Test :: ${JSON.stringify(data)}`);
+    const data = this.props.navigation.getParam('data', '');
     this.setState({ data });
   };
 
@@ -88,24 +87,33 @@ export default class SearchScreen extends React.Component {
   };
 
   filterData = (data) => {
-    const datafilter = data.filter((elem) => {
-      let temp = 0;
-      if (elem.Phone) temp += elem.Phone.includes(this.state.search);
-      if (elem.Name) temp += elem.Name.includes(this.state.search);
-      if (elem.Email) temp += elem.Email.includes(this.state.search);
-      if (elem.Problem) temp += elem.Problem.includes(this.state.search);
+    if (data !== '') {
+      const datafilter = data.filter((obj) => {
+        let temp = 0;
+        // TODO: Absraction
+        // if (obj) {
+        //   Object.keys(obj).forEach((key) => {
+        //     temp += obj[key].includes(this.state.search);
+        //   });
+        // }
 
-      // let byPhone; let byName; let byEmail;
-      // if (!elem.Phone) byPhone = false;
-      // else byPhone = elem.Phone.includes(this.state.search);
-      // if (!elem.Name) byName = false;
-      // else byName = elem.Name.includes(this.state.search);
-      // if (!elem.Email) byEmail = false;
-      // else byEmail = elem.Email.includes(this.state.search);
-      return temp !== 0;
-    });
+        if (obj.Phone) temp += obj.Phone.includes(this.state.search);
+        if (obj.Name) temp += obj.Name.includes(this.state.search);
+        if (obj.Email) temp += obj.Email.includes(this.state.search);
+        if (obj.Problem) temp += obj.Problem.includes(this.state.search);
 
-    return datafilter;
+        // let byPhone; let byName; let byEmail;
+        // if (!obj.Phone) byPhone = false;
+        // else byPhone = obj.Phone.includes(this.state.search);
+        // if (!obj.Name) byName = false;
+        // else byName = obj.Name.includes(this.state.search);
+        // if (!obj.Email) byEmail = false;
+        // else byEmail = obj.Email.includes(this.state.search);
+        return temp !== 0;
+      });
+      return datafilter;
+    }
+    return '';
   };
 
   updateSearch = (search) => {
@@ -127,14 +135,43 @@ export default class SearchScreen extends React.Component {
     } else {
       const { search, data } = this.state;
       return (
-        <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
+        <View style={{
+          // justifyContent: 'center',
+          // alignItems: 'center',
+          backgroundColor: Theme.background,
+        }}
+        >
           <TopSearchBar
             navigation={this.props.navigation}
             search={search}
             updateSearch={this.updateSearch}
           />
-          {this.state.search !== '' && (
-          <DataList data={this.filterData(data)} />)
+          {this.state.search === '' ? (
+            <View style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingTop: 100
+            }}
+            >
+              <Text>Search records.</Text>
+            </View>
+          ) : (
+            <View>
+              {this.state.data === '' && (
+              <View style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingTop: 100
+              }}
+              >
+                <Text>No Such patient records exists.</Text>
+              </View>
+              )}
+              <DataList data={this.filterData(data)} />
+            </View>
+          )
           }
         </View>
       );

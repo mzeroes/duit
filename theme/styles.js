@@ -17,12 +17,16 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     backgroundColor: Theme.statusbar,
-    height: 30,
-    paddingBottom: 30,
-    borderBottomWidth: 0,
-    borderColor: Theme.background,
+    // height: 30,
+    // paddingBottom: 30,
+    // borderBottomWidth: 0,
+    borderColor: Theme.statusbar,
     shadowColor: 'transparent',
-    elevation: 1
+    elevation: 1,
+    // TODO: ADD a Fix
+    marginTop: -20,
+    borderBottomWidth: 0,
+    height: 60,
   },
   containerStyle: {
     paddingTop: 0,

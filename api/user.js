@@ -1,7 +1,7 @@
 import firebase from 'utils/firebase';
 import { AsyncStorage } from 'react-native';
 import store from 'redux/store';
-import moment from "moment";
+import moment from 'moment';
 
 export const resetTokenInStore = async () => {
   await AsyncStorage.setItem('userToken', '');
@@ -10,21 +10,22 @@ export const resetTokenInStore = async () => {
 
 export const getPatientsFromFire = async () => {
   let results;
-  
-  
-  const user = await store.getState().user;
-  
-  await firebase.database().ref(`doctors/${user.uid}`).once('value', (snapshot) => {
-    results = snapshot.val();
-    if (results) { results = Object.values(results); }
-  });
+  // const user = await store.getState().user;
+  const user = firebase.auth().currentUser;
+  await firebase.database().ref(`doctors/${user.uid}`)
+    .once('value', (snapshot) => {
+      results = snapshot.val();
+      if (results) { results = Object.values(results); }
+      console.log(results);
+    });
 
-  const processUsers = usr => {
+  const processUsers = (usr) => {
+    console.log(`***date: ${!(typeof usr.dateTime === 'undefined' || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
 
     // console.log(`***date: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
     
     let dt = '';
-    if (!(typeof usr.dateTime === "undefined" || !usr.dateTime)){
+    if (!(typeof usr.dateTime === 'undefined' || !usr.dateTime)) {
       dt = new Date(usr.dateTime);
 
       // console.log(`Moment date: ${moment(dt).format("DD MMM YYYY h:mm:ss a")}`);
@@ -38,12 +39,12 @@ export const getPatientsFromFire = async () => {
       Email: usr.email,
       Phone: usr.phone,
       Problem: usr.problem,
-      Date: !(dt === "") ? moment(dt).format("DD MMM YYYY") : '',
-      Time: !(dt === "") ? moment(dt).format("h:mm:ss a") : '',
-      Ago: !(dt === "") ? moment(dt).fromNow() : '',
-      Initials: usr.name.replace(/[^a-zA-Z- ]/g, "").match(/\b\w/g).join(''),
-    }
-    return obj
+      Date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
+      Time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
+      Ago: !(dt === '') ? moment(dt).fromNow() : '',
+      // Initials: usr.name.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
+    };
+    return obj;
   };
 
   // for(let i = 0; i < length)
@@ -52,9 +53,8 @@ export const getPatientsFromFire = async () => {
   //   s = results[i];
   // }
   if (results) {
-    return results.sort((x, y) => {
-    return x.dateTime - y.dateTime
-  }).map(processUsers).reverse(); }
+    return results.sort((x, y) => x.dateTime - y.dateTime).map(processUsers).reverse();
+  }
   // console.warn(`USERS${users}`);
   // const users = Object.keys(results).map(processUsers);
 
@@ -85,6 +85,9 @@ export const storePatientsInFire = async (data) => {
   //   .catch((error) => {
   //     console.warn('error ', error);
   //   });
+  // const user = await store.getState().user;
+  // const user = await firebase.auth().currentUser;
+  // await firebase.database().ref(`doctors/${user.uid}`).set({
   const user = await store.getState().user;
   await firebase.database().ref(`doctors/${user.uid}`).push({
     ...data,
@@ -94,8 +97,21 @@ export const storePatientsInFire = async (data) => {
     // console.log('data ', res);
     // console.log('^^^^^', res.key);
   })
+    .then((res) => {
+      console.log('data', res);
+    })
     .catch((error) => {
-    // error callback
-      // console.log('error ', error);
+      console.warn('error ', error);
     });
+  // await firebase.database().ref('users/').push({
+  //   ...data,
+  //   ...dateTime
+  // }).then((res) => {
+  //   // success callback
+  //   console.log('data ', res);
+  // })
+  //   .catch((error) => {
+  //   // error callback
+  //     console.log('error ', error);
+  //   });
 };

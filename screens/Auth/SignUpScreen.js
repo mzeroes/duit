@@ -13,17 +13,14 @@ class SignUpScreen extends React.Component {
     header: null
   };
 
-  //  handleSignUp = (values) => {
+   handleError = (err) => {
+     if (err.code === 'auth/email-already-in-use') {
+       //  console.log(JSON.stringify(err));
+       const info = 'Email is already in use. Login to Continue.';
+       this.props.navigation.navigate('Providers', { info });
+     }
+   };
 
-  //      .catch((err) => {
-  //        if (err.code === 'auth/email-already-in-use') {
-  //          console.log(JSON.stringify(err));
-  //          const info = 'Email is already in use. Login to Continue.';
-  //          this.props.navigation.navigate('Providers', { info });
-  //        }
-  //        console.warn('YEA');
-  //      });
-  //  };
   state = {
     errorMessage: null
   }
@@ -31,17 +28,8 @@ class SignUpScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <TopBar
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}
-          icon="md-arrow-back"
-        >
-          <Text style={[styles.Text, { paddingLeft: 32, fontWeight: '300', color: Theme.tint }]}>Sign up</Text>
-        </TopBar> */}
-
         <View style={[styles.formikContainer, { paddingTop: 10 }]}>
-          <Text style={[styles.errorText, {alignSelf: "center"}]}>
+          <Text style={[styles.errorText, { alignSelf: 'center' }]}>
             {this.state.errorMessage && this.state.errorMessage}
           </Text>
           <Formik
@@ -62,7 +50,6 @@ class SignUpScreen extends React.Component {
               setSubmitting(true);
               signupFire(values.email, values.password)
                 .then((res) => {
-                  console.warn('Yo');
                   const { emailVerified } = res.user;
                   if (!emailVerified) {
                     verifyEmail();
@@ -73,6 +60,7 @@ class SignUpScreen extends React.Component {
                   }
                 }).catch((err) => {
                   this.setState({ errorMessage: err.message });
+                  this.handleError(err);
                 });
             }}
             render={form => SignUpForm(form)}

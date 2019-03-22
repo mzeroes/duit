@@ -9,7 +9,7 @@ export {
 
 export const papertheme = {
   ...DefaultTheme,
-  roundness: 1,
+  roundness: 3,
   dark: false,
   colors: {
     primary: Theme.blue,
@@ -31,7 +31,7 @@ export const formtheme = {
   colors: {
     primary: Theme.blue,
     accent: Theme.accent,
-    background: Theme.background,
+    background: '#fff',
     surface: Theme.surface,
     text: Theme.textDark,
     error: Theme.red,

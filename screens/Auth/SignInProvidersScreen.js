@@ -18,12 +18,12 @@ class SignInProvidersScreen extends React.Component {
 
   render() {
     const { navigation } = this.props;
-
+    const info = this.props.navigation.getParam('info', '');
     return (
       <View style={styles.formikContainer}>
+        <Text style={styles.monoText}>{info}</Text>
         <Login navigation={navigation} />
-        <Text style={styles.monoText}>or</Text>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, paddingTop: 30 }}>
           {/* <LoginSignInButton navigation={navigation} /> */}
           <TouchableOpacity
             onPress={() => {
@@ -38,7 +38,7 @@ class SignInProvidersScreen extends React.Component {
               marginBottom: 10 }]}
           >
             <Icon.Ionicons
-              name="ios-call"
+              name="md-call"
               style={{
                 marginHorizontal: 12,
                 fontSize: 25,

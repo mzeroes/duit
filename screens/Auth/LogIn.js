@@ -54,7 +54,7 @@ class LogIn extends React.Component {
                 this.setState({ errorMessage: err });
               });
           }}
-          render={form => LoginForm(form)}
+          render={form => LoginForm({ ...form, navigation })}
         />
       </View>
     );

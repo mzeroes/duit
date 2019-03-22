@@ -56,7 +56,9 @@ const LoggedUserCard = (props) => {
       />
       <Card.Content>
         <Text style={Theme.text}>{user.uid}</Text>
-        <Text style={Theme.text}>{user.providerData[0].providerId && user.providerData[0].providerId}</Text>
+        <Text style={Theme.text}>
+          {user.providerData[0].providerId && user.providerData[0].providerId}
+        </Text>
         <Card.Actions>
           <TermsLogoutCard />
         </Card.Actions>
