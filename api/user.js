@@ -11,12 +11,14 @@ export const resetTokenInStore = async () => {
 export const getPatientsFromFire = async () => {
   // firebase.database().ref(`users/${user.uid}`).get('data');
   let results;
-  const user = await store.getState().user;
-  await firebase.database().ref(`doctors/${user.uid}`).once('value', (snapshot) => {
-    results = snapshot.val();
-    if (results) { results = Object.values(results); }
-    console.log(results);
-  });
+  // const user = await store.getState().user;
+  const user = firebase.auth().currentUser;
+  await firebase.database().ref(`doctors/${user.uid}`)
+    .once('value', (snapshot) => {
+      results = snapshot.val();
+      if (results) { results = Object.values(results); }
+      console.log(results);
+    });
 
   const processUsers = (usr) => {
     console.log(`***date: ${!(typeof usr.dateTime === 'undefined' || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
@@ -39,7 +41,7 @@ export const getPatientsFromFire = async () => {
       Date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
       Time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
       Ago: !(dt === '') ? moment(dt).fromNow() : '',
-      Initials: usr.name.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
+      // Initials: usr.name.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
     };
     return obj;
   };
@@ -82,7 +84,8 @@ export const storePatientsInFire = async (data) => {
   //   .catch((error) => {
   //     console.warn('error ', error);
   //   });
-  const user = await store.getState().user;
+  // const user = await store.getState().user;
+  const user = firebase.auth().currentUser;
   await firebase.database().ref(`doctors/${user.uid}`).set({
     ...data,
     ...dateTime

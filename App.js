@@ -11,9 +11,12 @@ import { sentryConfig } from 'config/keys';
 
 import Sentry from 'sentry-expo';
 
+import ignoreWarnings from 'react-native-ignore-warnings';
 import store, { persistor } from './redux/store';
 
 import AppNavigator from './navigation/AppNavigator';
+
+ignoreWarnings('Setting a timer');
 
 // Remove this once Sentry is correctly setup.
 // Sentry.enableInExpoDevelopment = true;

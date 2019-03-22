@@ -12,9 +12,8 @@ import {
 import { ImagePicker, Permissions, Alert } from 'expo';
 import { uploadImageAsync } from 'utils/uploadPhoto';
 import { Theme, styles } from 'theme/index';
-// import TabBarIcon from 'components/icons/IconWrap';
 import Layout from 'theme/constants/Layout';
-import { Avatar, Modal, Portal, Text, Button, Provider } from 'react-native-paper';
+import { Avatar, Modal, Portal, Button, Text } from 'react-native-paper';
 
 export default class UploadAvatar extends Component {
   static navigationOptions = {
@@ -110,7 +109,7 @@ export default class UploadAvatar extends Component {
         getImage(uploadResponse);
       }
     } catch (err) {
-      console.warn(`ERROR :: ${{ err }}`);
+      // console.warn(`ERROR :: ${{ err }}`);
       Alert.alert('Upload failed, sorry :(');
     } finally {
       this.setState({
@@ -182,6 +181,8 @@ export default class UploadAvatar extends Component {
                   size={60}
                 >
                 </Avatar.Icon>
+                <Text> Add from Gallary</Text>
+
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={image ? this.share : this.pickImage}
@@ -192,6 +193,7 @@ export default class UploadAvatar extends Component {
                   size={60}
                 >
                 </Avatar.Icon>
+                <Text> Add from Gallary</Text>
               </TouchableOpacity>
             </Modal>
           </Portal>

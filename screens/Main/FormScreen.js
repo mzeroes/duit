@@ -96,11 +96,6 @@ class FormScreen extends React.Component {
         <TopHeader navigation={this.props.navigation} />
         <ScrollView>
           <View style={[styles.formikContainer, { paddingTop: 20, paddingBottom: 200 }]}>
-            {/* <Avatar.Image
-              source={
-              }
-            >
-            </Avatar.Image> */}
             <UploadAvatar
               getImage={(image) => {
                 console.log(`Uploaded Image URI :: ${image}`);

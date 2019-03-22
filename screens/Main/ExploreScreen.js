@@ -12,9 +12,6 @@ import { getPatientsFromFire } from 'api/user';
 import TopSearchBar from 'components/bars/TopSearchBar';
 import { Theme, styles } from 'theme';
 
-import Ignore from 'utils/ignoreWarn';
-
-
 class ExploreScreen extends React.Component {
   static navigationOptions = {
     header: null

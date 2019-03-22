@@ -53,7 +53,6 @@ class SignUpScreen extends React.Component {
               setSubmitting(true);
               signupFire(values.email, values.password)
                 .then((res) => {
-                  console.warn('Yo');
                   const { emailVerified } = res.user;
                   if (!emailVerified) {
                     verifyEmail();

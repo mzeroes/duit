@@ -1,8 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import uuid from 'uuid';
 
 import firebase from './firebase';
-
 
 export async function uploadImageAsync(uri) {
   // Why are we using XMLHttpRequest? See:
@@ -38,11 +36,7 @@ export async function uploadImageAsync(uri) {
     .child('images')
     .child(uuid.v4());
   const snapshot = await ref.put(blob, metadata);
-
-  // We're done with the blob, close and release it
   blob.close();
-
   const url = await snapshot.ref.getDownloadURL();
-  console.warn(`URL :: ${url}`);
   return url;
 }
