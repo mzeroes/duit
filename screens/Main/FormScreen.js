@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { View, ScrollView, Button, ActivityIndicator, Text, Switch } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { View, ScrollView, ActivityIndicator, Text, Switch, TouchableOpacity, StyleSheet, Icon } from 'react-native';
+import { TextInput, TouchableRipple, Button } from 'react-native-paper';
 import { styles } from 'theme';
 import { Formik } from 'formik';
 import { object as yupObject, string as yupString, boolean as yupBoolean } from 'yup';
@@ -9,6 +9,8 @@ import Form from 'components/forms/Form';
 import { storePatientsInFire } from 'api/user';
 import { connect } from 'react-redux';
 import TopHeader from 'components/bars/TopHeader';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const StyledInput = ({ label, formikProps, formikKey, ...rest }) => {
   const inputStyles = {
@@ -87,8 +89,6 @@ class FormScreen extends React.Component {
   render() {
     // const user = this.props.user[0];
     // console.log(user);
-    console.log("&&&&&&");
-    console.log(this);
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
       <View style={styles.container}>
@@ -98,7 +98,7 @@ class FormScreen extends React.Component {
             <Formik
             // initialValues={{ email: '' }}
               validationSchema={yupObject().shape({
-                name: yupString()
+                patientName: yupString()
                   .min(2, 'Too Short!')
                   .max(50, 'Too Long!')
                   .required('Required'),
@@ -119,69 +119,190 @@ class FormScreen extends React.Component {
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
                 storePatientsInFire(values)
-                  .then((res) => {
-                    this.handleResponse(res);
+                  .then((response) => {
+                    this.handleResponse(response);
                   })
                   .catch(() => {
                   // handle
                   });
               }}
-              render={form => Form(form)}
-            />
-            {/* <Formik
-              initialValues={{ email: '', password: '', agreeToTerms: false }}
-              onSubmit={(values, actions) => {
-                alert(JSON.stringify(values));
-                setTimeout(() => {
-                  actions.setSubmitting(false);
-                }, 1000);
-              }}
-              validationSchema={validationSchema}
+              // render={form => Form(form)}
             >
-              {formikProps => (
-                <React.Fragment>
-                  <TextInput
-                    label='Email'
-                    // value={this.state.text}
-                    // value="some value"
-                    onChangeText={text => this.setState({ text })}
-                  />
-                    <StyledInput
-                    label="Email"
-                    formikProps={formikProps}
-                    formikKey="email"
-                    placeholder="johndoe@example.com"
-                    autoFocus
-                  />
+            {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+                setFieldValue,
+                setFieldTouched
+                /* and other goodies */
+              }) => (
+                <ScrollView>
+                  <View style={localStyles.TextInputContainer}>
+                    <Ionicons name="md-person" size={32} color="green" style={localStyles.leftIcons} />
+                    <TextInput
+                      style={localStyles.rightTextInputs}
+                      onChangeText={value => setFieldValue('patientName', value)}
+                      value={values.patientName}
+                      label="Patient Name"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Patient Name"
+                      error={touched.patientName && errors.patientName ? errors.patientName : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <Ionicons name="md-person" size={32} color="green" style={localStyles.leftIcons} />
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('patientDiagnosis', value)}
+                      value={values.patientDiagnosis}
+                      label="Patient Diagnosis"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Patient Diagnosis"
+                      numberOfLines={6}
+                      error={touched.patientDiagnosis && errors.patientDiagnosis ? errors.patientDiagnosis : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <Ionicons name="md-person" size={32} color="green" style={localStyles.leftIcons} />
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('fees', value)}
+                      value={values.fees}
+                      label="Fees"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Fees"
+                      error={touched.fees && errors.fees ? errors.fees : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('age', value)}
+                      value={values.age}
+                      label="Age"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Age"
+                      error={touched.age && errors.age ? errors.age : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('gender', value)}
+                      value={values.gender}
+                      label="Gender"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Gender"
+                      error={touched.gender && errors.gender ? errors.gender : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('mobile', value)}
+                      value={values.mobile}
+                      label="Mobile"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Mobile"
+                      error={touched.mobile && errors.mobile ? errors.mobile : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('address', value)}
+                      value={values.name}
+                      label="Address"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Address"
+                      numberOfLines={6}
+                      error={touched.name && errors.name ? errors.name : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('city', value)}
+                      value={values.city}
+                      label="City"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="City"
+                      error={touched.city && errors.city ? errors.city : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('weight', value)}
+                      value={values.weight}
+                      label="Weight"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Weight"
+                      error={touched.weight && errors.weight ? errors.weight : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('bodyTemperature', value)}
+                      value={values.bodyTemperature}
+                      label="Body Temperature"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Body Temperature"
+                      error={touched.bodyTemperature && errors.bodyTemperature ? errors.bodyTemperature : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}                    
+                      onChangeText={value => setFieldValue('bloodPressure', value)}
+                      value={values.bloodPressure}
+                      label="Blood Pressure"
+                      // onBlur={() => setFieldTouched('name')}
+                      placeholder="Blood Pressure"
+                      error={touched.bloodPressure && errors.bloodPressure ? errors.bloodPressure : undefined}
+                    />
+                  </View>
 
-                  <StyledInput
-                    label="Password"
-                    formikProps={formikProps}
-                    formikKey="password"
-                    placeholder="password"
-                    secureTextEntry
-                  />
 
-                  <StyledSwitch
-                    label="Agree to Terms"
-                    formikKey="agreeToTerms"
-                    formikProps={formikProps}
-                  />
-
-                  {formikProps.isSubmitting ? (
+                  {isSubmitting ? (
                     <ActivityIndicator />
                   ) : (
-                    <Button title="Submit" onPress={formikProps.handleSubmit} />
+                    <Button title="Submit" onPress={handleSubmit} />
                   )}
-                </React.Fragment>
+                </ScrollView>
               )}
-            </Formik> */}
+            </Formik>
           </View>
         </ScrollView>
       </View>
     );
   }
 }
+
+const localStyles=StyleSheet.create({
+  TextInputContainer: {
+    paddingBottom:10,
+    flexDirection:'row'
+  },
+  searchIcon: {
+    padding: 10,
+  },
+  leftIcons: {
+    flex:1, 
+    justifyContent: 'center',
+    alignItems: 'center', 
+    textAlign: 'center', 
+    textAlignVertical: "center"
+  },
+  rightTextInputs: {
+    flex:7
+  }
+});
 
 const mapStateToProps = state => ({
   user: state.user
