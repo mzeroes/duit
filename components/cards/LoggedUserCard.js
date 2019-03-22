@@ -7,7 +7,7 @@ import { onPressLogoutAsync } from 'utils';
 
 const LoggedUser = (props) => {
   const { user } = props;
-  if (!(user || user.providerData[0])) return <View />;
+  if (!user) return <View />;
   return (
     <Card
       // elevation={1}

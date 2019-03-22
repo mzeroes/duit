@@ -5,7 +5,7 @@ import { TextInput, TouchableRipple, Button } from 'react-native-paper';
 import { styles } from 'theme';
 import { Formik } from 'formik';
 import { object as yupObject, string as yupString, boolean as yupBoolean } from 'yup';
-// import Form from 'components/forms/Form';
+import Form from 'components/forms/Form';
 import { storePatientsInFire } from 'api/user';
 import { connect } from 'react-redux';
 import TopHeader from 'components/bars/TopHeader';

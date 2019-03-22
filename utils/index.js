@@ -13,8 +13,8 @@ export const onPressLogoutAsync = async () => {
   try {
     await resetTokenInStore();
     await signOutUser();
-    store.dispatch(updateUser({}));
-    store.dispatch(updateloginStatus(false));
+    await store.dispatch(updateUser({}));
+    await store.dispatch(updateloginStatus(false));
     NavigationService.navigate('Loading');
   } catch (err) {
     console.log(err);
