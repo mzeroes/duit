@@ -9,7 +9,6 @@ export const resetTokenInStore = async () => {
 };
 
 export const getPatientsFromFire = async () => {
-  // firebase.database().ref(`users/${user.uid}`).get('data');
   let results;
   // const user = await store.getState().user;
   const user = firebase.auth().currentUser;
@@ -23,16 +22,18 @@ export const getPatientsFromFire = async () => {
   const processUsers = (usr) => {
     console.log(`***date: ${!(typeof usr.dateTime === 'undefined' || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
 
+    // console.log(`***date: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}`);
+    
     let dt = '';
     if (!(typeof usr.dateTime === 'undefined' || !usr.dateTime)) {
       dt = new Date(usr.dateTime);
 
-      console.log(`Moment date: ${moment(dt).format('DD MMM YYYY h:mm:ss a')}`);
-      console.log(usr.dateTime);
-      console.log(new Date(usr.dateTime).toLocaleTimeString('en-IN'));
+      // console.log(`Moment date: ${moment(dt).format("DD MMM YYYY h:mm:ss a")}`);
+      // console.log(usr.dateTime);
+      // console.log(new Date(usr.dateTime).toLocaleTimeString('en-IN'));
     }
-    console.log(`***time: ${!(typeof usr.dateTime === 'undefined' || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : ''}`);
-    const obj = {
+    // console.log(`***time: ${!(typeof usr.dateTime === "undefined" || !usr.dateTime) ? new Date(usr.dateTime).toLocaleTimeString('en-IN') : ''}`);
+    obj ={
       Name: usr.name,
       Age: usr.age,
       Email: usr.email,
@@ -93,8 +94,8 @@ export const storePatientsInFire = async (data) => {
     ...dateTime
   }).then((res) => {
     // success callback
-    console.log('data ', res);
-    console.log('^^^^^', res.key);
+    // console.log('data ', res);
+    // console.log('^^^^^', res.key);
   })
     .then((res) => {
       console.log('data', res);

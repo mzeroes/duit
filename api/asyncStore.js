@@ -8,7 +8,7 @@ export const getStoredToken = async () => {
 
 export const getStoredItem = async (ITEM_NAME) => {
   const ITEM = await AsyncStorage.getItem(ITEM_NAME);
-  console.log(`Log: ITEM: ${ITEM}`);
+  // console.log(`Log: ITEM: ${ITEM}`);
   return ITEM;
 };
 
@@ -26,7 +26,7 @@ export const storeTokenInStore = async (tokenData) => {
     await AsyncStorage.setItem('userTokenType', tokenData.type);
     return 'success';
   } catch (err) {
-    console.warn(err);
+    // console.warn(err);
     throw err;
   }
 };

@@ -12,11 +12,11 @@ export const handleUrl = (url) => {
 export const onPressLogoutAsync = async () => {
   try {
     await resetTokenInStore();
-    await signOutUser();
     await store.dispatch(updateUser({}));
     await store.dispatch(updateloginStatus(false));
+    await signOutUser();
     NavigationService.navigate('Loading');
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
