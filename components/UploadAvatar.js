@@ -121,24 +121,31 @@ export default class UploadAvatar extends Component {
   render() {
     const { image } = this.state;
     return (
-      <View style={[localstyles.container, { backgroundColor: Theme.background }]}>
+      <View style={[{ justifyContent: 'center', alignItems: 'center', paddingBottom:10}]}>
         { image !== '' ? (
           <Avatar.Image
+            style={{alignSelf:'center'}}
             source={{ uri: image }}
           />
 
         ) : (
+          <View>
           <TouchableOpacity
             onPress={() => {
               const { visible } = this.state;
               this.setState({ visible: !visible });
             }}
           >
-            <Avatar.Icon
-              icon="add-a-photo"
-              size={60}
-            />
+          <Avatar.Icon
+            style={{alignSelf:'center'}}
+            icon="add-a-photo"
+            size={60}
+          />
           </TouchableOpacity>
+          <Text>
+            Upload patient's photo
+          </Text>
+          </View>
         )
         }
         { image !== '' ? (
@@ -181,7 +188,7 @@ export default class UploadAvatar extends Component {
                   size={60}
                 >
                 </Avatar.Icon>
-                <Text> Add from Gallary</Text>
+                <Text> Add from Camera</Text>
 
               </TouchableOpacity>
               <TouchableOpacity
@@ -193,7 +200,7 @@ export default class UploadAvatar extends Component {
                   size={60}
                 >
                 </Avatar.Icon>
-                <Text> Add from Gallary</Text>
+                <Text> Add from Gallery</Text>
               </TouchableOpacity>
             </Modal>
           </Portal>
