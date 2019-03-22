@@ -85,8 +85,10 @@ export const storePatientsInFire = async (data) => {
   //     console.warn('error ', error);
   //   });
   // const user = await store.getState().user;
-  const user = firebase.auth().currentUser;
-  await firebase.database().ref(`doctors/${user.uid}`).set({
+  // const user = await firebase.auth().currentUser;
+  // await firebase.database().ref(`doctors/${user.uid}`).set({
+  const user = await store.getState().user;
+  await firebase.database().ref(`doctors/${user.uid}`).push({
     ...data,
     ...dateTime
   }).then((res) => {
