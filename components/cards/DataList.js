@@ -18,8 +18,8 @@ const DataList = props => (
       renderItem={({ item }) => <DataCard data={item} />}
       // eslint-disable-next-line no-unused-vars
       keyExtractor={(item, index) => index.toString()}
-      ListHeaderComponent={() => (!props.data? 
-        <Text style={styles.emptyMessageStyle}>No patients records yet.</Text>  
+      ListHeaderComponent={() => (!props.data || props.data.length==0? 
+        <Text style={styles.emptyMessageStyle}>No patients records yet.</Text>
         : null)
       }
     />

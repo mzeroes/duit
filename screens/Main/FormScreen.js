@@ -1,15 +1,16 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { View, ScrollView, ActivityIndicator, Text, Switch, TouchableOpacity, StyleSheet, Icon } from 'react-native';
-import { TextInput, TouchableRipple, Button } from 'react-native-paper';
+import { TextInput, RadioButton, TouchableRipple, Button } from 'react-native-paper';
 import { styles, Theme } from 'theme';
-import { Formik } from 'formik';
-import { object as yupObject, string as yupString, boolean as yupBoolean } from 'yup';
+import { Formik, RadioInput } from 'formik';
+import { object as yupObject, string as yupString, boolean as yupBoolean, number as yupNumber } from 'yup';
 import Form from 'components/forms/Form';
 import { storePatientsInFire } from 'api/user';
 import { connect } from 'react-redux';
 import TopHeader from 'components/bars/TopHeader';
 import UploadAvatar from '../../components/UploadAvatar';
+import { Ionicons } from '@expo/vector-icons';
 
 const StyledInput = ({ label, formikProps, formikKey, ...rest }) => {
   const inputStyles = {
@@ -108,19 +109,20 @@ class FormScreen extends React.Component {
                   .min(2, 'Too Short!')
                   .max(50, 'Too Long!')
                   .required('Required'),
-                // // TODO VALIDATION...
-                // age: yupString()
-                //   .max(2, 'Too Long!'),
-                // // .required('Required'),
-                // email: yupString()
-                //   .email('Email is invalid'),
-                // // .required('Required'),
-                // phone: yupString()
-                // // .phone('Phone is invalid')
-                //   .matches(phoneRegExp, 'Phone number is not valid')
-                //   .required('Required'),
-              // problem: yupString()
-              // .required('Required')
+                patientDiagnosis: yupString()
+                  .required('Required'),
+                fees: yupNumber()
+                  .required('Required')
+                  .positive()
+                  .integer(),
+                age: yupNumber()
+                  .positive()
+                  .max(120),
+                email: yupString()
+                  .email('Email is invalid'),
+                mobile: yupString()
+                  .matches(phoneRegExp, 'Mobile number is not valid')
+                  .required('Required'),
               })}
               onSubmit={(values, { setSubmitting }) => {
                 console.log("onSubmit called *****")
@@ -144,12 +146,13 @@ class FormScreen extends React.Component {
                 handleSubmit,
                 isSubmitting,
                 setFieldValue,
-                setFieldTouched
+                setFieldTouched,
+                setTouched
                 /* and other goodies */
               }) => (
                 <ScrollView>
                   <View style={localStyles.TextInputContainer}>
-                    <Icon name="md-person" size={32} color="green" style={localStyles.leftIcons} />
+                    <Ionicons name="md-person" size={32} color="green" style={localStyles.leftIcons} />
                     <TextInput
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('patientName', value)}
@@ -162,14 +165,14 @@ class FormScreen extends React.Component {
                       }
                     />
                   </View>
-                  {/* <View style={localStyles.TextInputContainer}>
+                  <View style={localStyles.TextInputContainer}>
                     <Ionicons name="ios-add" size={32} color="green" style={localStyles.leftIcons} />
                     <TextInput
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('patientDiagnosis', value)}
                       value={values.patientDiagnosis}
                       label="Patient Diagnosis"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('patientDiagnosis')}
                       placeholder="Patient Diagnosis"
                       numberOfLines={6}
                       error={touched.patientDiagnosis
@@ -177,14 +180,15 @@ class FormScreen extends React.Component {
                     />
                   </View>
                   <View style={localStyles.TextInputContainer}>
-                    <Icon name="md-person" size={32} color="green" style={localStyles.leftIcons} />
+                    <Ionicons name="md-person" size={32} color="green" style={localStyles.leftIcons} />
                     <TextInput
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('fees', value)}
                       value={values.fees}
                       label="Fees"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('fees')}
                       placeholder="Fees"
+                      keyboardType="number-pad"
                       error={touched.fees && errors.fees ? errors.fees : undefined}
                     />
                   </View>
@@ -194,18 +198,52 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('age', value)}
                       value={values.age}
                       label="Age"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('age')}
                       placeholder="Age"
+                      keyboardType="number-pad"
                       error={touched.age && errors.age ? errors.age : undefined}
                     />
                   </View>
                   <View style={localStyles.TextInputContainer}>
+                    {/* <RadioButton
+                      value="first"
+                      // status={checked === 'first' ? 'checked' : 'unchecked'}
+                      onPress={() => { this.setState({ checked: 'first' }); }}
+                    />
+                    <RadioInput
+                      value="second"
+                      // status={checked === 'second' ? 'checked' : 'unchecked'}
+                      onPress={() => { this.setState({ checked: 'second' }); }}
+                    /> */}
+                     {/* <RadioInput
+                        id="blue"
+                        value={values.color}
+                        name="color"
+                        checked={values.color === 'blue'}
+                        label="Blue"
+                        onBlur={handleBlur}
+                        onChange={() => {
+                          setFieldValue('color', 'blue')
+                        }}
+                      />
+
+                      <RadioInput
+                        id="red"
+                        value={values.color}
+                        name="color"
+                        checked={values.color === 'red'}
+                        label="Red"
+                        onBlur={handleBlur}
+                        onChange={() => {
+                          setFieldValue('color', 'red')
+                        }}
+                      /> */}
                     <TextInput
                       style={localStyles.rightTextInputs}
                       onChangeText={value => setFieldValue('gender', value)}
                       value={values.gender}
                       label="Gender"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('gender')}
                       placeholder="Gender"
                       error={touched.gender && errors.gender ? errors.gender : undefined}
                     />
@@ -216,9 +254,20 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('mobile', value)}
                       value={values.mobile}
                       label="Mobile"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('mobile')}
                       placeholder="Mobile"
                       error={touched.mobile && errors.mobile ? errors.mobile : undefined}
+                    />
+                  </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}
+                      onChangeText={value => setFieldValue('email', value)}
+                      value={values.email}
+                      label="Email"
+                        onBlur={() => setFieldTouched('email')}
+                      placeholder="Email"
+                      error={touched.email && errors.email ? errors.email : undefined}
                     />
                   </View>
                   <View style={localStyles.TextInputContainer}>
@@ -227,7 +276,7 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('address', value)}
                       value={values.name}
                       label="Address"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('address')}
                       placeholder="Address"
                       numberOfLines={6}
                       error={touched.name && errors.name ? errors.name : undefined}
@@ -239,7 +288,7 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('city', value)}
                       value={values.city}
                       label="City"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('city')}
                       placeholder="City"
                       error={touched.city && errors.city ? errors.city : undefined}
                     />
@@ -250,7 +299,7 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('weight', value)}
                       value={values.weight}
                       label="Weight"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('weight')}
                       placeholder="Weight"
                       error={touched.weight && errors.weight ? errors.weight : undefined}
                     />
@@ -261,7 +310,7 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('bodyTemperature', value)}
                       value={values.bodyTemperature}
                       label="Body Temperature"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('bodyTemperature')}
                       placeholder="Body Temperature"
                       error={touched.bodyTemperature
                         && errors.bodyTemperature ? errors.bodyTemperature : undefined}
@@ -273,27 +322,26 @@ class FormScreen extends React.Component {
                       onChangeText={value => setFieldValue('bloodPressure', value)}
                       value={values.bloodPressure}
                       label="Blood Pressure"
-                        // onBlur={() => setFieldTouched('name')}
+                        onBlur={() => setFieldTouched('bloodPressure')}
                       placeholder="Blood Pressure"
                       error={touched.bloodPressure
                               && errors.bloodPressure ? errors.bloodPressure : undefined}
                     />
-                  </View> */}
-                  <Text style={styles.errorText}>
+                  </View>
+                  <Text style={[styles.errorText, {alignSelf:"flex-start"}]}>
                     {/* {JSON.stringify(touched)}
                     {JSON.stringify(errors)} */}
                     {/* {touched.problem && errors.problem ? errors.problem : undefined} */}
                     {
                       Object.keys(errors).map((key, index) => ( 
-                      // this is my key {key} and this is my value {errors[key]}
-                      `${key} : ${errors[key]}`
+                      `${key} : ${errors[key]}\n`
                       ))
                     }
                   </Text>
 
                   <TouchableOpacity
-                    onPress={() => {
-                      setFieldTouched('patientName');
+                    onPress={async () => {
+                      await setTouched(["patientName ", "patientDiagnosis"]);
                       handleSubmit();
                     }}
                     activeOpacity={0.6}
