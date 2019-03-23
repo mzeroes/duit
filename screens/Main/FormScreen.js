@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { View, ScrollView, ActivityIndicator, Text, Switch, TouchableOpacity, StyleSheet, Icon } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Text, Switch, TouchableOpacity, StyleSheet, Icon, KeyboardAvoidingView } from 'react-native';
 import { TextInput, RadioButton, TouchableRipple, Button } from 'react-native-paper';
 import { styles, Theme } from 'theme';
 import { Formik, RadioInput } from 'formik';
@@ -93,6 +93,7 @@ class FormScreen extends React.Component {
     // console.log(this);
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
+      <KeyboardAvoidingView>
       <View style={styles.container}>
         <TopHeader navigation={this.props.navigation} />
         <ScrollView>
@@ -100,6 +101,7 @@ class FormScreen extends React.Component {
             <UploadAvatar
               getImage={(image) => {
                 console.log(`Uploaded Image URI :: ${image}`);
+                setFieldValue('patientImage', image)
               }}
             />
             <Formik
@@ -175,6 +177,7 @@ class FormScreen extends React.Component {
                         onBlur={() => setFieldTouched('patientDiagnosis')}
                       placeholder="Patient Diagnosis"
                       numberOfLines={6}
+                      multiline = {true}
                       error={touched.patientDiagnosis
                               && errors.patientDiagnosis ? errors.patientDiagnosis : undefined}
                     />
@@ -256,6 +259,7 @@ class FormScreen extends React.Component {
                       label="Mobile"
                         onBlur={() => setFieldTouched('mobile')}
                       placeholder="Mobile"
+                      keyboardType="phone-pad"
                       error={touched.mobile && errors.mobile ? errors.mobile : undefined}
                     />
                   </View>
@@ -267,6 +271,7 @@ class FormScreen extends React.Component {
                       label="Email"
                         onBlur={() => setFieldTouched('email')}
                       placeholder="Email"
+                      autoCapitalize="none"
                       error={touched.email && errors.email ? errors.email : undefined}
                     />
                   </View>
@@ -279,6 +284,7 @@ class FormScreen extends React.Component {
                         onBlur={() => setFieldTouched('address')}
                       placeholder="Address"
                       numberOfLines={6}
+                      multiline = {true}
                       error={touched.name && errors.name ? errors.name : undefined}
                     />
                   </View>
@@ -328,6 +334,18 @@ class FormScreen extends React.Component {
                               && errors.bloodPressure ? errors.bloodPressure : undefined}
                     />
                   </View>
+                  <View style={localStyles.TextInputContainer}>
+                    <TextInput
+                      style={localStyles.rightTextInputs}
+                      onChangeText={value => setFieldValue('normalOrEmergency', value)}
+                      value={values.bloodPressure}
+                      label="Normal Or Emergency?"
+                        onBlur={() => setFieldTouched('normalOrEmergency')}
+                      placeholder="Normal Or Emergency?"
+                      error={touched.normalOrEmergency
+                              && errors.normalOrEmergency ? errors.normalOrEmergency : undefined}
+                    />
+                  </View>
                   <Text style={[styles.errorText, {alignSelf:"flex-start"}]}>
                     {/* {JSON.stringify(touched)}
                     {JSON.stringify(errors)} */}
@@ -373,6 +391,7 @@ class FormScreen extends React.Component {
           </View>
         </ScrollView>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 }
