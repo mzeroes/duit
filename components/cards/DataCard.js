@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Theme } from 'theme';
 import { Subheading, Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper';
+import { callNumber } from 'utils/libraryFunctions';
 
 // const SectionHeader = ({ title }) => (
 //   <View style={styles.sectionHeaderContainer}>
@@ -34,17 +35,7 @@ export default class DataCard extends React.Component {
     // else{
     //   avatar = <Avatar.Text {...props} label={data.initials} />
     // }
-   
-    const callNumber = (url) =>{
-      Linking.canOpenURL(url).then(supported => {
-      if (!supported) {
-       console.log('Can\'t handle url: ' + url);
-      } else {
-       return Linking.openURL(url);
-      }
-    }).catch(err => console.error('An error occurred', err));
-   }
-   
+     
     return (
       <View style={styles.container}>
         <Card
@@ -97,10 +88,10 @@ export default class DataCard extends React.Component {
                 numberOfLines={1}
                 style={{ fontSize: 12 }}
               >
-                <Text onPress={()=> this.callNumber(`tel:${data.mobile}`)}
-                  style = {[styles.value,{marginLeft : 5,textDecorationLine :'underline'}]}>{`+91 ${data.mobile}`}
+                <Text onPress={()=> callNumber(`tel:${data.mobile}`)}
+                  style = {[styles.value,{marginLeft : 5,textDecorationLine :'underline'}]}>{`${data.mobile}`}
                 </Text>
-                {data.mobile !== undefined ? `${data.mobile} ` : ''}
+                {/* {data.mobile !== undefined ? `${data.mobile} ` : ''} */}
               </Subheading>
               {/* <Subheading style={{ fontSize: 12 }}>
               </Subheading> */}
@@ -133,7 +124,7 @@ export default class DataCard extends React.Component {
               {/* <Subheading style={{ fontSize: 10 }}>
               </Subheading> */}
               <Subheading style={{ fontSize: 10 }}>
-                {data.Time} time
+                {data.time} {data.date}
               </Subheading>
             </View>
           </Card.Content>
