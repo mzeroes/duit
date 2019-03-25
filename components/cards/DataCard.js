@@ -128,16 +128,10 @@ export default class DataCard extends React.Component {
               </Subheading>
             </View>
           </Card.Content>
-      
-          {/* <Card.Actions>
-            <Button>Cancel</Button>
-            <Button>Ok</Button>
-          </Card.Actions> */}
-          {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
-          {/* <Card.Actions>
-            <Button>Cancel</Button>
-            <Button>Ok</Button>
-          </Card.Actions> */}
+          <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>
+            <Button>Attended</Button>
+            <Button>Edit</Button>
+          </Card.Actions>
         </Card>
       </View>
     );
