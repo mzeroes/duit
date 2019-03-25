@@ -15,10 +15,10 @@ import LogoutCard from 'components/cards/LogoutCard';
 import FormScreen from '../screens/Main/FormScreen';
 import ExploreStack from './ExploreStack';
 
-const ExploreNav = ExploreStack;
-ExploreNav.navigationOptions = {
-  drawerLabel: 'Home',
-};
+// const ExploreNav = ExploreStack;
+// ExploreNav.navigationOptions = {
+//   drawerLabel: 'Appointment List',
+// };
 
 const DrawerContent = props => (
   <View style={{ flex: 1, backgroundColor: Theme.grey }}>
@@ -32,8 +32,8 @@ const DrawerContent = props => (
 
 const MainDrawNavigator = createDrawerNavigator(
   {
-    Home: ExploreNav,
-    Appointment: FormScreen,
+    "Home something": ExploreStack,
+    Appointmentttt: FormScreen,
   },
   {
     contentComponent: DrawerContent,
