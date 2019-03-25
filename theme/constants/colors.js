@@ -1,5 +1,5 @@
 export const Theme = {
-  accent: '#EAEB5E',
+  accent: '#00ff0d',
   activeTintColor: '#6f8ca9',
   inactiveTintColor: '#8f8f8f',
   backdrop: '#22222288',
@@ -19,7 +19,7 @@ export const Theme = {
   grey: '#E2E2E2',
   headingtext: '#6f8ca9',
   highlightedText: '#242b2b',
-  infoText: '#6f8ca9',
+  infoText: '#8f8f8f',
   lightBG: '#F2F2F2',
   lightgrey: '#F2F2F2',
   link: '#ee5f5b',

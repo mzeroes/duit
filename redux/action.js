@@ -1,6 +1,6 @@
 // action types
 export const UPDATE_USER = 'UPDATE_USER';
-export const UPDATE_CONTACT = 'UPDATE_CONTACT';
+export const UPDATE_DATA = 'UPDATE_DATA';
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 export const UPDATE_LOGINSTATUS = 'UPDATE_LOGINSTATUS';
 
@@ -10,9 +10,9 @@ export const updateUser = update => ({
   payload: update
 });
 
-export const addContacts = newContact => ({
-  type: UPDATE_CONTACT,
-  payload: newContact
+export const updateData = update => ({
+  type: UPDATE_DATA,
+  payload: update
 });
 
 export const updateSettings = update => ({

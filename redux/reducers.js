@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import {
-  UPDATE_CONTACT,
+  UPDATE_DATA,
   UPDATE_USER,
   UPDATE_SETTINGS,
   UPDATE_LOGINSTATUS
 } from './action';
 
-const contactsReducer = (state = [], action) => {
-  if (action.type === UPDATE_CONTACT) return [...state, action.payload];
+const dataReducer = (state = [], action) => {
+  if (action.type === UPDATE_DATA) return [...action.payload];
   return state;
 };
 
@@ -37,7 +37,7 @@ const userReducer = (state = {}, action) => {
 const rootReducer = combineReducers({
   user: userReducer,
   isLoggedIn: isLoggedInReducer,
-  contacts: contactsReducer,
+  data: dataReducer,
   settings: settingsReducer
 });
 

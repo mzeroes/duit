@@ -15,11 +15,11 @@ const DataList = props => (
     )} */}
     <FlatList
       {...props}
-      renderItem={({ item }) => <DataCard data={item} />}
+      renderItem={({ item }) => <DataCard data={item} navigation={props.navigation} />}
       // eslint-disable-next-line no-unused-vars
       keyExtractor={(item, index) => index.toString()}
-      ListHeaderComponent={() => (!props.data || props.data.length==0? 
-        <Text style={styles.emptyMessageStyle}>No patients records yet.</Text>
+      ListHeaderComponent={() => (!props.data || props.data.length === 0
+        ? <Text style={styles.emptyMessageStyle}>No patients records yet.</Text>
         : null)
       }
     />
@@ -28,13 +28,13 @@ const DataList = props => (
 
 const styles = StyleSheet.create({
   container: {
-    flex:1
+    flex: 1
   },
   emptyMessageStyle: {
     textAlign: 'center',
-    //My current hack to center it vertically
-    //Which does not work as expected
-    marginTop: '50%', 
+    // My current hack to center it vertically
+    // Which does not work as expected
+    marginTop: '50%',
   }
 });
 

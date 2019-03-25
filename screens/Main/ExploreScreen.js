@@ -26,7 +26,6 @@ class ExploreScreen extends React.Component {
 
   state = {
     isLoadingComplete: false,
-    data: '',
     isFetching: false,
   };
 
@@ -36,9 +35,7 @@ class ExploreScreen extends React.Component {
   }
 
   loadResourcesAsync = async () => {
-    console.warn("About to call getPatientsFromFire")
-    const data = await getPatientsFromFire();
-    this.setState({ data });
+    await getPatientsFromFire();
     this.setState({ isFetching: false });
   };
 
@@ -50,34 +47,38 @@ class ExploreScreen extends React.Component {
     this.setState({ isLoadingComplete: true });
   };
 
+  async componentWillMount() {
+    try {
+      await this.loadResourcesAsync();
+    } catch (err) {
+      await this.handleLoadingError(err);
+    } finally {
+      await this.handleFinishLoading();
+    }
+  }
+
   render() {
     if (!this.state.isLoadingComplete) {
       return (
         <View style={{ flex: 1, justifyContent: 'center' }}>
-          <AppLoading
-            startAsync={this.loadResourcesAsync}
-            onError={this.handleLoadingError}
-            onFinish={this.handleFinishLoading}
-          />
           <ActivityIndicator />
         </View>
       );
     } else {
-      const { data } = this.state;
-      const { navigation } = this.props;
-      // if (!data){
-      //   return(
-      //     <View style={{ justifyContent:"center", alignItems:"center" }}>
-      //       <Text>No appointments yet.</Text>
-      //     </View>
-      //   )
-      // }
+      // const { data } = this.state;
+      const { data, navigation } = this.props;
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
-          <TopSearchBar data={data} navigation={navigation} />          
+          <TopSearchBar data={data} navigation={navigation} />
+          {/* <Text>
+            {
+            JSON.stringify(data)
+            }
+          </Text> */}
           <DataList
             data={data}
-              // inverted
+            navigation={navigation}
+            // inverted
             onRefresh={() => this.onRefresh()}
             refreshing={this.state.isFetching}
           />
@@ -105,7 +106,7 @@ const FabComponent = props => (
 );
 
 const mapStateToProps = state => ({
-  user: state.user
+  data: state.data
 });
 
 export default connect(mapStateToProps)(ExploreScreen);

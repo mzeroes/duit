@@ -4,13 +4,15 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 
+import DetailsScreen from 'screens/Main/DetailScreen';
 import TabBarIcon from '../components/icons/TabBarIcon';
 import ExploreScreen from '../screens/Main/ExploreScreen';
 import SearchScreen from '../screens/Main/SearchScreen';
 
 const ExploreStack = createStackNavigator({
   Explore: ExploreScreen,
-  Search: SearchScreen
+  Search: SearchScreen,
+  Details: DetailsScreen
 });
 
 ExploreStack.navigationOptions = {

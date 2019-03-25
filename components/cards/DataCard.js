@@ -1,152 +1,96 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, ListView } from 'react-native';
 import { Theme } from 'theme';
 import { Subheading, Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-
-// const SectionHeader = ({ title }) => (
-//   <View style={styles.sectionHeaderContainer}>
-//     <Text style={styles.sectionHeaderText}>{title}</Text>
-//   </View>
-// );
-
-// const SectionContent = props => (
-//   <View style={styles.sectionContentContainer}>{props.children}</View>
-// );
+import { Icon } from 'react-native-elements';
 
 export default class DataCard extends React.Component {
-  // renderRow = ({ item }) => (
-  //   <SectionContent>
-  //     <Text style={styles.sectionContentText}>{item.value}</Text>
-  //   </SectionContent>
-  // );
-  state={
-    isSelected: false
-  }
-
   render() {
-    const { data } = this.props;
-    // const dateTime = `${data.Date} ${data.Time} `;
-
-    // let avatar;
-    // if(data.patientImage !== undefined && data.patientImage.length>10){
-    //   avatar = <Avatar.Image {...props} source={require(data.patientImage)} />
-    // }
-    // else{
-    //   avatar = <Avatar.Text {...props} label={data.initials} />
-    // }
-
+    const { data, navigation } = this.props;
     return (
       <View style={styles.container}>
         <Card
-          elevation={1}
-        //   onLongPress={
-        //   () => {
-        //     const { isSelected } = this.state;
-        //     this.setState({ isSelected: !isSelected });
-        //   }
-
-        // }
+          elevation={2}
+          onPress={() => {
+            navigation.navigate('Details', { data });
+          }
+        }
           style={{
             borderBottomWidth: 1,
-            borderBottomColor: '#ccc',
+            borderBottomColor: '#AAA',
             backgroundColor: Theme.background
           }}
         >
-          {/* <Card.Title
-            title={data.Name}
-            subtitle={dateTime}
-            // left={
-            //   props => <Avatar.Icon {...props} icon={{ uri: 'https://avatars0.githubusercontent.com/u/17571969?v=3&s=400' }} />
-            // }
-          /> */}
-          <Card.Title title={data.patientName} subtitle={data.ago} left={props => <Avatar.Text {...props} label={data.initials} />} />
-          <Card.Content>
+          <Card.Title
+            title={data.patientName}
+            subtitle={data.ago}
+            left={props => <Avatar.Text {...props} label={data.initials} />}
+          />
+          <Card.Content style={{
+          }}
+          >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ color: Theme.darkText, fontSize: 16 }}>
-              {data.age !== undefined ? `${data.age} yrs . ` : ''} 
-              {data.gender !== undefined ? `${data.gender} • ` : ''} 
+              <Subheading style={{ color: Theme.infoText, fontSize: 14 }}>
+                {data.age !== undefined ? `${data.age} yrs \u2022 ` : ''}
+                {data.gender !== undefined ? `${data.gender}` : ''}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-                {data.Date}
-                {' '} subheading2
-                {data.Time}
+                {data.date}
+                {data.time}
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              >phone
-                {data.Phone}
+                style={{ color: Theme.infoText, fontSize: 12 }}
+              >
+                {data.mobile && data.mobile}
                 {'  |  '}
-                {data.Email}
+                {data.email && data.email}
               </Subheading>
-              {/* <Subheading style={{ fontSize: 12 }}>
-              </Subheading> */}
             </View>
-            <Paragraph
-              numberOfLines={this.state.isSelected ? 6 : 3}
-              ellipsizeMode="tail"
-              style={{ color: Theme.text, fontSize: 14, paddingRight: 60 }}
-            >problem
-              {data.Problem}
-            </Paragraph>
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignContent: 'center'
+            }}
+            >
+              <Text style={{ flex: 1, flexWrap: 'wrap', paddingRight: 40 }}>
+                {
+                    JSON.stringify(data)
+                }
+              </Text>
+              <Card.Actions style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                <Icon name="md-call" type="ionicon" iconStyle={{ padding: 10 }} />
+                <Icon name="md-text" type="ionicon" iconStyle={{ padding: 10 }} />
+                <Icon name="add-to-list" type="entypo" iconStyle={{ padding: 10 }} />
+                {/* <Button>Message</Button> */}
+              </Card.Actions>
+            </View>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              {/* <Subheading style={{ fontSize: 10 }}>
-              </Subheading> */}
+
               <Subheading style={{ fontSize: 10 }}>
-                {data.Time} time
+                {data.ago}
               </Subheading>
             </View>
           </Card.Content>
-      
-          <Card.Actions>
-            <Button>Cancel</Button>
-            <Button>Ok</Button>
+          <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>
+            <Button>Visits</Button>
+            <Button>Payments</Button>
+            <Button>Documents</Button>
+            <Icon name="md-more" type="ionicon" iconStyle={{ padding: 10 }} />
           </Card.Actions>
-          {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
-          {/* <Card.Actions>
-            <Button>Cancel</Button>
-            <Button>Ok</Button>
-          </Card.Actions> */}
         </Card>
       </View>
     );
   }
 }
 
-// export const DataCard = (props) => {
-//   const { data } = props;
-//   if (!data) return <View />;
-//   return (
-//     <View style={styles.titleContainer}>
-//       <View style={styles.titleIconContainer}>
-//         <Text
-//           style={[styles.monoText, { alignSelf: 'center' }]}
-//           numberOfLines={1}
-//         >
-//           {data.Name && data.Name}
-//         </Text>
-//       </View>
-//       <View style={styles.titleSubContainer}>
-//         <Text style={styles.monoText}>{data.Email && data.Email}</Text>
-//         {/* <Text style={styles.monoText}>{data.Age}</Text> */}
-//       </View>
-//       {/* <Text style={styles.monoText}>{data.Problem}</Text> */}
-//     </View>
-//   );
-// };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // borderBottomWidth: 2,
-    // borderRadius: 12,
-    // borderColor: Theme.grey,
-    // flexDirection: 'row',
-    // justifyContent: 'flex-end',
-    // padding: 12,
     margin: 6,
   },
   listcontainer: {

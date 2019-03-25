@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native';
 
-import { ImagePicker, Permissions, Alert } from 'expo';
+import { ImagePicker, Permissions, Alert, Icon } from 'expo';
 import { uploadImageAsync } from 'utils/uploadPhoto';
 import { Theme, styles } from 'theme/index';
 import Layout from 'theme/constants/Layout';
@@ -121,30 +121,35 @@ export default class UploadAvatar extends Component {
   render() {
     const { image } = this.state;
     return (
-      <View style={[{ justifyContent: 'center', alignItems: 'center', paddingBottom:10}]}>
+      <View style={[{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }]}>
         { image !== '' ? (
           <Avatar.Image
-            style={{alignSelf:'center'}}
+            style={{ alignSelf: 'center' }}
             source={{ uri: image }}
           />
 
         ) : (
           <View>
-          <TouchableOpacity
-            onPress={() => {
-              const { visible } = this.state;
-              this.setState({ visible: !visible });
+            <TouchableOpacity
+              onPress={() => {
+                const { visible } = this.state;
+                this.setState({ visible: !visible });
+              }}
+            >
+              <Avatar.Icon
+                style={{ alignSelf: 'center', backgroundColor: '#ccc' }}
+                icon="photo-camera"
+                size={60}
+              />
+
+            </TouchableOpacity>
+            <Text style={{
+              paddingTop: 10,
+              color: Theme.infoText
             }}
-          >
-          <Avatar.Icon
-            style={{alignSelf:'center'}}
-            icon="add-a-photo"
-            size={60}
-          />
-          </TouchableOpacity>
-          <Text>
-            Upload patient's photo
-          </Text>
+            >
+              {'Upload patient\'s photo'}
+            </Text>
           </View>
         )
         }
@@ -172,6 +177,7 @@ export default class UploadAvatar extends Component {
                 width: '100%',
                 flexDirection: 'row',
                 justifyContent: 'space-around',
+                alignItems: 'center',
                 backgroundColor: Theme.surface }]
                 }
               onDismiss={() => {
@@ -184,11 +190,18 @@ export default class UploadAvatar extends Component {
                 style={localstyles.maybeRenderImageText}
               >
                 <Avatar.Icon
+                  style={{ alignSelf: 'center', backgroundColor: '#ccc' }}
                   icon="add-a-photo"
                   size={60}
+                />
+
+                <Text style={{
+                  paddingTop: 10,
+                  color: Theme.infoText
+                }}
                 >
-                </Avatar.Icon>
-                <Text> Add from Camera</Text>
+                  Take from Camera
+                </Text>
 
               </TouchableOpacity>
               <TouchableOpacity
@@ -196,11 +209,18 @@ export default class UploadAvatar extends Component {
                 style={localstyles.maybeRenderImageText}
               >
                 <Avatar.Icon
-                  icon="add-to-photos"
+                  style={{ alignSelf: 'center', backgroundColor: '#ccc' }}
+                  icon="file-upload"
                   size={60}
+                />
+
+                <Text style={{
+                  paddingTop: 10,
+                  color: Theme.infoText
+                }}
                 >
-                </Avatar.Icon>
-                <Text> Add from Gallery</Text>
+                  Add from Files
+                </Text>
               </TouchableOpacity>
             </Modal>
           </Portal>
