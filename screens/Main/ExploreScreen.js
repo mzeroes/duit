@@ -74,7 +74,7 @@ class ExploreScreen extends React.Component {
       // }
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
-          <TopSearchBar data={data} navigation={navigation} />          
+          <TopSearchBar data={data} navigation={navigation} />         
           <DataList
             data={data}
               // inverted

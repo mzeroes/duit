@@ -50,7 +50,7 @@ export const getPatientsFromFire = async () => {
       bloodPressure: usr.bloodPressure,
       normalOrEmergency: usr.normalOrEmergency,
       date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
-      time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
+      time: !(dt === '') ? moment(dt).format('h:mm:ssa') : '',
       ago: !(dt === '') ? moment(dt).fromNow() : '',
       initials: usr.patientName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
     };
