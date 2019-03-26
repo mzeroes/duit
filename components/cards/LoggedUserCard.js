@@ -9,7 +9,6 @@ const LoggedUserCard = (props) => {
   const { user } = props;
   if (!user || user.providerData === undefined) return <View />;
   return (
-
     <ImageBackground
       source={require('assets/images/sideimage.jpg')}
       style={{
@@ -26,8 +25,7 @@ const LoggedUserCard = (props) => {
         alignItems: 'center',
         justifyContent: 'center' }}
       >
-        {/*  usr.patientName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''), */}
-        { user.providerData[0].photoURL ? (
+        {user.providerData[0].photoURL || !user.providerData[0].displayName ? (
           <Avatar.Image
             style={{
               justifyContent: 'center',
@@ -45,7 +43,7 @@ const LoggedUserCard = (props) => {
           <Avatar.Text
             {...props}
             label={() => (
-              user.displayName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('')
+              user.providerData[0].displayName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('')
             )}
           />
         )}
@@ -53,7 +51,7 @@ const LoggedUserCard = (props) => {
           style={{ flex: 1 }}
           title={(
             <Text
-              style={[{ color: Theme.darkText, alignSelf: 'center' }]}
+              style={[{ color: Theme.darkText, alignSelf: 'center', fontSize: 20 }]}
               numberOfLines={1}
             >
               {user.providerData[0].displayName && user.providerData[0].displayName}
@@ -70,15 +68,8 @@ const LoggedUserCard = (props) => {
         />
       </View>
       <Card.Content>
-        {/* <Text
-          numberOfLines={1}
-          style={[Theme.text, {
-            alignSelf: 'flex-start'
-          }]}
-        >
-          {user.providerData[0].providerId && user.providerData[0].providerId}
-        </Text> */}
       </Card.Content>
+      <TermsLogoutCard />
     </ImageBackground>
   );
 };

@@ -26,7 +26,7 @@ import {
   boolean as yupBoolean,
   number as yupNumber
 } from 'yup';
-import { storePatientsInFire, updateDataInFirebase } from 'api/user';
+import { storePatientsInFire } from 'api/user';
 import { connect } from 'react-redux';
 import TopHeader from 'components/bars/TopHeader';
 import TextInputWithIcon from 'components/TextInputWithIcon';
@@ -43,13 +43,11 @@ class FormScreen extends React.Component {
 
   state = {
     data: null,
-    isUpdating: false,
-    key: ''
   }
 
   handleResponse = () => {
     // handleResponse
-    // this.props.navigation.state.params.onNavigateBack();
+    this.props.navigation.state.params.onNavigateBack();
     this.props.navigation.navigate('Patients List');
   };
 
@@ -58,7 +56,7 @@ class FormScreen extends React.Component {
     // const { data } = this.props.navigation.getParam('data', '');
     if (payload.action.params.data) {
       const { data } = payload.action.params;
-      this.setState({ data, isUpdating: true, key: data.key });
+      this.setState({ data });
       this.forceUpdate();
     } else {
       this.setState({ data: null });
@@ -68,7 +66,6 @@ class FormScreen extends React.Component {
 
   render() {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
     return (
       <View>
         <TopHeader
@@ -77,7 +74,7 @@ class FormScreen extends React.Component {
               : 'Set the appointment'}
           navigation={this.props.navigation}
         />
-
+        <Text>{JSON.stringify(this.state.data)}</Text>
         <NavigationEvents
           onWillFocus={payload => this.handleUpdate(payload)}
         // onDidFocus={payload => console.log('did focus', payload)}
@@ -89,18 +86,11 @@ class FormScreen extends React.Component {
           keyboardVerticalOffset={30} // Bug Due to headerBar
         >
           <Formik
-            enableReinitialize
-
             initialValues={
               this.state.data ? {
-                ...this.state.data
+                email: this.state.data.email
               }
-                : {
-                  email: '',
-                  gender: 'Male',
-                  group: 'Normal',
-                  attended: 'false'
-                }
+                : { email: '', gender: 'Male', group: 'Normal', attended: 'false' }
             }
             validationSchema={yupObject().shape({
               patientName: yupString()
@@ -122,20 +112,13 @@ class FormScreen extends React.Component {
             })}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true);
-              if (this.state.isUpdating) {
-                updateDataInFirebase({ key: this.state.key, ...values })
-                  .then(() => {
-                    this.handleResponse();
-                  }).catch(() => {});
-              } else {
-                storePatientsInFire(values)
-                  .then(() => {
-                    this.handleResponse();
-                  })
-                  .catch(() => {
+              storePatientsInFire(values)
+                .then((response) => {
+                  this.handleResponse(response);
+                })
+                .catch(() => {
                   // handle
-                  });
-              }
+                });
             }}
           >
             {({

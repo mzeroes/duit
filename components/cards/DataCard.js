@@ -31,7 +31,18 @@ export default class DataCard extends React.Component {
               return <Avatar.Text {...props} label={data.initials} />;
             }
           }
-          />
+          >
+            <Card.Actions style={{ flexDirection: 'column', justifyContent: 'center' }}>
+              <Icon
+                onPress={() => {
+                  Linking.openURL(`tel:${data.mobile}`);
+                }}
+                name="md-call"
+                type="ionicon"
+                iconStyle={{ padding: 10 }}
+              />
+            </Card.Actions>
+          </Card.Title>
           <Card.Content style={{
           }}
           >
@@ -63,40 +74,14 @@ export default class DataCard extends React.Component {
               alignContent: 'center'
             }}
             >
-              {/* <Text style={{ flex: 1, flexWrap: 'wrap', paddingRight: 40 }}>
-                {
-                  JSON.stringify(data)
-                }
-              </Text> */}
+
               <Paragraph
-                // numberOfLines={this.state.isSelected ? 6 : 3}
                 ellipsizeMode="tail"
                 style={{ color: Theme.textDark, fontSize: 14, paddingRight: 60 }}
               >
                 {data.patientDiagnosis !== undefined ? `Diagnosis: ${data.patientDiagnosis}` : ''}
               </Paragraph>
-              <Card.Actions style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                <Icon
-                  onPress={() => {
-                    Linking.openURL(`tel:${data.mobile}`);
-                  }}
-                  name="md-call"
-                  type="ionicon"
-                  iconStyle={{ padding: 10 }}
-                />
-                {/* <Icon
-                  onPress={
-                  () => {
-                    Linking.openURL(`sms:${data.mobile}`);
-                  }
-                }
-                  name="md-text"
-                  type="ionicon"
-                  iconStyle={{ padding: 10 }}
-                /> */}
-                {/* <Icon name="add-to-list" type="entypo" iconStyle={{ padding: 10 }} /> */}
-                {/* <Button>Message</Button> */}
-              </Card.Actions>
+
             </View>
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>
@@ -106,14 +91,12 @@ export default class DataCard extends React.Component {
             >
               Attented
             </Button>
-            {/* <Button>Documents</Button> */}
             <Button onPress={() => {
               this.props.navigation.navigate('New Appointment', { data });
             }}
             >
               Edit
             </Button>
-            {/* <Icon name="md-more" type="ionicon" iconStyle={{ padding: 10 }} /> */}
           </Card.Actions>
         </Card>
       </View>

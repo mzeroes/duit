@@ -74,13 +74,8 @@ class DoneScreen extends React.Component {
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
           <TopSearchBar title="Done" data={data} navigation={navigation} />
-          <Text>
-            {
-            JSON.stringify(this.filterData(data))
-            }
-          </Text>
           <DataList
-            data={this.filterData(data)}
+            data={() => this.filterData(data)}
             navigation={navigation}
             // inverted
             onRefresh={() => this.onRefresh()}

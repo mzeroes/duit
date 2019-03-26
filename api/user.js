@@ -15,6 +15,7 @@ const processData = (usr) => {
     dt = new Date(usr.dateTime);
   }
   const obj = {
+    key: usr.key,
     patientImage: usr.patientImage,
     patientName: usr.patientName,
     patientDiagnosis: usr.patientDiagnosis,
@@ -32,7 +33,7 @@ const processData = (usr) => {
     date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
     time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
     ago: !(dt === '') ? moment(dt).fromNow() : '',
-    initials: usr.patientName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''),
+    initials: usr.patientName ? usr.patientName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('') : '',
   };
   return obj;
 };
@@ -53,6 +54,7 @@ export const getPatientsFromFire = async () => {
   });
 };
 export const updateDataInFirebase = async (data) => {
+  console.warn(JSON.stringify(data, null, 4));
   const { user } = await store.getState();
   const ref = firebase.database().ref();
   if (data.key) {
