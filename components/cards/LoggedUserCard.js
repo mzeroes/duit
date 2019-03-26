@@ -11,7 +11,7 @@ const LoggedUserCard = (props) => {
   return (
 
     <ImageBackground
-      source={{ uri: 'https://picsum.photos/400/100' }}
+      source={require('assets/images/sideimage.jpg')}
       style={{
         width: '100%',
         height: 200,
@@ -26,24 +26,34 @@ const LoggedUserCard = (props) => {
         alignItems: 'center',
         justifyContent: 'center' }}
       >
-        <Avatar.Image
-          style={{
-            justifyContent: 'center',
-            alignSelf: 'center'
-          }}
-          source={
-            user.providerData[0].photoURL
-              ? {
-                uri: user.photoURL
-              }
-              : require('assets/images/profile-1.png')
-          }
-        />
+        {/*  usr.patientName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join(''), */}
+        { user.providerData[0].photoURL ? (
+          <Avatar.Image
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center'
+            }}
+            source={
+              user.providerData[0].photoURL
+                ? {
+                  uri: user.photoURL
+                }
+                : require('assets/images/sideimage.jpg')
+            }
+          />
+        ) : (
+          <Avatar.Text
+            {...props}
+            label={() => (
+              user.displayName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('')
+            )}
+          />
+        )}
         <Card.Title
           style={{ flex: 1 }}
           title={(
             <Text
-              style={[{ alignSelf: 'center' }]}
+              style={[{ color: Theme.darkText, alignSelf: 'center' }]}
               numberOfLines={1}
             >
               {user.providerData[0].displayName && user.providerData[0].displayName}
@@ -51,7 +61,7 @@ const LoggedUserCard = (props) => {
             )}
           subtitle={(
             <Text
-              style={[{ alignSelf: 'center' }]}
+              style={[{ color: Theme.darkText, alignSelf: 'center' }]}
               numberOfLines={1}
             >
               {user.providerData[0].email && user.providerData[0].email}
@@ -68,7 +78,6 @@ const LoggedUserCard = (props) => {
         >
           {user.providerData[0].providerId && user.providerData[0].providerId}
         </Text> */}
-        <TermsLogoutCard />
       </Card.Content>
     </ImageBackground>
   );

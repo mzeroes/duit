@@ -20,7 +20,7 @@ class TopHeader extends React.Component {
           onPress={this._goBack}
         />
         <Appbar.Content
-          title="Set an Appointment"
+          title={this.props.title}
           // subtitle="Subtitle"
         />
         {/* <Appbar.Action icon="search" onPress={this._onSearch} /> */}

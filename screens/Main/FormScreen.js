@@ -26,7 +26,6 @@ import {
   boolean as yupBoolean,
   number as yupNumber
 } from 'yup';
-import Form from 'components/forms/Form';
 import { storePatientsInFire } from 'api/user';
 import { connect } from 'react-redux';
 import TopHeader from 'components/bars/TopHeader';
@@ -36,87 +35,49 @@ import WithIcon from 'components/WithIcon';
 import { Icon } from 'react-native-elements';
 import UploadAvatar from '../../components/UploadAvatar';
 
-const StyledInput = ({ label, formikProps, formikKey, ...rest }) => {
-  const inputStyles = {
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-    marginBottom: 3
-  };
-
-  if (formikProps.touched[formikKey] && formikProps.errors[formikKey]) {
-    inputStyles.borderColor = 'red';
-  }
-
-  return (
-    <View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-      <Text style={{ marginBottom: 3 }}>{label}</Text>
-      <TextInputWithIcon
-        style={inputStyles}
-        onChangeText={formikProps.handleChange(formikKey)}
-        onBlur={formikProps.handleBlur(formikKey)}
-        {...rest}
-      />
-      <Text style={{ color: 'red' }}>
-        {formikProps.touched[formikKey] && formikProps.errors[formikKey]}
-      </Text>
-    </View>
-  );
-};
-
-const StyledSwitch = ({ formikKey, formikProps, label, ...rest }) => (
-  <View style={{ marginHorizontal: 20, marginVertical: 5 }}>
-    <Text style={{ marginBottom: 3 }}>{label}</Text>
-    <Switch
-      value={formikProps.values[formikKey]}
-      onValueChange={(value) => {
-        formikProps.setFieldValue(formikKey, value);
-      }}
-      {...rest}
-    />
-    <Text style={{ color: 'red' }}>
-      {formikProps.touched[formikKey] && formikProps.errors[formikKey]}
-    </Text>
-  </View>
-);
-
-const validationSchema = yupObject().shape({
-  email: yupString()
-    .label('Email')
-    .email()
-    .required(),
-  password: yupString()
-    .label('Password')
-    .required()
-    .min(2, 'Seems a bit short...')
-    .max(10, 'We prefer insecure system, try a shorter password.'),
-  agreeToTerms: yupBoolean()
-    .label('Terms')
-    .test('is-true', 'Must agree to terms to continue', value => value === true)
-});
-
 class FormScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
+  state = {
+    updateAppointment: false
+  }
+
   handleResponse = () => {
     // handleResponse
     this.props.navigation.state.params.onNavigateBack();
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Patients List');
   };
+
+  handleUpdates = () => {
+    const { data } = this.props.navigation.state.params('data', null);
+    if (data) {
+      this.setState({ updateAppointment: true });
+    }
+  }
 
   render() {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
       <View>
-        <TopHeader navigation={this.props.navigation} />
+        <TopHeader
+          title={
+          this.state.updateAppointment ? 'Update the appointment'
+            : 'Set the appointment'}
+          navigation={this.props.navigation}
+        />
+        <Text>{this.state.updateAppointment}</Text>
         <KeyboardAvoidingView
           behavior="padding"
           keyboardVerticalOffset={30} // Bug Due to headerBar
         >
           <Formik
-            initialValues={{ email: '', gender: 'Male', group: 'Normal' }}
+            initialValues={
+              this.state.updateAppointment ? {
+              }
+                : { email: '', gender: 'Male', group: 'Normal' }
+            }
             validationSchema={yupObject().shape({
               patientName: yupString()
                 .min(2, 'Too Short!')

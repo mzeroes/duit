@@ -1,32 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text, ListView } from 'react-native';
-import { Theme } from 'theme';
-import { Subheading, Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper';
-import { callNumber } from 'utils/libraryFunctions';
-
-// const SectionHeader = ({ title }) => (
-//   <View style={styles.sectionHeaderContainer}>
-//     <Text style={styles.sectionHeaderText}>{title}</Text>
-//   </View>
-// );
-
-// const SectionContent = props => (
-//   <View style={styles.sectionContentContainer}>{props.children}</View>
-// );
+import { View, StyleSheet, Text, ListView, Linking } from 'react-native';
+import { Theme } from 'theme/index';
+import { Subheading, Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Icon } from 'react-native-elements';
 
 export default class DataCard extends React.Component {
   render() {
-    const { data } = this.props;
-    // const dateTime = `${data.Date} ${data.Time} `;
-
-    // let avatar;
-    // if(data.patientImage !== undefined && data.patientImage.length>10){
-    //   avatar = <Avatar.Image {...props} source={require(data.patientImage)} />
-    // }
-    // else{
-    //   avatar = <Avatar.Text {...props} label={data.initials} />
-    // }
-
+    const { data, navigation } = this.props;
     return (
       <View style={styles.container}>
         <Card
@@ -44,82 +24,103 @@ export default class DataCard extends React.Component {
           <Card.Title
             title={data.patientName}
             subtitle={data.ago}
-            left={props => <Avatar.Text {...props} label={data.initials} />}
+            left={(props) => {
+              if (data.patientImage) {
+                return <Avatar.Image {...props} source={{ uri: data.patientImage }} />;
+              }
+              return <Avatar.Text {...props} label={data.initials} />;
+            }
+          }
           />
           <Card.Content style={{
           }}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ color: Theme.darkText, fontSize: 12 }}>
-                {data.age !== undefined ? `${data.age} yrs • ` : ''}
-                {data.gender !== undefined ? `${data.gender} • ` : ''}
-                {data.weight !== undefined ? `${data.weight} Kgs • ` : ''}
-                {data.bodyTemperature !== undefined ? `${data.bodyTemperature} F • ` : ''}
-                {data.bloodPressure !== undefined ? `BP ${data.bloodPressure} • ` : ''}
-                {data.normalOrEmergency !== undefined ? `${data.normalOrEmergency}` : ''}
+              <Subheading style={{ color: Theme.infoText, fontSize: 14 }}>
+                {data.age !== undefined ? `${data.age} yrs \u2022 ` : ''}
+                {data.gender !== undefined ? `${data.gender}` : ''}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-                {data.fees !== undefined ? `Rs ${data.fees}` : ''}
+                {data.date}
+                {data.time}
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading
-                numberOfLines={5}
-                // ellipsizeMode="tail"
-                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              >
-
-                {data.email !== undefined ? `${data.email} • ` : ''}
-              </Subheading>
-              <Subheading
                 numberOfLines={1}
-                style={{ fontSize: 12 }}
+                ellipsizeMode="tail"
+                style={{ color: Theme.infoText, fontSize: 12 }}
               >
-                <Text onPress={() => callNumber(`tel:${data.mobile}`)}
-                  style={[styles.value, { marginLeft: 5, textDecorationLine: 'underline' }]}>{`${data.mobile}`}
-                </Text>
-                {/* {data.mobile !== undefined ? `${data.mobile} ` : ''} */}
-              </Subheading>
-              {/* <Subheading style={{ fontSize: 12 }}>
-              </Subheading> */}
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading
-                numberOfLines={5}
-                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              >
-                {data.address !== undefined ? `Address: ${data.address}` : ''}
-              </Subheading>
-              <Subheading
-                numberOfLines={1}
-                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              >
-
+                {data.mobile && data.mobile}
+                {'  |  '}
+                {data.email && data.email}
               </Subheading>
             </View>
-
-            <Paragraph
-              numberOfLines={this.state.isSelected ? 6 : 3}
-              ellipsizeMode="tail"
-              style={{ color: Theme.text, fontSize: 14, paddingRight: 60 }}
+            <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignContent: 'center'
+            }}
             >
-              {data.patientDiagnosis !== undefined ? `Diagnosis: ${data.patientDiagnosis}` : ''}
-            </Paragraph>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-
-              <Subheading style={{ fontSize: 10 }}>
-                {data.time} {data.date}
-              </Subheading>
+              {/* <Text style={{ flex: 1, flexWrap: 'wrap', paddingRight: 40 }}>
+                {
+                  JSON.stringify(data)
+                }
+              </Text> */}
+              <Paragraph
+                // numberOfLines={this.state.isSelected ? 6 : 3}
+                ellipsizeMode="tail"
+                style={{ color: Theme.textDark, fontSize: 14, paddingRight: 60 }}
+              >
+                {data.patientDiagnosis !== undefined ? `Diagnosis: ${data.patientDiagnosis}` : ''}
+              </Paragraph>
+              <Card.Actions style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                <Icon
+                  onPress={() => {
+                    Linking.openURL(`tel:${data.mobile}`);
+                  }}
+                  name="md-call"
+                  type="ionicon"
+                  iconStyle={{ padding: 10 }}
+                />
+                {/* <Icon
+                  onPress={
+                  () => {
+                    Linking.openURL(`sms:${data.mobile}`);
+                  }
+                }
+                  name="md-text"
+                  type="ionicon"
+                  iconStyle={{ padding: 10 }}
+                /> */}
+                {/* <Icon name="add-to-list" type="entypo" iconStyle={{ padding: 10 }} /> */}
+                {/* <Button>Message</Button> */}
+              </Card.Actions>
             </View>
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>
-            <Button>Edit</Button>
+            <Button onPress={() => {
+
+            }}
+            >
+              Attented
+            </Button>
+            {/* <Button>Documents</Button> */}
+            <Button onPress={() => {
+              this.props.navigation.navigate('New Appointment', { data });
+            }}
+            >
+              Edit
+            </Button>
+            {/* <Icon name="md-more" type="ionicon" iconStyle={{ padding: 10 }} /> */}
           </Card.Actions>
         </Card>
       </View>
-    )
+    );
   }
-};
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

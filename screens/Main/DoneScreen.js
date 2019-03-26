@@ -12,7 +12,7 @@ import { getPatientsFromFire } from 'api/user';
 import TopSearchBar from 'components/bars/TopSearchBar';
 import { Theme, styles } from 'theme';
 
-class ExploreScreen extends React.Component {
+class DoneScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -57,6 +57,10 @@ class ExploreScreen extends React.Component {
     }
   }
 
+  filterData = (data) => {
+    data.filter(item => (item.isDone));
+  };
+
   render() {
     if (!this.state.isLoadingComplete) {
       return (
@@ -69,14 +73,14 @@ class ExploreScreen extends React.Component {
       const { data, navigation } = this.props;
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
-          <TopSearchBar data={data} navigation={navigation} />
-          {/* <Text>
+          <TopSearchBar title="Done" data={data} navigation={navigation} />
+          <Text>
             {
-            JSON.stringify(data)
+            JSON.stringify(this.filterData(data))
             }
-          </Text> */}
+          </Text>
           <DataList
-            data={data}
+            data={this.filterData(data)}
             navigation={navigation}
             // inverted
             onRefresh={() => this.onRefresh()}
@@ -109,4 +113,4 @@ const mapStateToProps = state => ({
   data: state.data
 });
 
-export default connect(mapStateToProps)(ExploreScreen);
+export default connect(mapStateToProps)(DoneScreen);

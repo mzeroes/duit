@@ -4,7 +4,9 @@ import { View, Platform } from 'react-native';
 import {
   createDrawerNavigator,
   DrawerItems,
-  SafeAreaView
+  SafeAreaView,
+  createNavigationContainer,
+  createAppContainer
 } from 'react-navigation';
 
 import { Theme } from 'theme';
@@ -32,8 +34,8 @@ const DrawerContent = props => (
 
 const MainDrawNavigator = createDrawerNavigator(
   {
-    "Home something": ExploreStack,
-    Appointmentttt: FormScreen,
+    'Patients List': ExploreStack,
+    'New Appointment': FormScreen,
   },
   {
     contentComponent: DrawerContent,

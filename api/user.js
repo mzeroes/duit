@@ -43,13 +43,25 @@ export const getPatientsFromFire = async () => {
     .ref(`doctors/${user.uid}`)
     .orderByChild('dateTime');
   await patientsDataRef.on('value', (snapshot) => {
-    const data = Object.values(snapshot.val()).reverse();
-    store.dispatch(updateData(data.map(processData)));
+    const dataSnap = snapshot.val();
+    if (dataSnap) {
+      const data = Object.values(dataSnap).reverse();
+      store.dispatch(updateData(data.map(processData)));
+    }
   }, (errorObject) => {
     console.log(`The read failed: ${errorObject.code}`);
   });
 };
-
+export const updateDataInFirebase = async (data) => {
+  const { user } = await store.getState();
+  const ref = firebase.database().ref();
+  if (data.key) {
+    ref.child(`doctors/${user.uid}/${data.key}`).update(data)
+      .then(
+        getPatientsFromFire()
+      );
+  }
+};
 export const getDateAndTimeInIST = () => ({
   dateTime: Date.now()
 });
@@ -57,9 +69,14 @@ export const getDateAndTimeInIST = () => ({
 export const storePatientsInFire = async (data) => {
   const dateTime = getDateAndTimeInIST();
   const user = await store.getState().user;
-  await firebase.database().ref(`doctors/${user.uid}`).push({
+  const ref = firebase.database().ref(`doctors/${user.uid}`);
+  const { key } = ref.push();
+  ref.child(key).update({
+    key,
     ...data,
     ...dateTime
+  }).then((resp) => {
+    console.warn('Test', resp);
   }).catch((error) => {
     console.warn('error ', error);
   });
