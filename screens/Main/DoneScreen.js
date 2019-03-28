@@ -77,6 +77,7 @@ class DoneScreen extends React.Component {
             // inverted
             onRefresh={() => this.onRefresh()}
             refreshing={this.state.isFetching}
+            noRecordsmessage="No patients records yet."
           />
           <FabComponent
             navigate={this.props.navigation.navigate}

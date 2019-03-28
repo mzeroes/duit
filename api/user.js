@@ -40,7 +40,6 @@ export const getPatientsFromFire = async () => {
   });
 };
 export const updateDataInFirebase = async (data) => {
-  console.warn(JSON.stringify(data, null, 4));
   if (data.key) {
     const { user } = await store.getState();
     const ref = firebase.database().ref(`doctors/${user.uid}/${data.key}`);

@@ -87,10 +87,11 @@ export default class DataCard extends React.Component {
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>
             <Button onPress={() => {
-              updateDataInFirebase({ ...data, attended: true });
+              const attended = !data.attended;
+              updateDataInFirebase({ ...data, attended });
             }}
             >
-              Attended
+              {data.attended ? 'Move to New' : 'Move to Attended'}
             </Button>
             <Button onPress={() => {
               this.props.navigation.navigate('Appointment', { data });
