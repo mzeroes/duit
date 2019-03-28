@@ -43,10 +43,10 @@ export const updateDataInFirebase = async (data) => {
   if (data.key) {
     const { user } = await store.getState();
     const ref = firebase.database().ref(`doctors/${user.uid}/${data.key}`);
-    const dateTime = getDateAndTimeInIST();
+    // const dateTime = getDateAndTimeInIST();
+    const { date, time, ago, initials, ...otherData } = data;
     ref.update({
-      ...data,
-      ...dateTime
+      ...otherData,
     })
       .then(
         await getPatientsFromFire()

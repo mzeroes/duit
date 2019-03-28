@@ -19,7 +19,7 @@ export default class DataCard extends React.Component {
           style={{
             borderBottomWidth: 1,
             borderBottomColor: '#AAA',
-            backgroundColor: Theme.background
+            backgroundColor: data.group === 'Normal' ? Theme.background : '#fccdd3'
           }}
         >
           <Card.Title
@@ -46,19 +46,18 @@ export default class DataCard extends React.Component {
             )
           }
           >
-
           </Card.Title>
           <Card.Content style={{
+            alignContent: 'flex-start'
           }}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading style={{ color: Theme.darkText, fontSize: 12 }}>
-                {data.age ? ` • ${data.age} yrs` : ''}
+                {data.age ? `${data.age} yrs` : ''}
                 {data.gender ? ` • ${data.gender}` : ''}
                 {data.weight ? ` • ${data.weight} Kgs` : ''}
                 {data.bodyTemperature ? ` • ${data.bodyTemperature} F` : ''}
                 {data.bloodPressure ? ` • BP ${data.bloodPressure}` : ''}
-                {data.normalOrEmergency ? ` • ${data.normalOrEmergency}` : ''}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
                 {data.fees ? `Rs ${data.fees}` : ''}
@@ -67,27 +66,25 @@ export default class DataCard extends React.Component {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading
                 numberOfLines={5}
-                // ellipsizeMode="tail"
                 style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
               >
-                {data.email ? ` • ${data.email}` : ''}
+                {data.email ? `${data.email}` : ''}
               </Subheading>
               <Subheading
                 numberOfLines={1}
                 style={{ fontSize: 12 }}
               />
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row' }}>
+              {data.address && (
               <Subheading
                 numberOfLines={5}
                 style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
               >
-                {data.address ? `Address: ${data.address}` : ''}
+                Address:
+                {data.address}
               </Subheading>
-              <Subheading
-                numberOfLines={1}
-                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
-              />
+              )}
             </View>
             <Paragraph
               ellipsizeMode="tail"
@@ -95,12 +92,16 @@ export default class DataCard extends React.Component {
             >
               {data.patientDiagnosis ? `Diagnosis: ${data.patientDiagnosis}` : ''}
             </Paragraph>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-
+            <View style={{ justifyContent: 'flex-start' }}>
               <Subheading style={{ fontSize: 10 }}>
                 {data.time}
                 {'  '}
                 {data.date}
+              </Subheading>
+              <Subheading>
+                <Text style={{ fontSize: 13, color: '#963019' }}>
+                  {data.group === 'Emergency' ? '*Emergency Case' : ''}
+                </Text>
               </Subheading>
             </View>
           </Card.Content>
