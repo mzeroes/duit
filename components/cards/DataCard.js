@@ -90,10 +90,10 @@ export default class DataCard extends React.Component {
               updateDataInFirebase({ ...data, attended: true });
             }}
             >
-              Attented
+              Attended
             </Button>
             <Button onPress={() => {
-              this.props.navigation.navigate('New Appointment', { data });
+              this.props.navigation.navigate('Appointment', { data });
             }}
             >
               Edit

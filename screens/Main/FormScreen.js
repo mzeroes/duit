@@ -100,7 +100,7 @@ class FormScreen extends React.Component {
                   email: '',
                   gender: 'Male',
                   group: 'Normal',
-                  attended: 'false'
+                  attended: false
                 }
             }
             validationSchema={yupObject().shape({

@@ -57,8 +57,7 @@ class DoneScreen extends React.Component {
     }
   }
 
-  filterData = data => data.filter(item => item.attended === 'true');
-
+  filterData = data => data.filter(item => item.attended !== false);
 
   render() {
     if (!this.state.isLoadingComplete) {
@@ -68,11 +67,10 @@ class DoneScreen extends React.Component {
         </View>
       );
     } else {
-      // const { data } = this.state;
       const { data, navigation } = this.props;
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
-          <TopSearchBar title="Done" data={data} navigation={navigation} />
+          <TopSearchBar title="Attended Patients" data={data} navigation={navigation} />
           <DataList
             data={this.filterData(data)}
             navigation={navigation}
@@ -80,7 +78,6 @@ class DoneScreen extends React.Component {
             onRefresh={() => this.onRefresh()}
             refreshing={this.state.isFetching}
           />
-          <Text>{JSON.stringify(data)}</Text>
           <FabComponent
             navigate={this.props.navigation.navigate}
             onRefresh={this.onRefresh}

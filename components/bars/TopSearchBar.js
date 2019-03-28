@@ -53,7 +53,7 @@ const TopSearch = (props) => {
         onPress={NavigationService.toggleDrawer}
       />
       <Appbar.Content
-        title={props.title || 'Explore'}
+        title={props.title}
       />
       <Appbar.Action
         icon="search"

@@ -57,7 +57,7 @@ class ExploreScreen extends React.Component {
     }
   }
 
-  filterData = data => data.filter(item => item.attended === 'false');
+  filterData = data => data.filter(item => item.attended === false);
 
   render() {
     if (!this.state.isLoadingComplete) {
@@ -70,7 +70,7 @@ class ExploreScreen extends React.Component {
       const { data, navigation } = this.props;
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
-          <TopSearchBar data={data} navigation={navigation} />
+          <TopSearchBar title="New Appointments" data={data} navigation={navigation} />
           <DataList
             data={this.filterData(data)}
             navigation={navigation}
