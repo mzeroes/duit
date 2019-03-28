@@ -56,11 +56,14 @@ export const getPatientsFromFire = async () => {
 export const updateDataInFirebase = async (data) => {
   console.warn(JSON.stringify(data, null, 4));
   const { user } = await store.getState();
-  const ref = firebase.database().ref();
+  const ref = firebase.database().ref(`doctors/${user.uid}/${data.key}`);
+  const dateTime = getDateAndTimeInIST();
   if (data.key) {
-    ref.child(`doctors/${user.uid}/${data.key}`).update(data)
+    ref.push({
+      age: 3131
+    })
       .then(
-        getPatientsFromFire()
+        await getPatientsFromFire()
       );
   }
 };
