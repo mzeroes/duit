@@ -1,5 +1,5 @@
 import { Constants } from 'expo';
-import Theme from './colors.json';
+import Theme from './colors';
 
 const statusbarMargin = Constants.statusBarHeight;
 

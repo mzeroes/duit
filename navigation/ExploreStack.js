@@ -11,6 +11,7 @@ import {
 import { Theme } from 'theme';
 
 import DetailsScreen from 'screens/Main/DetailScreen';
+import FormScreen from '../screens/Main/FormScreen';
 import TabBarIcon from '../components/icons/TabBarIcon';
 import ExploreScreen from '../screens/Main/ExploreScreen';
 import DoneScreen from '../screens/Main/DoneScreen';
@@ -40,7 +41,8 @@ ExploreTab.navigationOptions = {
 const ExploreStack = createStackNavigator({
   Explore: ExploreTab,
   Search: SearchScreen,
-  Details: DetailsScreen
+  Details: DetailsScreen,
+  Appointment: FormScreen,
 });
 
 

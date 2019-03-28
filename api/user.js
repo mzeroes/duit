@@ -15,21 +15,7 @@ const processData = (usr) => {
     dt = new Date(usr.dateTime);
   }
   const obj = {
-    key: usr.key,
-    patientImage: usr.patientImage,
-    patientName: usr.patientName,
-    patientDiagnosis: usr.patientDiagnosis,
-    fees: usr.fees,
-    age: usr.age,
-    gender: usr.gender,
-    mobile: usr.mobile,
-    email: usr.email,
-    address: usr.address,
-    city: usr.city,
-    weight: usr.weight,
-    bodyTemperature: usr.bodyTemperature,
-    bloodPressure: usr.bloodPressure,
-    normalOrEmergency: usr.normalOrEmergency,
+    ...usr,
     date: !(dt === '') ? moment(dt).format('DD MMM YYYY') : '',
     time: !(dt === '') ? moment(dt).format('h:mm:ss a') : '',
     ago: !(dt === '') ? moment(dt).fromNow() : '',
@@ -55,12 +41,13 @@ export const getPatientsFromFire = async () => {
 };
 export const updateDataInFirebase = async (data) => {
   console.warn(JSON.stringify(data, null, 4));
-  const { user } = await store.getState();
-  const ref = firebase.database().ref(`doctors/${user.uid}/${data.key}`);
-  const dateTime = getDateAndTimeInIST();
   if (data.key) {
-    ref.push({
-      age: 3131
+    const { user } = await store.getState();
+    const ref = firebase.database().ref(`doctors/${user.uid}/${data.key}`);
+    const dateTime = getDateAndTimeInIST();
+    ref.update({
+      ...data,
+      ...dateTime
     })
       .then(
         await getPatientsFromFire()

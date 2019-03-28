@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, ListView, Linking } from 'react-native';
 import { Theme } from 'theme/index';
 import { Subheading, Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
+import { updateDataInFirebase } from 'api/user';
 
 export default class DataCard extends React.Component {
   render() {
@@ -86,7 +87,7 @@ export default class DataCard extends React.Component {
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>
             <Button onPress={() => {
-
+              updateDataInFirebase({ ...data, attended: true });
             }}
             >
               Attented

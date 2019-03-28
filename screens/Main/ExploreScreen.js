@@ -57,6 +57,8 @@ class ExploreScreen extends React.Component {
     }
   }
 
+  filterData = data => data.filter(item => item.attended === 'false');
+
   render() {
     if (!this.state.isLoadingComplete) {
       return (
@@ -65,18 +67,12 @@ class ExploreScreen extends React.Component {
         </View>
       );
     } else {
-      // const { data } = this.state;
       const { data, navigation } = this.props;
       return (
         <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
           <TopSearchBar data={data} navigation={navigation} />
-          {/* <Text>
-            {
-            JSON.stringify(data)
-            }
-          </Text> */}
           <DataList
-            data={data}
+            data={this.filterData(data)}
             navigation={navigation}
             // inverted
             onRefresh={() => this.onRefresh()}
@@ -98,7 +94,7 @@ const FabComponent = props => (
     icon="add"
     onPress={
       () => {
-        props.navigate('New Appointment', {
+        props.navigate('Appointment', {
           onNavigateBack: props.onRefresh
         });
       }}

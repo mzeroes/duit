@@ -46,7 +46,6 @@ const DrawerContent = props => (
 const MainDrawNavigator = createDrawerNavigator(
   {
     'Patients List': ExploreStack,
-    'New Appointment': FormScreen,
   },
   {
     contentComponent: DrawerContent,

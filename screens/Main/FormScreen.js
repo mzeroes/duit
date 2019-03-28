@@ -70,7 +70,7 @@ class FormScreen extends React.Component {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     return (
-      <View>
+      <View style={{ backgroundColor: Theme.background }}>
         <TopHeader
           title={
             this.state.data ? 'Update the appointment'
@@ -458,11 +458,6 @@ class FormScreen extends React.Component {
                   {Object.keys(errors).map(
                     (key, index) => `${key} : ${errors[key]}\n`
                   )}
-                </Text>
-                <Text>
-                  {
-                      JSON.stringify(values, null, 4)
-                    }
                 </Text>
                 <TouchableOpacity
                   onPress={async () => {
