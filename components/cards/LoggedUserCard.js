@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
-import { Theme } from 'theme';
+import { Theme } from 'theme/index';
 import { connect } from 'react-redux';
 import { Avatar, Card } from 'react-native-paper';
-import { onPressLogoutAsync } from 'utils';
 
 const LoggedUserCard = (props) => {
   const { user } = props;
@@ -13,74 +12,73 @@ const LoggedUserCard = (props) => {
       source={require('assets/images/sideimage.jpg')}
       style={{
         width: '100%',
-        height: 200,
+        height: 150,
         marginTop: -28,
         paddingBottom: 20
       }}
     >
-      <View style={{
+      {/* <View style={{
         flexDirection: 'row',
         flex: 1,
-        padding: 20,
-        alignItems: 'center',
-        justifyContent: 'center' }}
-      >
-        {user.providerData[0].photoURL || !user.providerData[0].displayName ? (
-          <Avatar.Image
-            style={{
-              justifyContent: 'center',
-              alignSelf: 'center'
-            }}
-            source={
+        padding: 18,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start' }}
+      > */}
+      {/* {user.providerData[0].photoURL || !user.providerData[0].displayName ? (
+        <Avatar.Image
+          style={{
+            alignSelf: 'flex-start'
+          }}
+          source={
               user.providerData[0].photoURL
                 ? {
                   uri: user.photoURL
                 }
-                : require('assets/images/sideimage.jpg')
+                : require('assets/images/profile-1.png')
             }
-          />
-        ) : (
-          <Avatar.Text
-            {...props}
-            label={() => (
+        />
+      ) : (
+        <Avatar.Text
+          {...props}
+          label={() => (
               user.providerData[0].displayName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('')
             )}
-          />
-        )}
-        <Card.Title
-          style={{ flex: 1 }}
-          title={(
-            <Text
-              style={[{ color: Theme.darkText, alignSelf: 'center', fontSize: 20 }]}
-              numberOfLines={1}
-            >
-              {user.providerData[0].displayName && user.providerData[0].displayName}
-            </Text>
-            )}
-          subtitle={(
-            <Text
-              style={[{ color: Theme.darkText, alignSelf: 'center' }]}
-              numberOfLines={1}
-            >
-              {user.providerData[0].email && user.providerData[0].email}
-            </Text>
-            )}
         />
-      </View>
-      <Card.Content>
-      </Card.Content>
-      <TermsLogoutCard />
+      )} */}
+      {/* </View> */}
+      <Card.Title
+        style={{ flex: 1, paddingTop: 80 }}
+        title={(
+          <Text
+            style={[{
+              color: Theme.white,
+              alignSelf: 'center',
+              fontSize: 20,
+              fontWeight: 'bold'
+            }]}
+            numberOfLines={1}
+          >
+            {user.providerData[0].displayName && user.providerData[0].displayName}
+          </Text>
+          )}
+        subtitle={(
+          <Text
+            style={[{
+              color: Theme.white,
+              alignSelf: 'center',
+              fontSize: 20,
+              fontWeight: 'bold'
+            }]}
+            numberOfLines={1}
+          >
+            {user.providerData[0].email && user.providerData[0].email}
+          </Text>
+          )}
+      />
     </ImageBackground>
   );
 };
 
-export const TermsLogoutCard = () => (
-  // <View style={[styles.container, { justifyContent: 'flex-end', borderWidth: 0, padding: 10 }]}>
-  <TouchableOpacity style={styles.logOutButton} onPress={onPressLogoutAsync}>
-    <Text style={[{ color: Theme.red }]}>Logout</Text>
-  </TouchableOpacity>
-  // {/* </View> */}
-);
 
 const styles = StyleSheet.create({
   titleContainer: {
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
   },
   logOutButton: {
     borderRadius: 4,
-    alignItems: 'flex-end'
+    alignItems: 'flex-start'
   },
   titleSubContainer: {
     alignContent: 'center'

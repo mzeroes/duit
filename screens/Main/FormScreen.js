@@ -171,7 +171,7 @@ class FormScreen extends React.Component {
                   label="Patient Name"
                   onBlur={() => setFieldTouched('patientName')}
                   placeholder="Patient Name"
-                  autoCapitalize = 'words'
+                  autoCapitalize="words"
                   error={
                       touched.patientName && errors.patientName
                         ? errors.patientName

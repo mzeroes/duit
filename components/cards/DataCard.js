@@ -11,10 +11,10 @@ export default class DataCard extends React.Component {
       <View style={styles.container}>
         <Card
           elevation={2}
-          onPress={() => {
-            navigation.navigate('Details', { data });
-          }
-          }
+          // onPress={() => {
+          //   navigation.navigate('Details', { data });
+          // }
+          // }
           style={{
             borderBottomWidth: 1,
             borderBottomColor: '#AAA',

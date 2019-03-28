@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, TouchableOpacity, Text } from 'react-native';
 
 import {
   createDrawerNavigator,
@@ -9,8 +9,9 @@ import {
   createAppContainer
 } from 'react-navigation';
 
-import { Theme } from 'theme';
+import { Theme, styles } from 'theme';
 import Layout from 'theme/constants/Layout';
+import { onPressLogoutAsync } from 'utils';
 
 import LogoutCard from 'components/cards/LogoutCard';
 
@@ -21,13 +22,23 @@ import ExploreStack from './ExploreStack';
 // ExploreNav.navigationOptions = {
 //   drawerLabel: 'Appointment List',
 // };
+export const TermsLogoutCard = () => (
+  <TouchableOpacity
+    style={{
+      padding: 18
+    }}
+    onPress={() => { onPressLogoutAsync(); }}
+  >
+    <Text style={[{ color: Theme.darkText, fontWeight: 'bold' }]}>Logout</Text>
+  </TouchableOpacity>
+);
 
 const DrawerContent = props => (
   <View style={{ flex: 1, backgroundColor: Theme.grey }}>
     <SafeAreaView forceInset={{ top: 'always', horizontal: 'always' }}>
-      <LogoutCard>
-        <DrawerItems {...props} />
-      </LogoutCard>
+      <LogoutCard />
+      <DrawerItems {...props} />
+      <TermsLogoutCard />
     </SafeAreaView>
   </View>
 );
@@ -41,9 +52,9 @@ const MainDrawNavigator = createDrawerNavigator(
     contentComponent: DrawerContent,
     drawerWidth: Layout.window.width - (Platform.OS === 'android' ? 56 : 64),
     contentOptions: {
-      activeTintColor: Theme.activeTintColor,
-      inactiveTintColor: Theme.inactiveTintColor,
-      activeBackgroundColor: Theme.grey,
+      activeTintColor: '#000',
+      inactiveTintColor: '#000',
+      activeBackgroundColor: '#ccc',
       style: {
         marginVertical: 0,
         flex: 1,

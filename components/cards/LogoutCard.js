@@ -8,7 +8,6 @@ import LoggedUserCard from 'components/cards/LoggedUserCard';
 const LogoutCard = props => (
   <View style={styles.container}>
     <LoggedUserCard />
-    {/* <TermsLogoutCard /> */}
     {props.children}
   </View>
 );
