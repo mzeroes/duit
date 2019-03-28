@@ -32,57 +32,76 @@ export default class DataCard extends React.Component {
               return <Avatar.Text {...props} label={data.initials} />;
             }
           }
+            right={() => (
+              <Card.Actions style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                <Icon
+                  onPress={() => {
+                    Linking.openURL(`tel:${data.mobile}`);
+                  }}
+                  name="md-call"
+                  type="ionicon"
+                  iconStyle={{ padding: 10 }}
+                />
+              </Card.Actions>
+            )
+          }
           >
-            <Card.Actions style={{ flexDirection: 'column', justifyContent: 'center' }}>
-              <Icon
-                onPress={() => {
-                  Linking.openURL(`tel:${data.mobile}`);
-                }}
-                name="md-call"
-                type="ionicon"
-                iconStyle={{ padding: 10 }}
-              />
-            </Card.Actions>
+
           </Card.Title>
           <Card.Content style={{
           }}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Subheading style={{ color: Theme.infoText, fontSize: 14 }}>
-                {data.age !== undefined ? `${data.age} yrs \u2022 ` : ''}
-                {data.gender !== undefined ? `${data.gender}` : ''}
+              <Subheading style={{ color: Theme.darkText, fontSize: 12 }}>
+                {data.age ? ` • ${data.age} yrs` : ''}
+                {data.gender ? ` • ${data.gender}` : ''}
+                {data.weight ? ` • ${data.weight} Kgs` : ''}
+                {data.bodyTemperature ? ` • ${data.bodyTemperature} F` : ''}
+                {data.bloodPressure ? ` • BP ${data.bloodPressure}` : ''}
+                {data.normalOrEmergency ? ` • ${data.normalOrEmergency}` : ''}
               </Subheading>
               <Subheading style={{ fontSize: 12 }}>
-                {data.date}
-                {data.time}
+                {data.fees ? `Rs ${data.fees}` : ''}
               </Subheading>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Subheading
-                numberOfLines={1}
-                ellipsizeMode="tail"
-                style={{ color: Theme.infoText, fontSize: 12 }}
+                numberOfLines={5}
+                // ellipsizeMode="tail"
+                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
               >
-                {data.mobile && data.mobile}
-                {'  |  '}
-                {data.email && data.email}
+                {data.email ? ` • ${data.email}` : ''}
               </Subheading>
+              <Subheading
+                numberOfLines={1}
+                style={{ fontSize: 12 }}
+              />
             </View>
-            <View style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignContent: 'center'
-            }}
-            >
-
-              <Paragraph
-                ellipsizeMode="tail"
-                style={{ color: Theme.textDark, fontSize: 14, paddingRight: 60 }}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Subheading
+                numberOfLines={5}
+                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
               >
-                {data.patientDiagnosis !== undefined ? `Diagnosis: ${data.patientDiagnosis}` : ''}
-              </Paragraph>
+                {data.address ? `Address: ${data.address}` : ''}
+              </Subheading>
+              <Subheading
+                numberOfLines={1}
+                style={{ color: Theme.darkText, fontSize: 12, paddingRight: 60 }}
+              />
+            </View>
+            <Paragraph
+              ellipsizeMode="tail"
+              style={{ color: Theme.text, fontSize: 14, paddingRight: 60 }}
+            >
+              {data.patientDiagnosis ? `Diagnosis: ${data.patientDiagnosis}` : ''}
+            </Paragraph>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
 
+              <Subheading style={{ fontSize: 10 }}>
+                {data.time}
+                {'  '}
+                {data.date}
+              </Subheading>
             </View>
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'space-between', marginBottom: 0 }}>

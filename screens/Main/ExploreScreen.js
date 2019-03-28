@@ -69,7 +69,7 @@ class ExploreScreen extends React.Component {
     } else {
       const { data, navigation } = this.props;
       return (
-        <View style={{ padding: 0, margin: 0, flex: 1, backgroundColor: Theme.background }}>
+        <View style={{ padding: 0, margin: 0, flex: 1 }}>
           <TopSearchBar title="New Appointments" data={data} navigation={navigation} />
           <DataList
             data={this.filterData(data)}

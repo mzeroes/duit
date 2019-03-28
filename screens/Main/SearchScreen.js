@@ -64,7 +64,9 @@ class SearchScreen extends React.Component {
     if (item.mobile) temp += item.mobile.toLowerCase().includes(this.state.search);
     if (item.patientName) temp += item.patientName.toLowerCase().includes(this.state.search);
     if (item.email) temp += item.email.toLowerCase().includes(this.state.search);
-    if (item.problem) temp += item.problem.toLowerCase().includes(this.state.search);
+    if (item.patientDiagnosis) {
+      temp += item.patientDiagnosis.toLowerCase().includes(this.state.search);
+    }
     return temp !== 0;
   });
 

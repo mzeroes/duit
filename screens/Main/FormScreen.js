@@ -49,7 +49,7 @@ class FormScreen extends React.Component {
 
   handleResponse = () => {
     // handleResponse
-    // this.props.navigation.state.params.onNavigateBack();
+    this.props.navigation.state.params.onNavigateBack();
     this.props.navigation.navigate('Patients List');
   };
 
