@@ -85,8 +85,9 @@ class FormScreen extends React.Component {
         // onDidBlur={payload => console.log('did blur', payload)}
         />
         <KeyboardAvoidingView
+          // keyboardVerticalOffset={30} // Bug Due to headerBar
+          // style={styles.container}
           behavior="padding"
-          keyboardVerticalOffset={30} // Bug Due to headerBar
         >
           <Formik
             enableReinitialize
@@ -170,6 +171,7 @@ class FormScreen extends React.Component {
                   label="Patient Name"
                   onBlur={() => setFieldTouched('patientName')}
                   placeholder="Patient Name"
+                  autoCapitalize = 'words'
                   error={
                       touched.patientName && errors.patientName
                         ? errors.patientName
@@ -187,7 +189,7 @@ class FormScreen extends React.Component {
                   onBlur={() => setFieldTouched('patientDiagnosis')}
                   placeholder="Patient Diagnosis"
                   numberOfLines={
-                      values.patientDiagnosis && (values.patientDiagnosis.length > 10 ? 6 : 1)}
+                      (values.patientDiagnosis && values.patientDiagnosis.length > 10) ? 3 : 1}
                   multiline
                   error={
                       touched.patientDiagnosis && errors.patientDiagnosis
@@ -222,50 +224,6 @@ class FormScreen extends React.Component {
                     }
                 />
 
-                {/* <RadioButton
-                      value="first"
-                      // status={checked === 'first' ? 'checked' : 'unchecked'}
-                      onPress={() => { this.setState({ checked: 'first' }); }}
-                    />
-                    <RadioInput
-                      value="second"
-                      // status={checked === 'second' ? 'checked' : 'unchecked'}
-                      onPress={() => { this.setState({ checked: 'second' }); }}
-                    /> */}
-                {/* <RadioInput
-                        id="blue"
-                        value={values.color}
-                        name="color"
-                        checked={values.color === 'blue'}
-                        label="Blue"
-                        onBlur={handleBlur}
-                        onChange={() => {
-                          setFieldValue('color', 'blue')
-                        }}
-                      />
-
-                      <RadioInput
-                        id="red"
-                        value={values.color}
-                        name="color"
-                        checked={values.color === 'red'}
-                        label="Red"
-                        onBlur={handleBlur}
-                        onChange={() => {
-                          setFieldValue('color', 'red')
-                        }}
-                      /> */}
-                {/* <TextInputWithIcon
-                    style={localStyles.rightTextInputs}
-                    value={values.gender}
-                    disabled
-                    label="Gender"
-                    error={
-                          touched.gender && errors.gender
-                            ? errors.gender
-                            : undefined
-                        }
-                  /> */}
                 <WithIcon
                   title="Gender"
                 >
@@ -359,7 +317,7 @@ class FormScreen extends React.Component {
                   label="Address"
                   onBlur={() => setFieldTouched('address')}
                   placeholder="Address"
-                  numberOfLines={values.address && (values.address.length > 10 ? 6 : 1)}
+                  numberOfLines={(values.address && values.address.length > 10) ? 3 : 1}
                   multiline
                   error={
                       touched.name && errors.name ? errors.name : undefined
@@ -387,9 +345,10 @@ class FormScreen extends React.Component {
                   style={localStyles.rightTextInputs}
                   onChangeText={value => setFieldValue('weight', value)}
                   value={values.weight}
-                  label="Weight"
+                  label="Weight in Kgs"
                   onBlur={() => setFieldTouched('weight')}
-                  placeholder="Weight"
+                  placeholder="Weight in Kgs"
+                  keyboardType="number-pad"
                   error={
                       touched.weight && errors.weight
                         ? errors.weight
@@ -404,9 +363,10 @@ class FormScreen extends React.Component {
                   onChangeText={value => setFieldValue('bodyTemperature', value)
                     }
                   value={values.bodyTemperature}
-                  label="Body Temperature"
+                  label="Body Temperature in F"
                   onBlur={() => setFieldTouched('bodyTemperature')}
-                  placeholder="Body Temperature"
+                  placeholder="Body Temperature in F"
+                  keyboardType="number-pad"
                   error={
                       touched.bodyTemperature && errors.bodyTemperature
                         ? errors.bodyTemperature
@@ -519,7 +479,7 @@ class FormScreen extends React.Component {
                       padding: 14,
                       marginTop: 10,
                       // marginBottom: 10,
-                      marginBottom: 400
+                      marginBottom: 500
                     }
                   ]}
                 >

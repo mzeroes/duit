@@ -25,8 +25,8 @@ const ExploreTab = createMaterialBottomTabNavigator(
   {
     // activeColor: Theme.activeTintColor,
     // inactiveColor: Theme.inactiveTintColor,
-    activeColor: '#ffff',
-    inactiveColor: '#ccc',
+    activeColor: Theme.tabIconSelected,
+    inactiveColor: Theme.tabIconDefault,
     barStyle: {
       backgroundColor: Theme.statusbar,
     }
@@ -50,9 +50,9 @@ ExploreScreen.navigationOptions = {
     <View style={
       focused
         ? {
-          flex: 1,
-          borderTopColor: Theme.tabYellow,
-          borderTopWidth: 3
+          // flex: 1,
+          // borderTopColor: Theme.tabYellow,
+          // borderTopWidth: 3
         } : {
 
         }
@@ -73,9 +73,9 @@ DoneScreen.navigationOptions = {
     <View style={
       focused
         ? {
-          flex: 1,
-          borderTopColor: Theme.tabYellow,
-          borderTopWidth: 3
+          // flex: 1,
+          // borderTopColor: Theme.tabYellow,
+          // borderTopWidth: 3
         } : {
 
         }

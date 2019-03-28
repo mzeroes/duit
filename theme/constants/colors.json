@@ -2,7 +2,7 @@
   "accent": "#00ff0d",
   "activeTintColor": "#1193ef",
   "inactiveTintColor": "#EfEfEf",
-  "tabIconDefault": "#E2E2E2",
+  "tabIconDefault": "#999999",
   "tabIconSelected": "#F2F2F2",
   "backdrop": "#22222288",
   "background": "#F9F9F9",
