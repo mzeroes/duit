@@ -4,7 +4,8 @@ export const firebaseConfig = {
   databaseURL: 'https://duit-agra-opd-mobile-app.firebaseio.com',
   projectId: 'duit-agra-opd-mobile-app',
   storageBucket: 'duit-agra-opd-mobile-app.appspot.com',
-  messagingSenderId: '980405596795'
+  messagingSenderId: '980405596795',
+  hostingURL: 'https://duit-agra-opd-mobile-app.firebaseapp.com'
 };
 
 export const authConfig = {

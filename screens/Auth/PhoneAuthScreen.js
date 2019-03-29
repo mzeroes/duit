@@ -4,9 +4,9 @@ import { Linking, WebBrowser } from 'expo';
 import firebase from 'utils/firebase';
 import { TextInput } from 'react-native-paper';
 import { Theme, styles } from 'theme';
-import { statusbarMargin } from 'theme/constants/index';
+import { firebaseConfig } from 'config';
 
-const captchaUrl = `https://morphine-c575e.firebaseapp.com/captcha.html?appurl=${Linking.makeUrl('')}`;
+const captchaUrl = `${firebaseConfig.hostingURL}/captcha.html?appurl=${Linking.makeUrl('')}`;
 
 // const captchaUrl = '/'
 //  + `captcha.html?PhoneAuthScreenurl=${Linking.makeUrl('')}`;
@@ -114,9 +114,9 @@ export default class PhoneAuthScreen extends React.Component {
         <View style={{ flex: 1, justifyContent: 'flex-start', alignContent: 'center', padding: 20 }}>
 
           {this.state.message !== '' && (
-          <Text style={[styles.monoText, { marginBottom: 20, color: Theme.red }]}>
-            {this.state.message}
-          </Text>
+            <Text style={[styles.monoText, { marginBottom: 20, color: Theme.red }]}>
+              {this.state.message}
+            </Text>
           )}
 
           <Text style={[styles.monoText, { marginBottom: 20 }]}>Enter your phone</Text>

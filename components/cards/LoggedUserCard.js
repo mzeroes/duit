@@ -17,35 +17,6 @@ const LoggedUserCard = (props) => {
         paddingBottom: 20
       }}
     >
-      {/* <View style={{
-        flexDirection: 'row',
-        flex: 1,
-        padding: 18,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start' }}
-      > */}
-      {/* {user.providerData[0].photoURL || !user.providerData[0].displayName ? (
-        <Avatar.Image
-          style={{
-            alignSelf: 'flex-start'
-          }}
-          source={
-              user.providerData[0].photoURL
-                ? {
-                  uri: user.photoURL
-                }
-                : require('assets/images/profile-1.png')
-            }
-        />
-      ) : (
-        <Avatar.Text
-          {...props}
-          label={() => (
-              user.providerData[0].displayName.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g).join('')
-            )}
-        />
-      )} */}
-      {/* </View> */}
       <Card.Title
         style={{ flex: 1, paddingTop: 80 }}
         title={(
@@ -60,7 +31,7 @@ const LoggedUserCard = (props) => {
           >
             {user.providerData[0].displayName && user.providerData[0].displayName}
           </Text>
-          )}
+        )}
         subtitle={(
           <Text
             style={[{
@@ -72,8 +43,9 @@ const LoggedUserCard = (props) => {
             numberOfLines={1}
           >
             {user.providerData[0].email && user.providerData[0].email}
+            {user.providerData[0].phoneNumber && user.providerData[0].phoneNumber}
           </Text>
-          )}
+        )}
       />
     </ImageBackground>
   );

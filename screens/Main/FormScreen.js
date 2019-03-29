@@ -3,14 +3,9 @@ import React from 'react';
 import {
   View,
   ScrollView,
-  ActivityIndicator,
   Text,
-  Slider,
-  Switch,
   TouchableOpacity,
   StyleSheet,
-  Platform,
-  Picker,
   KeyboardAvoidingView
 } from 'react-native';
 import {
@@ -49,8 +44,8 @@ class FormScreen extends React.Component {
 
   handleResponse = () => {
     // handleResponse
-    this.props.navigation.state.params.onNavigateBack();
-    this.props.navigation.navigate('Patients List');
+    // this.props.navigation.state.params.onNavigateBack();
+    this.props.navigation.goBack();
   };
 
   handleUpdate = (payload) => {
@@ -80,18 +75,14 @@ class FormScreen extends React.Component {
 
         <NavigationEvents
           onWillFocus={payload => this.handleUpdate(payload)}
-        // onDidFocus={payload => console.log('did focus', payload)}
-        // onWillBlur={payload => console.log('will blur', payload)}
-        // onDidBlur={payload => console.log('did blur', payload)}
         />
         <KeyboardAvoidingView
-          // keyboardVerticalOffset={30} // Bug Due to headerBar
+          keyboardVerticalOffset={30} // Bug Due to headerBar
           // style={styles.container}
           behavior="padding"
         >
           <Formik
             enableReinitialize
-
             initialValues={
               this.state.data ? {
                 ...this.state.data
@@ -127,7 +118,9 @@ class FormScreen extends React.Component {
                 updateDataInFirebase({ key: this.state.key, ...values })
                   .then(() => {
                     this.handleResponse();
-                  }).catch(() => {});
+                  }).catch((err) => {
+                    // this.setState({err})
+                  });
               } else {
                 storePatientsInFire(values)
                   .then(() => {
@@ -463,6 +456,7 @@ class FormScreen extends React.Component {
                   onPress={async () => {
                     await handleSubmit();
                   }}
+                  disabled={isSubmitting}
                   activeOpacity={0.6}
                   style={[
                     styles.touchableButton,
@@ -474,7 +468,7 @@ class FormScreen extends React.Component {
                       padding: 14,
                       marginTop: 10,
                       // marginBottom: 10,
-                      marginBottom: 500
+                      marginBottom: 300
                     }
                   ]}
                 >

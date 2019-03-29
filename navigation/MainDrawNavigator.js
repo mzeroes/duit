@@ -62,9 +62,6 @@ const MainDrawNavigator = createDrawerNavigator(
       labelStyle: {
         fontWeight: 'bold',
         fontFamily: 'space-mono',
-        // borderBottomColor: Theme.primary,
-        // borderBottomWidth: 2,
-        // backgroundColor: Theme.tint,
       }
     }
   }
